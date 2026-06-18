@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tiny Homes WA — 3D Configurator</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    /* ── THWA Visual DNA ─────────────────────────────────── */
+    :root {
+      --primary:  #003C71;
+      --accent:   #FFC72C;
+      --navy:     #001F3F;
+      --green:    #22c55e;
+      --bg:       #0b0e14;
+      --surface:  #111827;
+      --surface2: #0d1520;
+      --border:   rgba(148,163,184,0.18);
+      --text:     #f1f5f9;
+      --muted:    #94a3b8;
+      --radius:   12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; }
+
+    /* ── Header ──────────────────────────────────────────── */
+    .thwa-header {
+      background: linear-gradient(135deg, #001F3F 0%, #003C71 60%, #001F3F 100%);
+      border-bottom: 3px solid var(--accent);
+      padding: 22px 24px 16px;
+      text-align: center;
+    }
+    .thwa-header h1 { font-family: 'Montserrat', sans-serif; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; }
+    .thwa-header h1 span { color: var(--accent); }
+    .thwa-header p { font-size: 0.875rem; opacity: 0.85; margin-top: 4px; }
+    .header-badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .header-badge { background: rgba(255,199,44,0.12); border: 1px solid rgba(255,199,44,0.3); color: var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
+
+    /* ── Main grid ───────────────────────────────────────── */
+    .configurator { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1.35fr); gap: 20px; padding: 20px; max-width: 1280px; margin: 0 auto; }
+    @media (max-width: 960px) { .configurator { grid-template-columns: 1fr; } }
+
+    /* ── LEFT PANEL ──────────────────────────────────────── */
+    .left-panel { display: flex; flex-direction: column; gap: 14px; }
+
+    /* ── Model family tabs ───────────────────────────────── */
+    .tab-row { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+    .tab-btn { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 999px 999px 0 0; border: none; background: transparent; color: var(--muted); font-size: 12px; font-family: 'Open Sans', sans-serif; cursor: pointer; transition: all 0.15s; }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { background: var(--surface); color: var(--text); border-bottom: 2px solid var(--accent); font-weight: 600; }
+    .tab-btn .icon { font-size: 15px; }
+
+    /* ── Viewer panel ────────────────────────────────────── */
+    .viewer-panel { position: relative; background: #020617; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    model-viewer { width: 100%; height: 400px; background: radial-gradient(circle at top, #1f2937 0, #020617 60%); display: block; }
+    .render-img { width: 100%; height: 400px; object-fit: cover; display: none; border-radius: var(--radius); }
+    .render-img.active { display: block; }
+
+    /* ── View tabs (3D / Render) ─────────────────────────── */
+    .view-tabs { display: flex; gap: 6px; padding: 10px 10px 0; }
+    .view-tab { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 11px; cursor: pointer; transition: all 0.15s; }
+    .view-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* ── Camera bar ──────────────────────────────────────── */
+    .camera-bar { position: absolute; bottom: 10px; left: 10px; right: 10px; display: flex; flex-wrap: wrap; gap: 5px; pointer-events: none; }
+    .cam-btn { pointer-events: auto; padding: 4px 10px; font-size: 11px; border-radius: 999px; border: none; background: rgba(0,31,63,0.85); color: #e5e7eb; cursor: pointer; transition: all 0.15s; backdrop-filter: blur(4px); }
+    .cam-btn:hover { background: var(--accent); color: var(--navy); font-weight: 600; }
+
+    /* ── Series description ──────────────────────────────── */
+    .series-desc { font-size: 12px; color: var(--muted); padding: 8px 12px; background: var(--surface2); border-radius: 8px; border-left: 3px solid var(--accent); }
+
+    /* ── Size pills ──────────────────────────────────────── */
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pill { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); font-size: 12px; cursor: pointer; background: transparent; color: var(--text); transition: all 0.15s; }
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+    .pill.active { background: var(--accent); color: var(--navy); border-color: var(--accent); font-weight: 700; }
+
+    /* ── RIGHT PANEL ─────────────────────────────────────── */
+    .right-panel { display: flex; flex-direction: column; gap: 14px; background: var(--surface2); border-radius: var(--radius); padding: 16px; border: 1px solid var(--border); }
+
+    /* ── Section title ───────────────────────────────────── */
+    .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 8px; }
+
+    /* ── Field group ─────────────────────────────────────── */
+    .field-group { margin-bottom: 12px; }
+    .field-label { font-size: 12px; color: #e5e7eb; margin-bottom: 6px; display: block; }
+
+    /* ── Select ──────────────────────────────────────────── */
+    .thwa-select { width: 100%; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 12px; font-family: 'Open Sans', sans-serif; cursor: pointer; }
+    .thwa-select:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+
+    /* ── Colour swatches ─────────────────────────────────── */
+    .swatches { display: flex; gap: 7px; flex-wrap: wrap; }
+    .swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.15s; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+    .swatch:hover { transform: scale(1.15); }
+    .swatch.active { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ── Pathway tabs (CRV / Standard / JTC) ────────────── */
+    .pathway-tabs { display: flex; gap: 5px; flex-wrap: wrap; }
+    .pathway-btn { flex: 1; min-width: 80px; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 11px; font-family: 'Open Sans', sans-serif; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.3; }
+    .pathway-btn:hover { border-color: var(--accent); color: var(--text); }
+    .pathway-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+    .pathway-btn.jtc.active { background: linear-gradient(135deg, var(--primary), #7c3aed); border-color: #7c3aed; }
+    .pathway-desc { font-size: 11px; color: var(--muted); margin-top: 6px; padding: 6px 10px; background: var(--surface); border-radius: 6px; }
+
+    /* ── Add-on toggles ──────────────────────────────────── */
+    .addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .addon-toggle { display: flex; align-items: center; gap: 6px; font-size: 11px; cursor: pointer; padding: 5px 7px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text); transition: all 0.15s; }
+    .addon-toggle:hover { border-color: var(--accent); }
+    .addon-toggle input[type="checkbox"] { accent-color: var(--accent); width: 13px; height: 13px; }
+
+    /* ── Pricing panel ───────────────────────────────────── */
+    .price-panel { border-top: 1px dashed var(--border); padding-top: 10px; }
+    .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .price-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; color: var(--muted); border-bottom: 1px solid rgba(148,163,184,0.08); }
+    .price-row span:last-child { color: var(--text); font-weight: 600; }
+    .price-row.zero span:last-child { color: var(--muted); font-weight: 400; }
+    .total-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding: 12px; background: var(--primary); border-radius: 8px; }
+    .total-row span:first-child { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 13px; color: #fff; }
+    .total-row span:last-child { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--accent); }
+
+    /* ── Impact line ─────────────────────────────────────── */
+    .impact-line { font-size: 11px; color: #a5b4fc; margin-top: 8px; padding: 7px 10px; background: rgba(99,102,241,0.08); border-radius: 6px; border-left: 3px solid #6366f1; }
+
+    /* ── Inclusions ──────────────────────────────────────── */
+    .inclusions { margin-top: 8px; padding: 10px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); }
+    .inclusions h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 6px; }
+    .inclusions ul { padding-left: 16px; }
+    .inclusions li { font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+
+    /* ── Action buttons ──────────────────────────────────── */
+    .actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .btn-primary { padding: 8px 14px; border-radius: 999px; border: none; background: var(--accent); color: var(--navy); font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .btn-primary:hover { background: #ffd966; }
+    .btn-ghost { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--text); font-size: 12px; cursor: pointer; transition: all 0.15s; }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .thwa-footer { text-align: center; background: #020617; color: var(--muted); padding: 16px; font-size: 11px; border-top: 1px solid var(--border); margin-top: 8px; }
+    .thwa-footer strong { color: var(--accent); }
+
+    /* ── Scrollbar ───────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+</head>
+<body>
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header class="thwa-header">
+<h1>Tiny Homes <span>WA</span> — 3D Configurator</h1>
+<p>People Over Profits. Homes Over Greed. Hope Over Hardship.</p>
+<div class="header-badges">
+<span class="header-badge">CRV · Standard · JTC Pathways</span>
+<span class="header-badge">Live Pricing</span>
+<span class="header-badge">PDF Export</span>
+<span class="header-badge">20% Profits → WA Community</span>
+</div>
+</header>
+<!-- ── CONFIGURATOR ────────────────────────────────────── -->
+<div class="configurator">
+<!-- ════ LEFT PANEL ════ -->
+<div class="left-panel">
+<!-- Model family tabs -->
+<div class="tab-row" id="seriesTabs"></div>
+<!-- Series description -->
+<div class="series-desc" id="seriesDesc">Loading…</div>
+<!-- Size pills -->
+<div class="field-group">
+<span class="field-label">Select Size</span>
+<div class="pill-row" id="sizePills"></div>
+</div>
+<!-- View tabs + Viewer -->
+<div style="background:var(--surface2);border-radius:var(--radius);border:1px solid var(--border);overflow:hidden;">
+<div class="view-tabs">
+<button class="view-tab active" id="tab3d">🧊 3D Model</button>
+<button class="view-tab" id="tabRender">🖼 Render</button>
+</div>
+<div class="viewer-panel">
+<model-viewer ar="false" auto-rotate="false" camera-controls="" environment-image="neutral" exposure="1.1" id="modelViewer" interaction-prompt="none" poster="" shadow-intensity="0.8" src="" touch-action="pan-y">
+</model-viewer>
+<img alt="Tiny Homes WA Render" class="render-img" id="renderImg" src=""/>
+<!-- Camera presets -->
+<div class="camera-bar" id="cameraBar">
+<button class="cam-btn" data-orbit="0deg 75deg 4m">Front</button>
+<button class="cam-btn" data-orbit="180deg 75deg 4m">Back</button>
+<button class="cam-btn" data-orbit="90deg 75deg 4m">Left</button>
+<button class="cam-btn" data-orbit="-90deg 75deg 4m">Right</button>
+<button class="cam-btn" data-orbit="0deg 110deg 5m">Top</button>
+<button class="cam-btn" data-orbit="45deg 75deg 4.5m">Isometric</button>
+<button class="cam-btn" data-orbit="0deg 75deg 1.5m">Interior</button>
+</div>
+</div>
+</div>
+<!-- Exterior colour -->
+<div class="field-group">
+<span class="field-label">Exterior Colour</span>
+<div class="swatches" id="colourSwatches"></div>
+</div>
+<!-- Interior palette pills -->
+<div class="field-group">
+<span class="field-label">Interior Palette</span>
+<div class="pill-row" id="interiorPills">
+<button class="pill active" data-int="warm">Warm Neutral</button>
+<button class="pill" data-int="cool">Cool Calm</button>
+<button class="pill" data-int="earth">Earth &amp; Timber</button>
+<button class="pill" data-int="premium">Premium Designer</button>
+</div>
+</div>
+</div>
+<!-- ════ RIGHT PANEL ════ -->
+<div class="right-panel">
+<div class="section-title">Tiny Homes WA Configurator</div>
+<!-- Build pathway -->
+<div class="field-group">
+<span class="field-label">Build Pathway</span>
+<div class="pathway-tabs" id="pathwayTabs"></div>
+<div class="pathway-desc" id="pathwayDesc"></div>
+</div>
+<!-- Roof -->
+<div class="field-group">
+<span class="field-label">Roof Type</span>
+<select class="thwa-select" id="roofSelect"></select>
+</div>
+<!-- Exterior cladding -->
+<div class="field-group">
+<span class="field-label">Exterior Cladding</span>
+<select class="thwa-select" id="claddingSelect"></select>
+</div>
+<!-- Kitchen -->
+<div class="field-group">
+<span class="field-label">Kitchen Layout</span>
+<select class="thwa-select" id="kitchenSelect"></select>
+</div>
+<!-- Bathroom -->
+<div class="field-group">
+<span class="field-label">Bathroom</span>
+<select class="thwa-select" id="bathroomSelect"></select>
+</div>
+<!-- Flooring -->
+<div class="field-group">
+<span class="field-label">Flooring</span>
+<select class="thwa-select" id="floorSelect"></select>
+</div>
+<!-- Add-ons -->
+<div class="field-group">
+<span class="field-label">Add-Ons</span>
+<div class="addon-grid">
+<label class="addon-toggle"><input id="porchToggle" type="checkbox"/> Front Porch</label>
+<label class="addon-toggle"><input id="deckToggle" type="checkbox"/> Deck Extension</label>
+<label class="addon-toggle"><input id="solarPrepToggle" type="checkbox"/> Solar Prep</label>
+<label class="addon-toggle"><input id="fullSolarToggle" type="checkbox"/> Full Solar</label>
+<label class="addon-toggle"><input id="waterToggle" type="checkbox"/> Water-Saving</label>
+<label class="addon-toggle"><input id="offgridToggle" type="checkbox"/> Off-Grid Pack</label>
+<label class="addon-toggle"><input id="rampToggle" type="checkbox"/> Accessibility Ramp</label>
+<label class="addon-toggle"><input id="secondFloorToggle" type="checkbox"/> Second Floor</label>
+<label class="addon-toggle"><input id="metalPanelsToggle" type="checkbox"/> Metal Panels</label>
+<label class="addon-toggle"><input id="smartHomeToggle" type="checkbox"/> Smart Home Prep</label>
+</div>
+</div>
+<!-- Delivery -->
+<div class="field-group">
+<span class="field-label">Delivery Estimate (AUD)</span>
+<input class="thwa-select" id="deliveryInput" min="0" step="500" type="number" value="8000">
+</input></div>
+<!-- GST -->
+<label style="display:flex;align-items:center;gap:7px;font-size:12px;cursor:pointer;">
+<input checked="" id="gstToggle" style="accent-color:var(--accent);width:14px;height:14px;" type="checkbox"/> Include GST (10%)
+    </label>
+<!-- Pricing summary -->
+<div class="price-panel">
+<div class="price-grid">
+<div class="price-row"><span>Base Home</span><span id="basePrice">AUD $0</span></div>
+<div class="price-row"><span>Pathway</span><span id="pathwayPrice">AUD $0</span></div>
+<div class="price-row"><span>Roof</span><span id="roofPrice">AUD $0</span></div>
+<div class="price-row"><span>Cladding</span><span id="claddingPrice">AUD $0</span></div>
+<div class="price-row"><span>Kitchen</span><span id="kitchenPrice">AUD $0</span></div>
+<div class="price-row"><span>Bathroom</span><span id="bathroomPrice">AUD $0</span></div>
+<div class="price-row"><span>Flooring</span><span id="floorPrice">AUD $0</span></div>
+<div class="price-row"><span>Add-Ons</span><span id="addonsPrice">AUD $0</span></div>
+<div class="price-row"><span>Delivery</span><span id="deliveryPrice">AUD $0</span></div>
+<div class="price-row"><span>GST</span><span id="gstPrice">AUD $0</span></div>
+</div>
+<div class="total-row">
+<span>Estimated Total</span>
+<span id="totalPrice">AUD $0</span>
+</div>
+<div class="impact-line" id="impactLine">
+        This configuration contributes an estimated $0 to WA community programs.
+      </div>
+</div>
+<!-- Inclusions -->
+<div class="inclusions">
+<h4>What's Included</h4>
+<ul id="inclusionsList"></ul>
+</div>
+<!-- Actions -->
+<div class="actions">
+<button class="btn-primary" id="pdfBtn">📄 Download PDF</button>
+<button class="btn-ghost" id="copyBtn">📋 Copy Quote</button>
+<button class="btn-ghost" id="sendBtn">📨 Send to Site</button>
+<button class="btn-ghost" id="saveBtn">💾 Save Plan</button>
+<button class="btn-ghost" id="resetBtn">↺ Reset</button>
+</div>
+<div style="font-size:11px;color:var(--muted);margin-top:6px;">
+      This home contributes to Tiny Homes WA's mission of restoring families and building dignified communities across Western Australia.
+    </div>
+</div>
+</div>
+<footer class="thwa-footer">
+<p>© 2025 Tiny Homes WA. All rights reserved. | <strong>People Over Profits. Always.</strong></p>
+<p style="margin-top:4px;">Prices are indicative estimates only. Subject to site assessment, delivery zone, and council requirements.</p>
+</footer>
+<script>
+// ═══════════════════════════════════════════════════════════
+// THWA MERGED CONFIGURATOR
+// Layout: Configurator 1 (dark, tabbed, camera presets, pills)
+// Options: Configurator 2 (CRV/JTC pathways, inclusions, all add-ons)
+// Branding: THWA Visual DNA (Navy, Gold, Montserrat)
+// GLBs: Your 3 FullManifest files wired in
+// ═══════════════════════════════════════════════════════════
+
+const DATA = {
+
+  series: {
+    reunite: {
+      id: 'reunite', icon: '🏠', label: 'Reunite Series',
+      desc: 'Designed for father–child reunification, transitional stability, and dignified living.',
+      charityRate: 0.30,
+      render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+      sizes: [
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
+        { id: 'studio40', label: 'Studio 40', sqm: '40m²', base: 128150, glb: 'https://static.wixstatic.com/3d/9526fd_6190641f4d1b4475bc0c02770f6caa9d.glb' }
+      ]
+    },
+    anchor: {
+      id: 'anchor', icon: '⚓', label: 'Anchor Series',
+      desc: 'Long-term, dignified living for individuals, couples, and families.',
+      charityRate: 0.20,
+      render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+      sizes: [
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
+        { id: 'studio40', label: 'Studio 40', sqm: '40m²', base: 128150, glb: 'https://static.wixstatic.com/3d/9526fd_6190641f4d1b4475bc0c02770f6caa9d.glb' }
+      ]
+    },
+    bridge: {
+      id: 'bridge', icon: '🌉', label: 'Bridge Series',
+      desc: 'Professional practice rooms for counsellors, psychologists, youth workers, and NDIS providers.',
+      charityRate: 0.20,
+      render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+      sizes: [
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' }
+      ]
+    },
+    horizon: {
+      id: 'horizon', icon: '🌅', label: 'Horizon Series',
+      desc: 'Premium tourism cabins for parks, farms, and retreats. Revenue funds community impact.',
+      charityRate: 0.20,
+      render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+      sizes: [
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' }
+      ]
+    }
+  },
+
+  pathways: {
+    crv:      { id: 'crv',      label: 'CRV',      sublabel: 'Charity Ready Vehicle', multiplier: 1.00, desc: 'Core, charity-ready spec with transparent pricing and WA project contribution.' },
+    standard: { id: 'standard', label: 'Standard',  sublabel: 'Turnkey Home',          multiplier: 1.08, desc: 'Turnkey residential spec with comfort upgrades and standard inclusions.' },
+    jtc:      { id: 'jtc',      label: 'JTC',       sublabel: 'Winifred Filamena',      multiplier: 1.18, desc: 'Premium ceremonial tier with elevated finishes and legacy-grade detailing.' }
+  },
+
+  colours: [
+    { id: 'white',    label: 'Crisp White',  hex: '#F4F4F4' },
+    { id: 'navy',     label: 'THWA Navy',    hex: '#003C71' },
+    { id: 'gold',     label: 'Warm Gold',    hex: '#FFC72C' },
+    { id: 'forest',   label: 'Forest Green', hex: '#2f4f4f' },
+    { id: 'charcoal', label: 'Charcoal',     hex: '#333333' },
+    { id: 'sand',     label: 'WA Sand',      hex: '#d8c7a3' },
+    { id: 'terra',    label: 'Terracotta',   hex: '#c05a37' }
+  ],
+
+  cladding: [
+    { id: 'smooth',  label: 'Smooth Cladding',  price: 0 },
+    { id: 'timber',  label: 'Timber Cladding',  price: 0 },
+    { id: 'ribbed',  label: 'Ribbed Metal',      price: 0 },
+    { id: 'premium', label: 'Premium Panels',    price: 8500 }
+  ],
+
+  roof: [
+    { id: 'flat',    label: 'Flat Roof (Standard)', price: 0 },
+    { id: 'sloping', label: 'Sloping Roof',          price: 17000 }
+  ],
+
+  kitchens: [
+    { id: 'straight', label: 'Straight (Standard)', price: 0 },
+    { id: 'l',        label: 'L-Shaped',            price: 2500 },
+    { id: 'u',        label: 'U-Shaped',            price: 3500 },
+    { id: 'galley',   label: 'Galley',              price: 4000 }
+  ],
+
+  bathrooms: [
+    { id: 'standard', label: 'Standard Shower',  price: 0 },
+    { id: 'bathtub',  label: 'Full Bathtub',      price: 1800 }
+  ],
+
+  flooring: [
+    { id: 'pvc1', label: 'PVC — Oak Light',    price: 0 },
+    { id: 'pvc2', label: 'PVC — Grey Wash',    price: 0 },
+    { id: 'spc1', label: 'SPC/LVT — Warm Oak', price: 450 },
+    { id: 'spc2', label: 'SPC/LVT — Charcoal', price: 450 },
+    { id: 'bam',  label: 'Bamboo Fiberboard',  price: 650 }
+  ],
+
+  addOns: {
+    porch:       { label: 'Front Porch (2×6m)',    price: 9000 },
+    deck:        { label: 'Deck Extension',         price: 7500 },
+    solarPrep:   { label: 'Solar Prep',             price: 2200 },
+    fullSolar:   { label: 'Full Solar System',      price: 8500 },
+    water:       { label: 'Water-Saving Pack',      price: 1250 },
+    offgrid:     { label: 'Off-Grid Pack',          price: 12000 },
+    ramp:        { label: 'Accessibility Ramp',     price: 4000 },
+    secondFloor: { label: 'Second Floor Module',    price: 25000 },
+    metalPanels: { label: 'Decorative Metal Panels',price: 3800 },
+    smartHome:   { label: 'Smart Home Prep',        price: 3500 }
+  },
+
+  inclusions: {
+    crv: [
+      'Engineered chassis and structure',
+      'Core insulation and weatherproofing',
+      'Standard electrical and plumbing rough-in',
+      'Base kitchen and bathroom fitout',
+      'Charity-ready compliance focus'
+    ],
+    standard: [
+      'All CRV inclusions',
+      'Upgraded interior finishes and flooring',
+      'Standard appliance allowance',
+      'Full bathroom fitout with vanity and shower',
+      'Exterior cladding and Colorbond-style roofing'
+    ],
+    jtc: [
+      'All Standard inclusions',
+      'Premium interior palette and fixtures',
+      'Feature lighting and upgraded hardware',
+      'Ceremonial detailing and styling touches — Winifred Filamena Line',
+      'Priority scheduling and legacy documentation'
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+const state = {
+  series: 'reunite',
+  sizeId: 'studio20',
+  pathway: 'crv',
+  colour: 'white',
+  interior: 'warm',
+  cladding: 'smooth',
+  roof: 'flat',
+  kitchen: 'straight',
+  bathroom: 'standard',
+  floor: 'pvc1',
+  addOns: { porch:false, deck:false, solarPrep:false, fullSolar:false, water:false, offgrid:false, ramp:false, secondFloor:false, metalPanels:false, smartHome:false },
+  delivery: 8000,
+  gst: true,
+  viewMode: '3d'
+};
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
+const fmt = n => `AUD $${Math.round(n).toLocaleString('en-AU')}`;
+function currentSeries() { return DATA.series[state.series]; }
+function currentSize() { return currentSeries().sizes.find(s => s.id === state.sizeId) || currentSeries().sizes[0]; }
+
+// ═══════════════════════════════════════════════════════════
+// RENDER SERIES TABS
+// ═══════════════════════════════════════════════════════════
+function renderSeriesTabs() {
+  const el = $('seriesTabs');
+  el.innerHTML = '';
+  Object.values(DATA.series).forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = `tab-btn ${s.id === state.series ? 'active' : ''}`;
+    btn.innerHTML = `<span class="icon">${s.icon}</span><span>${s.label}</span>`;
+    btn.onclick = () => {
+      state.series = s.id;
+      state.sizeId = s.sizes[0].id;
+      renderSeriesTabs();
+      renderSizePills();
+      updateViewer();
+      updatePricing();
+      $('seriesDesc').textContent = s.desc;
+    };
+    el.appendChild(btn);
+  });
+  $('seriesDesc').textContent = currentSeries().desc;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER SIZE PILLS
+// ═══════════════════════════════════════════════════════════
+function renderSizePills() {
+  const el = $('sizePills');
+  el.innerHTML = '';
+  currentSeries().sizes.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = `pill ${s.id === state.sizeId ? 'active' : ''}`;
+    btn.textContent = `${s.label} · ${s.sqm}`;
+    btn.onclick = () => {
+      state.sizeId = s.id;
+      renderSizePills();
+      updateViewer();
+      updatePricing();
+    };
+    el.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER PATHWAY TABS
+// ═══════════════════════════════════════════════════════════
+function renderPathwayTabs() {
+  const el = $('pathwayTabs');
+  el.innerHTML = '';
+  Object.values(DATA.pathways).forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = `pathway-btn ${p.id} ${p.id === state.pathway ? 'active' : ''}`;
+    btn.innerHTML = `<strong>${p.label}</strong><br>${p.sublabel}`;
+    btn.onclick = () => {
+      state.pathway = p.id;
+      renderPathwayTabs();
+      $('pathwayDesc').textContent = p.desc;
+      renderInclusions();
+      updatePricing();
+    };
+    el.appendChild(btn);
+  });
+  $('pathwayDesc').textContent = DATA.pathways[state.pathway].desc;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER COLOUR SWATCHES
+// ═══════════════════════════════════════════════════════════
+function renderColourSwatches() {
+  const el = $('colourSwatches');
+  el.innerHTML = '';
+  DATA.colours.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = `swatch ${c.id === state.colour ? 'active' : ''}`;
+    btn.style.background = c.hex;
+    btn.title = c.label;
+    btn.onclick = () => { state.colour = c.id; renderColourSwatches(); };
+    el.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER SELECTS
+// ═══════════════════════════════════════════════════════════
+function renderSelect(id, items, stateKey) {
+  const el = $(id);
+  el.innerHTML = '';
+  items.forEach(item => {
+    const opt = document.createElement('option');
+    opt.value = item.id;
+    opt.textContent = item.label + (item.price > 0 ? ` (+${fmt(item.price)})` : '');
+    el.appendChild(opt);
+  });
+  el.value = state[stateKey];
+  el.onchange = e => { state[stateKey] = e.target.value; updatePricing(); };
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER INCLUSIONS
+// ═══════════════════════════════════════════════════════════
+function renderInclusions() {
+  const ul = $('inclusionsList');
+  ul.innerHTML = '';
+  (DATA.inclusions[state.pathway] || []).forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item;
+    ul.appendChild(li);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// UPDATE VIEWER
+// ═══════════════════════════════════════════════════════════
+function updateViewer() {
+  const size = currentSize();
+  const viewer = $('modelViewer');
+  const renderImg = $('renderImg');
+  const series = currentSeries();
+
+  if (state.viewMode === '3d') {
+    viewer.style.display = 'block';
+    renderImg.classList.remove('active');
+    viewer.src = size.glb || '';
+    viewer.poster = series.render || '';
+  } else {
+    viewer.style.display = 'none';
+    renderImg.classList.add('active');
+    renderImg.src = series.render || '';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// PRICING ENGINE
+// ═══════════════════════════════════════════════════════════
+function calcPricing() {
+  const size = currentSize();
+  const pathway = DATA.pathways[state.pathway];
+  const baseRaw = size.base;
+  const base = Math.round(baseRaw * pathway.multiplier);
+  const pathwayDelta = base - baseRaw;
+  const roof = DATA.roof.find(r => r.id === state.roof)?.price || 0;
+  const cladding = DATA.cladding.find(c => c.id === state.cladding)?.price || 0;
+  const kitchen = DATA.kitchens.find(k => k.id === state.kitchen)?.price || 0;
+  const bathroom = DATA.bathrooms.find(b => b.id === state.bathroom)?.price || 0;
+  const floor = DATA.flooring.find(f => f.id === state.floor)?.price || 0;
+  const addonsTotal = Object.entries(state.addOns).reduce((sum, [k, v]) => sum + (v ? DATA.addOns[k].price : 0), 0);
+  const delivery = state.delivery || 0;
+  const subtotal = base + roof + cladding + kitchen + bathroom + floor + addonsTotal + delivery;
+  const gst = state.gst ? subtotal * 0.10 : 0;
+  const total = subtotal + gst;
+  const charity = total * currentSeries().charityRate;
+  return { baseRaw, base, pathwayDelta, roof, cladding, kitchen, bathroom, floor, addonsTotal, delivery, gst, total, charity };
+}
+
+function updatePricing() {
+  const p = calcPricing();
+  const set = (id, val) => {
+    const el = $(id);
+    if (el) { el.textContent = fmt(val); el.closest('.price-row')?.classList.toggle('zero', val === 0); }
+  };
+  set('basePrice', p.baseRaw);
+  set('pathwayPrice', p.pathwayDelta);
+  set('roofPrice', p.roof);
+  set('claddingPrice', p.cladding);
+  set('kitchenPrice', p.kitchen);
+  set('bathroomPrice', p.bathroom);
+  set('floorPrice', p.floor);
+  set('addonsPrice', p.addonsTotal);
+  set('deliveryPrice', p.delivery);
+  set('gstPrice', p.gst);
+  $('totalPrice').textContent = fmt(p.total);
+  $('impactLine').textContent = `This configuration contributes an estimated ${fmt(p.charity)} to WA community and reunification programs.`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// SUMMARY TEXT
+// ═══════════════════════════════════════════════════════════
+function getSummary() {
+  const size = currentSize();
+  const series = currentSeries();
+  const pathway = DATA.pathways[state.pathway];
+  const addOnsList = Object.entries(state.addOns).filter(([,v])=>v).map(([k])=>DATA.addOns[k].label);
+  const p = calcPricing();
+  return [
+    `Tiny Homes WA — Configuration Summary`,
+    ``,
+    `Series: ${series.label}`,
+    `Model: ${size.label} (${size.sqm})`,
+    `Pathway: ${pathway.label} — ${pathway.sublabel}`,
+    `Roof: ${DATA.roof.find(r=>r.id===state.roof)?.label}`,
+    `Cladding: ${DATA.cladding.find(c=>c.id===state.cladding)?.label}`,
+    `Kitchen: ${DATA.kitchens.find(k=>k.id===state.kitchen)?.label}`,
+    `Bathroom: ${DATA.bathrooms.find(b=>b.id===state.bathroom)?.label}`,
+    `Flooring: ${DATA.flooring.find(f=>f.id===state.floor)?.label}`,
+    `Add-Ons: ${addOnsList.length ? addOnsList.join(', ') : 'None'}`,
+    `Delivery: ${fmt(p.delivery)}`,
+    `GST: ${state.gst ? 'Included' : 'Excluded'}`,
+    ``,
+    `Estimated Total: ${fmt(p.total)}`,
+    ``,
+    `20% of profits from every home go directly to WA community projects through charity pathways.`,
+    `People Over Profits. Always. | tinyhomeswa.com.au`
+  ].join('\n');
+}
+
+// ═══════════════════════════════════════════════════════════
+// PDF EXPORT
+// ═══════════════════════════════════════════════════════════
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const p = calcPricing();
+  const size = currentSize();
+  const series = currentSeries();
+  const pathway = DATA.pathways[state.pathway];
+
+  doc.setFillColor(0,60,113); doc.rect(0,0,210,38,'F');
+  doc.setTextColor(255,199,44); doc.setFontSize(18); doc.setFont('helvetica','bold');
+  doc.text('Tiny Homes WA',14,16);
+  doc.setTextColor(255,255,255); doc.setFontSize(10); doc.setFont('helvetica','normal');
+  doc.text('Build & Price Summary',14,25);
+  doc.text(new Date().toLocaleDateString('en-AU'),160,25);
+
+  doc.setTextColor(0,60,113); doc.setFontSize(13); doc.setFont('helvetica','bold');
+  doc.text(`${series.label} — ${size.label}`,14,50);
+  doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(100,116,139);
+  doc.text(`Pathway: ${pathway.label} — ${pathway.sublabel}`,14,58);
+  doc.text(`${size.sqm} | ${series.desc.substring(0,80)}`,14,65);
+
+  doc.setTextColor(0,31,63); doc.setFontSize(10); doc.setFont('helvetica','bold');
+  doc.text('Pricing Breakdown:',14,78);
+  doc.setFont('helvetica','normal');
+  const lines = [
+    ['Base Home', p.baseRaw], ['Pathway Adjustment', p.pathwayDelta],
+    ['Roof', p.roof], ['Cladding', p.cladding], ['Kitchen', p.kitchen],
+    ['Bathroom', p.bathroom], ['Flooring', p.floor], ['Add-Ons', p.addonsTotal],
+    ['Delivery', p.delivery], ['GST', p.gst]
+  ];
+  lines.forEach(([label, val], i) => {
+    if (val > 0) { doc.text(label, 18, 88+i*7); doc.text(fmt(val), 192, 88+i*7, {align:'right'}); }
+  });
+
+  doc.setFillColor(0,60,113); doc.rect(14,162,182,13,'F');
+  doc.setTextColor(255,199,44); doc.setFont('helvetica','bold'); doc.setFontSize(12);
+  doc.text('TOTAL (AUD)',18,171); doc.text(fmt(p.total),192,171,{align:'right'});
+
+  doc.setTextColor(100,116,139); doc.setFont('helvetica','italic'); doc.setFontSize(9);
+  doc.text('20% of profits from every home go directly to WA community projects through charity pathways.',14,182);
+  doc.text('People Over Profits. Always. | tinyhomeswa.com.au',14,189);
+  doc.text('Prices are estimates only. Subject to site assessment and council requirements.',14,196);
+
+  doc.save(`TinyHomesWA_${series.label.replace(/ /g,'')}_${size.label.replace(/ /g,'')}.pdf`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// WIRE EVENTS
+// ═══════════════════════════════════════════════════════════
+function wireEvents() {
+  // View tabs
+  $('tab3d').onclick = () => { state.viewMode = '3d'; $('tab3d').classList.add('active'); $('tabRender').classList.remove('active'); updateViewer(); };
+  $('tabRender').onclick = () => { state.viewMode = 'render'; $('tabRender').classList.add('active'); $('tab3d').classList.remove('active'); updateViewer(); };
+
+  // Camera presets
+  document.querySelectorAll('.cam-btn').forEach(btn => {
+    btn.onclick = () => { $('modelViewer').cameraOrbit = btn.dataset.orbit; };
+  });
+
+  // Interior pills
+  document.querySelectorAll('#interiorPills .pill').forEach(pill => {
+    pill.onclick = () => {
+      document.querySelectorAll('#interiorPills .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      state.interior = pill.dataset.int;
+    };
+  });
+
+  // Add-on toggles
+  const addOnMap = { porchToggle:'porch', deckToggle:'deck', solarPrepToggle:'solarPrep', fullSolarToggle:'fullSolar', waterToggle:'water', offgridToggle:'offgrid', rampToggle:'ramp', secondFloorToggle:'secondFloor', metalPanelsToggle:'metalPanels', smartHomeToggle:'smartHome' };
+  Object.entries(addOnMap).forEach(([id, key]) => {
+    $(id).onchange = e => { state.addOns[key] = e.target.checked; updatePricing(); };
+  });
+
+  // Delivery + GST
+  $('deliveryInput').oninput = e => { state.delivery = Number(e.target.value) || 0; updatePricing(); };
+  $('gstToggle').onchange = e => { state.gst = e.target.checked; updatePricing(); };
+
+  // Buttons
+  $('pdfBtn').onclick = downloadPDF;
+  $('copyBtn').onclick = () => { navigator.clipboard.writeText(getSummary()).then(() => { $('copyBtn').textContent = '✓ Copied'; setTimeout(() => $('copyBtn').textContent = '📋 Copy Quote', 1500); }); };
+  $('sendBtn').onclick = () => { const p = calcPricing(); window.parent.postMessage({ type:'thwaConfiguratorQuote', total_aud: p.total, summary: getSummary(), timestamp: new Date().toISOString() }, '*'); alert(`Quote sent!\n\nTotal: ${fmt(p.total)}\n\nPeople Over Profits — always.`); };
+  $('saveBtn').onclick = () => { localStorage.setItem('thwaPlan', JSON.stringify(state)); $('saveBtn').textContent = '✓ Saved'; setTimeout(() => $('saveBtn').textContent = '💾 Save Plan', 1500); };
+  $('resetBtn').onclick = boot;
+}
+
+// ═══════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════
+function boot() {
+  renderSeriesTabs();
+  renderSizePills();
+  renderPathwayTabs();
+  renderColourSwatches();
+  renderSelect('roofSelect', DATA.roof, 'roof');
+  renderSelect('claddingSelect', DATA.cladding, 'cladding');
+  renderSelect('kitchenSelect', DATA.kitchens, 'kitchen');
+  renderSelect('bathroomSelect', DATA.bathrooms, 'bathroom');
+  renderSelect('floorSelect', DATA.flooring, 'floor');
+  renderInclusions();
+  updateViewer();
+  updatePricing();
+  wireEvents();
+}
+
+document.addEventListener('DOMContentLoaded', boot);
+window.downloadPDF = downloadPDF;
+</script>
+</body>
+</html>
