@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Design Studio — Tiny Homes WA | Configure Your Home</title>
+<meta content="Use the Tiny Homes WA Design Studio to configure your home — choose your series, size, pathway, finishes, and add-ons. Get an indicative quote instantly." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="thwa-system.css" rel="stylesheet"/>
+<style>
+/* Full-page configurator layout */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-white);
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Slim nav for configurator page */
+.config-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background: rgba(0,31,63,0.97);
+  border-bottom: 2px solid var(--gold);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.config-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.config-nav-logo {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--gold-str), var(--gold), #c27a2f);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 14px;
+  color: var(--navy-deep);
+}
+
+.config-nav-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800; font-size: 13px;
+  color: #fff;
+}
+
+.config-nav-title {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.config-nav-title-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+}
+
+.config-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Configurator frame */
+.configurator-frame-wrap {
+  position: fixed;
+  top: 56px; left: 0; right: 0; bottom: 0;
+  background: var(--bg-dark);
+}
+
+.configurator-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Loading state */
+.config-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  gap: 20px;
+  z-index: 10;
+  transition: opacity 0.4s;
+}
+.config-loading.hidden { opacity: 0; pointer-events: none; }
+
+.config-loading-logo {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--gold-str), var(--gold), #c27a2f);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 26px;
+  color: var(--navy-deep);
+  box-shadow: 0 8px 24px rgba(255,199,44,0.3);
+  animation: pulse-logo 2s ease-in-out infinite;
+}
+@keyframes pulse-logo {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(255,199,44,0.3); }
+  50%       { transform: scale(1.05); box-shadow: 0 12px 32px rgba(255,199,44,0.5); }
+}
+
+.config-loading-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 20px;
+  color: #fff;
+}
+.config-loading-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+.config-loading-bar-wrap {
+  width: 200px; height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.config-loading-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--navy), var(--gold));
+  border-radius: 2px;
+  animation: loading-progress 2s ease-in-out infinite;
+}
+@keyframes loading-progress {
+  0%   { width: 0%; }
+  50%  { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: rgba(0,31,63,0.96);
+  border: 1px solid rgba(255,199,44,0.3);
+  color: var(--text-white);
+  font-size: 12px;
+  z-index: 200;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  backdrop-filter: blur(12px);
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+#toast.success { border-color: rgba(34,197,94,0.4); color: var(--green); }
+
+/* Mobile fallback */
+.mobile-fallback {
+  display: none;
+  position: fixed;
+  inset: 56px 0 0;
+  background: var(--bg-dark);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+  gap: 20px;
+}
+.mobile-fallback-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 22px;
+  color: #fff;
+}
+.mobile-fallback-body { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+@media (max-width: 480px) {
+  .config-nav-title { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- SLIM NAV -->
+<nav aria-label="Design Studio navigation" class="config-nav">
+<a aria-label="Tiny Homes WA home" class="config-nav-brand" href="index.html">
+<div class="config-nav-logo">T</div>
+<div class="config-nav-name">Tiny Homes WA</div>
+</a>
+<div class="config-nav-title">
+<div class="config-nav-title-dot"></div>
+<span id="config-title">Design Studio — Select a series to begin</span>
+</div>
+<div class="config-nav-actions">
+<a class="btn btn-ghost btn-sm" href="homes.html" style="color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.1)">Our Homes</a>
+<a class="btn btn-gold btn-sm" href="contact.html">Get in Touch</a>
+</div>
+</nav>
+<!-- CONFIGURATOR FRAME -->
+<div class="configurator-frame-wrap">
+<!-- Loading state -->
+<div class="config-loading" id="config-loading">
+<div class="config-loading-logo">T</div>
+<div class="config-loading-title">Design Studio</div>
+<div class="config-loading-sub">Loading your 3D configurator…</div>
+<div class="config-loading-bar-wrap">
+<div class="config-loading-bar"></div>
+</div>
+<div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:8px">People Over Profits. Always.</div>
+</div>
+<!-- The configurator iframe -->
+<iframe allow="fullscreen; xr-spatial-tracking" aria-label="Interactive 3D home configurator" class="configurator-iframe" id="configurator-iframe" loading="eager" src="thwa-configurator-v3.html" title="Tiny Homes WA 3D Design Studio"></iframe>
+<!-- Mobile fallback (shown if iframe fails) -->
+<div aria-hidden="true" class="mobile-fallback" id="mobile-fallback">
+<div style="font-size:48px">🏠</div>
+<div class="mobile-fallback-title">Design Studio</div>
+<div class="mobile-fallback-body">
+      The 3D Design Studio works best on desktop. On mobile, you can still explore our homes and get in touch with us directly.
+    </div>
+<a class="btn btn-gold btn-lg" href="homes.html">Explore Our Homes</a>
+<a class="btn btn-outline-white btn-lg" href="contact.html">Get in Touch</a>
+</div>
+</div>
+<!-- TOAST -->
+<div aria-live="polite" id="toast" role="status"></div>
+<script>
+// ── Configurator iframe communication ────────────────────────────────────
+const iframe = document.getElementById('configurator-iframe');
+const loading = document.getElementById('config-loading');
+const configTitle = document.getElementById('config-title');
+
+// Hide loading when iframe loads
+iframe.addEventListener('load', () => {
+  setTimeout(() => {
+    loading.classList.add('hidden');
+  }, 600);
+});
+
+// Handle messages from configurator
+window.addEventListener('message', (event) => {
+  if (!event.data || typeof event.data !== 'object') return;
+
+  switch (event.data.type) {
+
+    case 'THWA_CONFIGURATOR_READY':
+      loading.classList.add('hidden');
+      // Pass URL params to configurator
+      const params = new URLSearchParams(window.location.search);
+      const series = params.get('series');
+      const size   = params.get('size');
+      if (series) sendToConfigurator({ type: 'THWA_SET_SERIES', seriesId: series });
+      if (size)   sendToConfigurator({ type: 'THWA_SET_SIZE',   sizeId: size });
+      break;
+
+    case 'THWA_CONFIG_CHANGED':
+    case 'THWA_MODEL_SELECTED':
+      if (event.data.model || event.data.modelId) {
+        configTitle.textContent = `Design Studio — ${event.data.model || event.data.modelId}`;
+      }
+      break;
+
+    case 'THWA_QUOTE_REQUEST':
+      handleQuoteRequest(event.data);
+      break;
+
+    case 'THWA_SHARE_URL':
+      handleShareUrl(event.data.url);
+      break;
+
+    case 'THWA_PARTNER_ENQUIRY':
+    case 'THWA_CONTACT_FORM':
+      handleFormSubmission(event.data);
+      break;
+  }
+});
+
+function sendToConfigurator(message) {
+  try {
+    iframe.contentWindow.postMessage(message, '*');
+  } catch(e) {}
+}
+
+async function handleQuoteRequest(data) {
+  const { customer, quote } = data;
+  // In Wix, this would call the Velo backend
+  // Here we log and show confirmation
+  console.log('[THWA] Quote request:', { customer, quote });
+  showToast('Quote prepared — check the PDF window', 'success');
+}
+
+async function handleShareUrl(url) {
+  try {
+    await navigator.clipboard.writeText(url);
+    showToast('Share link copied to clipboard ✓', 'success');
+  } catch(e) {
+    showToast('Share: ' + url.substring(0, 50) + '…');
+  }
+  // Update browser URL without reload
+  try {
+    const cfg = new URL(url).searchParams.get('cfg');
+    if (cfg) {
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.set('cfg', cfg);
+      window.history.replaceState({}, '', newUrl.toString());
+    }
+  } catch(e) {}
+}
+
+function handleFormSubmission(data) {
+  console.log('[THWA] Form submission:', data);
+  // In Wix Velo, this would call the backend
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `show ${type}`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = ''; }, 3500);
+}
+
+// ── Fallback for very small screens ──────────────────────────────────────
+if (window.innerWidth < 360) {
+  document.getElementById('mobile-fallback').style.display = 'flex';
+  document.getElementById('mobile-fallback').setAttribute('aria-hidden', 'false');
+  iframe.style.display = 'none';
+}
+
+// ── Notify Wix parent ─────────────────────────────────────────────────────
+window.parent.postMessage({ type: 'THWA_PAGE_LOADED', page: 'configure' }, '*');
+</script>
+</body>
+</html>

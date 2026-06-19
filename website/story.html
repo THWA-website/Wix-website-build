@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Our Story — Tiny Homes WA | Built in WA. Built for People. Built for Good.</title>
+<meta content="The story of Tiny Homes WA — born from lived experience, community work, and a deep understanding of what families actually need. Built in WA. Built for people. Built for good." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="thwa-system.css" rel="stylesheet"/>
+<style>
+.page-hero {
+  padding: 140px 0 80px;
+  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+.page-hero-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-size: 36px 36px; pointer-events: none;
+}
+
+/* Origin story */
+.origin-section {
+  padding: 96px 0;
+  background: var(--bg-white);
+}
+.origin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.origin-body {
+  font-size: 1.05rem;
+  color: var(--text-body);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+.origin-pull-quote {
+  padding: 24px 28px;
+  border-left: 4px solid var(--gold);
+  background: rgba(255,199,44,0.04);
+  border-radius: 0 12px 12px 0;
+  margin: 28px 0;
+}
+.origin-pull-quote-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--navy-deep);
+  line-height: 1.5;
+}
+
+.origin-right { position: sticky; top: 96px; }
+.founder-card {
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border-radius: 24px;
+  padding: 36px;
+  color: #fff;
+  border: 1px solid rgba(255,199,44,0.2);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+.founder-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 20px;
+  margin-bottom: 4px;
+}
+.founder-card-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+.founder-card-body { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 20px; }
+.founder-values { display: flex; flex-direction: column; gap: 8px; }
+.founder-value {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+}
+.founder-value::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+/* Gaps section */
+.gaps-section {
+  padding: 96px 0;
+  background: var(--bg-light);
+}
+.gaps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.gap-card {
+  padding: 24px 20px;
+  border-radius: 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+.gap-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.gap-icon { font-size: 28px; margin-bottom: 12px; }
+.gap-title { font-size: 15px; font-weight: 700; color: var(--navy-deep); margin-bottom: 8px; }
+.gap-body  { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
+
+/* Cawley Code full */
+.cawley-full {
+  padding: 96px 0;
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  position: relative; overflow: hidden;
+}
+.cawley-full::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,199,44,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cawley-principles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.cawley-principle {
+  padding: 24px 20px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.2s;
+}
+.cawley-principle:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,199,44,0.2); }
+.cawley-principle-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 11px;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.cawley-principle-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.cawley-principle-body  { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+/* Movement ethic */
+.movement-section {
+  padding: 96px 0;
+  background: var(--bg-white);
+}
+.movement-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.movement-pillar-card {
+  padding: 24px 20px;
+  border-radius: 16px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: all 0.2s;
+}
+.movement-pillar-card:hover { border-color: rgba(0,60,113,0.2); transform: translateY(-4px); box-shadow: var(--shadow); }
+.movement-pillar-icon { font-size: 32px; margin-bottom: 12px; }
+.movement-pillar-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 6px; }
+.movement-pillar-body  { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
+
+/* Jai section */
+.jai-section {
+  padding: 96px 0;
+  background: var(--bg-light);
+}
+.jai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.jai-card {
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border-radius: 24px;
+  padding: 40px;
+  color: #fff;
+  border: 1px solid rgba(255,199,44,0.2);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+  text-align: center;
+}
+.jai-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 22px;
+  margin-bottom: 8px;
+}
+.jai-card-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+.jai-card-body { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 24px; }
+.jai-card-quote {
+  padding: 20px 24px;
+  border-radius: 12px;
+  background: rgba(255,199,44,0.08);
+  border: 1px solid rgba(255,199,44,0.2);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--gold);
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .movement-pillars-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .origin-grid, .jai-grid { grid-template-columns: 1fr; gap: 40px; }
+  .origin-right { position: static; }
+  .gaps-grid { grid-template-columns: 1fr; }
+  .cawley-principles { grid-template-columns: 1fr; }
+  .movement-pillars-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="thwa-nav scrolled" id="nav">
+<div class="nav-inner">
+<a class="nav-brand" href="index.html">
+<div class="nav-logo-mark">T</div>
+<div class="nav-logo-text">
+<div class="nav-logo-name">Tiny Homes WA</div>
+<div class="nav-logo-sub">People Over Profits</div>
+</div>
+</a>
+<div class="nav-links">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link" href="model.html">Our Model</a>
+<a class="nav-link" href="why.html">Why We Exist</a>
+<a class="nav-link active" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+</div>
+<div class="nav-cta">
+<a class="btn btn-outline-white btn-sm" href="configure.html">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html">Get in Touch</a>
+</div>
+<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" id="nav-toggle">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link" href="model.html">Our Model</a>
+<a class="nav-link" href="why.html">Why We Exist</a>
+<a class="nav-link active" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+<a class="btn btn-outline-white btn-sm" href="configure.html" style="margin-top:8px">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html" style="margin-top:6px">Get in Touch</a>
+</div>
+<!-- PAGE HERO -->
+<section class="page-hero">
+<div aria-hidden="true" class="page-hero-pattern"></div>
+<div class="container" style="position:relative;z-index:2">
+<div class="section-eyebrow" style="margin-bottom:20px">Our Story</div>
+<h1 class="text-hero" style="color:#fff;margin-bottom:16px;max-width:700px">
+      Built in WA. Built for People. Built for Good.
+    </h1>
+<p class="text-lead" style="color:rgba(255,255,255,0.65);max-width:600px;margin-bottom:32px">
+      Tiny Homes WA began with a simple belief: housing should strengthen people, not break them. This is the story of how that belief became a movement.
+    </p>
+<a class="btn btn-gold btn-lg" href="why.html">Why We Exist</a>
+</div>
+</section>
+<!-- ORIGIN STORY -->
+<section aria-labelledby="origin-headline" class="origin-section">
+<div class="container">
+<div class="origin-grid">
+<div>
+<div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Where It Started</div>
+<h2 class="text-h2" id="origin-headline" style="color:var(--navy-deep);margin-bottom:24px">
+          A Simple Belief. A Powerful Movement.
+        </h2>
+<p class="origin-body">
+          Tiny Homes WA began with a simple belief: housing should strengthen people, not break them.
+        </p>
+<p class="origin-body">
+          For too long, families across WA have faced a system where stability is out of reach, ownership is impossible, and housing has been treated as a commodity instead of a foundation for life.
+        </p>
+<div class="origin-pull-quote">
+<div class="origin-pull-quote-text">
+            "We decided to build something different — something ethical, scalable, and rooted in the idea that people come before profits."
+          </div>
+</div>
+<p class="origin-body">
+          Tiny Homes WA was born from lived experience, community work, and a deep understanding of what families actually need: clarity, dignity, stability, and a fair chance at a future they can own.
+        </p>
+<p class="origin-body">
+          We saw the gaps in the system — crisis accommodation overflowing, families priced out of rentals, regional towns unable to house essential workers, community housing providers stretched thin, traditional builds too slow and too expensive.
+        </p>
+<p class="origin-body">
+          So we built a model that solves these problems without adding new ones.
+        </p>
+</div>
+<div class="origin-right">
+<div class="founder-card">
+<h3>Jason Thomas Cawley</h3>
+<div class="founder-card-sub">Founder &amp; Supreme Custodian · Tiny Homes WA</div>
+<div class="founder-card-body">
+            Jason built Tiny Homes WA from a conviction that ethical housing is not just possible — it's necessary. His model is clean, scalable, and designed to outlive its founder.
+          </div>
+<div class="founder-values">
+<div class="founder-value">People Over Profits — always</div>
+<div class="founder-value">Dignity First — in every decision</div>
+<div class="founder-value">Clean, Light, Scalable — by design</div>
+<div class="founder-value">Legacy Over Ego — built for the next generation</div>
+<div class="founder-value">WA-rooted — built here, for here</div>
+</div>
+</div>
+<div style="padding:20px 24px;border-radius:14px;background:var(--bg-light);border:1px solid var(--border)">
+<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:8px">The Cawley Code</div>
+<div style="font-size:13px;color:var(--text-body);line-height:1.7">
+            The moral backbone of Tiny Homes WA. The promise that this movement will never drift into greed, never compromise on dignity, and never forget why it exists.
+          </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- THE GAPS WE SAW -->
+<section aria-labelledby="gaps-headline" class="gaps-section">
+<div class="container">
+<div class="section-header">
+<div class="section-eyebrow section-eyebrow-navy">The Gaps We Saw</div>
+<h2 class="text-h2" id="gaps-headline" style="color:var(--navy-deep)">We Saw the Gaps. We Built the Solution.</h2>
+<p class="text-lead text-soft" style="max-width:560px;margin:12px auto 0">
+        Every gap in the system became a design requirement. Every problem became a feature of the model.
+      </p>
+</div>
+<div class="gaps-grid">
+<div class="gap-card">
+<div class="gap-icon">🏚️</div>
+<div class="gap-title">Crisis accommodation overflowing</div>
+<div class="gap-body">We built a supply model that can deploy homes faster than traditional construction — meeting demand where it exists, when it exists.</div>
+</div>
+<div class="gap-card">
+<div class="gap-icon">💸</div>
+<div class="gap-title">Families priced out of rentals</div>
+<div class="gap-body">We built a pricing model with ethical margins, transparent costs, and no hidden fees — making homes accessible without exploiting housing stress.</div>
+</div>
+<div class="gap-card">
+<div class="gap-icon">🌾</div>
+<div class="gap-title">Regional towns without housing</div>
+<div class="gap-body">We built a modular model that can be deployed anywhere in WA — metro, regional, or remote — without the delays of traditional construction.</div>
+</div>
+<div class="gap-card">
+<div class="gap-icon">🤝</div>
+<div class="gap-title">CHPs stretched thin</div>
+<div class="gap-body">We built a partner model that gives CHPs clean documentation, deployment-ready homes, and a pathway model they can operate without THWA involvement.</div>
+</div>
+<div class="gap-card">
+<div class="gap-icon">🐌</div>
+<div class="gap-title">Traditional builds too slow</div>
+<div class="gap-body">We built a modular supply chain that is significantly faster than traditional construction — families get into homes sooner, communities stabilise faster.</div>
+</div>
+<div class="gap-card">
+<div class="gap-icon">🔑</div>
+<div class="gap-title">No pathway to ownership</div>
+<div class="gap-body">We built the CRF/JTC mechanism — a financial pathway from stability to ownership that doesn't exploit families or create dependency.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- THE CAWLEY CODE -->
+<section aria-labelledby="cawley-headline" class="cawley-full">
+<div class="container" style="position:relative;z-index:2">
+<div class="section-header">
+<div class="section-eyebrow">The Cawley Code</div>
+<h2 class="text-h2" id="cawley-headline" style="color:#fff">The Ethic That Shapes Every Decision</h2>
+<p class="text-lead" style="color:rgba(255,255,255,0.6);max-width:580px;margin:12px auto 0">
+        The Cawley Code is the moral backbone of Tiny Homes WA. It is the promise that this movement will never drift into greed, never compromise on dignity, and never forget why it exists.
+      </p>
+</div>
+<div class="cawley-principles">
+<div class="cawley-principle">
+<div class="cawley-principle-num">Principle 1</div>
+<div class="cawley-principle-title">People Over Profits</div>
+<div class="cawley-principle-body">Housing exists to strengthen people, not extract from them. We price ethically, operate transparently, and reinvest 20% of all profits into WA community impact initiatives. This is not charity — it is structure.</div>
+</div>
+<div class="cawley-principle">
+<div class="cawley-principle-num">Principle 2</div>
+<div class="cawley-principle-title">Dignity First, Always</div>
+<div class="cawley-principle-body">Every home we build must protect dignity. Every pathway we design must honour the people who walk it. Every decision must strengthen families, not systems.</div>
+</div>
+<div class="cawley-principle">
+<div class="cawley-principle-num">Principle 3</div>
+<div class="cawley-principle-title">Clean, Light, Scalable</div>
+<div class="cawley-principle-body">We do not run villages. We do not manage tenants. We do not deliver programs. We stay clean so the movement can scale, and so the founder can remain present for the people who matter most.</div>
+</div>
+<div class="cawley-principle">
+<div class="cawley-principle-num">Principle 4</div>
+<div class="cawley-principle-title">Partners Are the Heart of Delivery</div>
+<div class="cawley-principle-body">We supply the homes, the pricing, the documentation, and the model. Partners deliver the tenancy, support, compliance, and operations. This keeps the system safe, ethical, and sustainable.</div>
+</div>
+<div class="cawley-principle">
+<div class="cawley-principle-num">Principle 5</div>
+<div class="cawley-principle-title">Ownership Is the Goal</div>
+<div class="cawley-principle-body">Stability is the beginning — not the end. The CRF/JTC mechanism exists to help families move from stability to contribution to ownership. Custodianship is the destination.</div>
+</div>
+<div class="cawley-principle">
+<div class="cawley-principle-num">Principle 6</div>
+<div class="cawley-principle-title">Legacy Over Ego</div>
+<div class="cawley-principle-body">This movement is not built for applause. It is built for impact, for families, for WA, and for the next generation. Every decision must outlive the founder.</div>
+</div>
+<div class="cawley-principle">
+<div class="cawley-principle-num">Principle 7</div>
+<div class="cawley-principle-title">Protect the Founder, Protect the Mission</div>
+<div class="cawley-principle-body">A movement collapses when its founder collapses. The model must remain light, clean, and time-protected so the founder never loses the ability to be present for the people who matter most.</div>
+</div>
+<div class="cawley-principle" style="background:rgba(255,199,44,0.08);border-color:rgba(255,199,44,0.2)">
+<div class="cawley-principle-num" style="color:var(--gold)">The Code</div>
+<div class="cawley-principle-title" style="color:var(--gold)">Immutable. Eternal. Non-Negotiable.</div>
+<div class="cawley-principle-body">The Cawley Code is not branding. It is not marketing. It is the ethic, the promise, the standard, and the spine of everything Tiny Homes WA stands for — and everything the next custodian will inherit.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MOVEMENT ETHIC -->
+<section aria-labelledby="movement-headline" class="movement-section">
+<div class="container">
+<div class="section-header">
+<div class="section-eyebrow section-eyebrow-navy">The Movement Ethic</div>
+<h2 class="text-h2" id="movement-headline" style="color:var(--navy-deep)">What We Stand For</h2>
+</div>
+<div class="movement-pillars-grid">
+<div class="movement-pillar-card">
+<div class="movement-pillar-icon">💛</div>
+<div class="movement-pillar-title">People Over Profits</div>
+<div class="movement-pillar-body">The founding principle. The non-negotiable. The standard we hold ourselves to every day.</div>
+</div>
+<div class="movement-pillar-card">
+<div class="movement-pillar-icon">🌿</div>
+<div class="movement-pillar-title">The Cawley Code</div>
+<div class="movement-pillar-body">Seven principles that govern every decision, every partnership, every home, and every future custodian.</div>
+</div>
+<div class="movement-pillar-card">
+<div class="movement-pillar-icon">🌏</div>
+<div class="movement-pillar-title">WA Identity</div>
+<div class="movement-pillar-body">Built here. For here. Our homes, our partners, our impact, and our identity are all rooted in Western Australia.</div>
+</div>
+<div class="movement-pillar-card">
+<div class="movement-pillar-icon">🕊️</div>
+<div class="movement-pillar-title">Legacy &amp; Custodianship</div>
+<div class="movement-pillar-body">This movement is built to outlive its founder. Every system, every document, every decision is custodian-ready.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- JAI — THE NEXT CUSTODIAN -->
+<section aria-labelledby="jai-headline" class="jai-section">
+<div class="container">
+<div class="jai-grid">
+<div>
+<div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">The Next Generation</div>
+<h2 class="text-h2" id="jai-headline" style="color:var(--navy-deep);margin-bottom:16px">
+          Built for Jai. Built for WA. Built for Good.
+        </h2>
+<p class="text-lead text-soft" style="margin-bottom:16px">
+          Tiny Homes WA is not just a business. It is a legacy project — built with the next generation in mind.
+        </p>
+<p class="text-body text-soft" style="margin-bottom:16px">
+          Jai Thomas Cawley is the designated successor and future steward of the THWA Cathedral. He inherits custodial authority over canon preservation, system integrity, and mission continuity.
+        </p>
+<p class="text-body text-soft" style="margin-bottom:32px">
+          Every system we build, every document we write, every decision we make is designed to be handed to a successor — clean, documented, and ready to continue the mission.
+        </p>
+<p class="text-body text-soft" style="margin-bottom:32px">
+          Because a parent should never lose their child to work. And a child should never lose their parent to work.
+        </p>
+<a class="btn btn-navy" href="why.html">Why We Exist</a>
+</div>
+<div class="jai-card">
+<div class="jai-card-title">Jai Thomas Cawley</div>
+<div class="jai-card-sub">Co-Custodian · Successor Authority · Tiny Homes WA</div>
+<div class="jai-card-body">
+          Designated successor and future steward of the THWA Cathedral. Inherits custodial authority over canon preservation, system integrity, and mission continuity upon Founder delegation or succession.
+        </div>
+<div class="jai-card-quote">
+          "A parent should never lose their child to work, and a child should never lose their parent to work."
+        </div>
+<div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5">
+          This authority block is immutable. Human authority supersedes all machine authority. No agent, system, or document may override Founder or Successor authority.
+        </div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));padding:80px 0;text-align:center;border-top:2px solid var(--gold)">
+<div class="container">
+<h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.8rem,3vw,2.5rem);color:#fff;margin-bottom:16px">
+      Be Part of the Movement
+    </h2>
+<p style="font-size:1.05rem;color:rgba(255,255,255,0.6);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">
+      Whether you're a family, a partner, or a government body — there's a place for you in this movement.
+    </p>
+<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+<a class="btn btn-gold btn-lg" href="configure.html">Start Your Build</a>
+<a class="btn btn-outline-white btn-lg" href="partners.html">Partner With Us</a>
+<a class="btn btn-outline-white btn-lg" href="contact.html">Get in Touch</a>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="thwa-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+<div class="nav-logo-mark">T</div>
+<div class="footer-brand-name">Tiny Homes WA</div>
+</div>
+<div class="footer-tagline">People Over Profits. Homes Over Greed. Hope Over Hardship.</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<span class="badge badge-gold">20% to Community</span>
+<span class="badge badge-white">WA Built</span>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Our Homes</div>
+<div class="footer-links">
+<a class="footer-link" href="homes.html">All Series</a>
+<a class="footer-link" href="configure.html">Design Studio</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">The Movement</div>
+<div class="footer-links">
+<a class="footer-link" href="why.html">Why We Exist</a>
+<a class="footer-link" href="story.html">Our Story</a>
+<a class="footer-link" href="model.html">Our Model</a>
+<a class="footer-link" href="partners.html">Partner With Us</a>
+<a class="footer-link" href="contact.html">Contact</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Contact</div>
+<div class="footer-links">
+<a class="footer-link" href="mailto:hello@tinyhomeswa.com.au">hello@tinyhomeswa.com.au</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="footer-copy">© 2026 Tiny Homes WA. All rights reserved.</div>
+<div class="footer-code">People Over Profits. Always.</div>
+</div>
+</div>
+</footer>
+<script>
+const toggle = document.getElementById('nav-toggle');
+const mobileNav = document.getElementById('nav-mobile');
+toggle.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+</script>
+</body>
+</html>

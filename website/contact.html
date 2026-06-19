@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact — Tiny Homes WA | Get in Touch</title>
+<meta content="Contact Tiny Homes WA for general enquiries, partner enquiries, government enquiries, or media enquiries. We're here to help." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="thwa-system.css" rel="stylesheet"/>
+<style>
+.page-hero {
+  padding: 140px 0 80px;
+  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+.page-hero-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-size: 36px 36px; pointer-events: none;
+}
+
+/* Contact layout */
+.contact-section {
+  padding: 96px 0;
+  background: var(--bg-light);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* Enquiry type tabs */
+.enquiry-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.enquiry-tab {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-white);
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.enquiry-tab:hover { border-color: rgba(0,60,113,0.3); color: var(--navy); }
+.enquiry-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+/* Contact form */
+.contact-form-card {
+  background: var(--bg-white);
+  border-radius: 20px;
+  padding: 36px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Contact info */
+.contact-info { display: flex; flex-direction: column; gap: 20px; }
+.contact-info-card {
+  padding: 20px 24px;
+  border-radius: 14px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+.contact-info-card:hover { border-color: rgba(0,60,113,0.2); }
+.contact-info-icon { font-size: 24px; margin-bottom: 10px; }
+.contact-info-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 4px; }
+.contact-info-body  { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
+.contact-info-link  { font-size: 13px; color: var(--navy); font-weight: 600; text-decoration: none; display: block; margin-top: 6px; }
+.contact-info-link:hover { color: var(--gold); }
+
+/* WA statement */
+.wa-statement {
+  padding: 20px 24px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border: 1px solid rgba(255,199,44,0.2);
+  color: #fff;
+}
+.wa-statement-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; margin-bottom: 8px; }
+.wa-statement-body  { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+/* FAQ */
+.faq-section {
+  padding: 96px 0;
+  background: var(--bg-white);
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.faq-item {
+  padding: 20px 24px;
+  border-radius: 14px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.faq-item:hover { border-color: rgba(0,60,113,0.2); }
+.faq-q { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 8px; }
+.faq-a { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="thwa-nav scrolled" id="nav">
+<div class="nav-inner">
+<a class="nav-brand" href="index.html">
+<div class="nav-logo-mark">T</div>
+<div class="nav-logo-text">
+<div class="nav-logo-name">Tiny Homes WA</div>
+<div class="nav-logo-sub">People Over Profits</div>
+</div>
+</a>
+<div class="nav-links">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link" href="model.html">Our Model</a>
+<a class="nav-link" href="why.html">Why We Exist</a>
+<a class="nav-link" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+</div>
+<div class="nav-cta">
+<a class="btn btn-outline-white btn-sm" href="configure.html">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html">Get in Touch</a>
+</div>
+<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" id="nav-toggle">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link" href="model.html">Our Model</a>
+<a class="nav-link" href="why.html">Why We Exist</a>
+<a class="nav-link" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+<a class="btn btn-outline-white btn-sm" href="configure.html" style="margin-top:8px">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html" style="margin-top:6px">Get in Touch</a>
+</div>
+<!-- PAGE HERO -->
+<section class="page-hero">
+<div aria-hidden="true" class="page-hero-pattern"></div>
+<div class="container" style="position:relative;z-index:2">
+<div class="section-eyebrow" style="margin-bottom:20px">Get in Touch</div>
+<h1 class="text-hero" style="color:#fff;margin-bottom:16px;max-width:600px">
+      We'd Love to Hear From You
+    </h1>
+<p class="text-lead" style="color:rgba(255,255,255,0.65);max-width:560px">
+      Whether you're a family exploring your options, a partner organisation, a government body, or a member of the media — we're here to help.
+    </p>
+</div>
+</section>
+<!-- CONTACT -->
+<section aria-labelledby="contact-headline" class="contact-section">
+<div class="container">
+<div class="contact-grid">
+<!-- Left — info -->
+<div class="contact-info">
+<div>
+<h2 class="text-h3" id="contact-headline" style="color:var(--navy-deep);margin-bottom:8px">Contact Information</h2>
+<p class="text-body text-soft">We respond to all enquiries within 2 business days. For urgent matters, please indicate this in your message.</p>
+</div>
+<div class="contact-info-card">
+<div class="contact-info-icon">📧</div>
+<div class="contact-info-title">General Enquiries</div>
+<div class="contact-info-body">For general questions about our homes, pricing, and pathways.</div>
+<a class="contact-info-link" href="mailto:hello@tinyhomeswa.com.au">hello@tinyhomeswa.com.au</a>
+</div>
+<div class="contact-info-card">
+<div class="contact-info-icon">🤝</div>
+<div class="contact-info-title">Partner Enquiries</div>
+<div class="contact-info-body">For community housing providers, NGOs, local governments, and other partner organisations.</div>
+<a class="contact-info-link" href="partners.html">Visit our Partner page →</a>
+</div>
+<div class="contact-info-card">
+<div class="contact-info-icon">🏛️</div>
+<div class="contact-info-title">Government Enquiries</div>
+<div class="contact-info-body">For state and local government bodies interested in our model, our homes, or our pathways.</div>
+<a class="contact-info-link" href="mailto:hello@tinyhomeswa.com.au?subject=Government Enquiry">hello@tinyhomeswa.com.au</a>
+</div>
+<div class="contact-info-card">
+<div class="contact-info-icon">📰</div>
+<div class="contact-info-title">Media Enquiries</div>
+<div class="contact-info-body">For journalists, researchers, and media organisations covering housing, community, and social impact.</div>
+<a class="contact-info-link" href="mailto:hello@tinyhomeswa.com.au?subject=Media Enquiry">hello@tinyhomeswa.com.au</a>
+</div>
+<div class="wa-statement">
+<div class="wa-statement-title">🌏 Proudly Built in Western Australia</div>
+<div class="wa-statement-body">
+            Our homes, our partners, our impact, and our identity are all rooted in Western Australia. We build here because WA deserves solutions built for its people.
+          </div>
+</div>
+</div>
+<!-- Right — form -->
+<div class="contact-form-card">
+<h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:var(--navy-deep);margin-bottom:8px">Send Us a Message</h3>
+<p style="font-size:13px;color:var(--text-soft);margin-bottom:20px">No pressure. No sales scripts. Just a genuine conversation.</p>
+<!-- Enquiry type tabs -->
+<div aria-label="Enquiry type" class="enquiry-tabs" role="tablist">
+<button aria-selected="true" class="enquiry-tab active" data-type="general" role="tab">General</button>
+<button aria-selected="false" class="enquiry-tab" data-type="partner" role="tab">Partner</button>
+<button aria-selected="false" class="enquiry-tab" data-type="government" role="tab">Government</button>
+<button aria-selected="false" class="enquiry-tab" data-type="media" role="tab">Media</button>
+</div>
+<form id="contact-form" novalidate="">
+<input id="enquiry-type" name="enquiry_type" type="hidden" value="general"/>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div class="form-row">
+<div class="form-group">
+<label class="form-label" for="c-name">Your Name *</label>
+<input class="form-input" id="c-name" name="name" placeholder="Jane Smith" required="" type="text"/>
+</div>
+<div class="form-group">
+<label class="form-label" for="c-email">Email Address *</label>
+<input class="form-input" id="c-email" name="email" placeholder="jane@example.com" required="" type="email"/>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label class="form-label" for="c-phone">Phone (optional)</label>
+<input class="form-input" id="c-phone" name="phone" placeholder="04XX XXX XXX" type="tel"/>
+</div>
+<div class="form-group" id="org-field" style="display:none">
+<label class="form-label" for="c-org">Organisation</label>
+<input class="form-input" id="c-org" name="organisation" placeholder="Your organisation" type="text"/>
+</div>
+</div>
+<div class="form-group" id="interest-field">
+<label class="form-label" for="c-interest">I'm interested in…</label>
+<select class="form-select" id="c-interest" name="interest">
+<option value="">Select…</option>
+<option value="homes">Exploring home options</option>
+<option value="pricing">Pricing and pathways</option>
+<option value="configure">Using the Design Studio</option>
+<option value="partner">Becoming a partner</option>
+<option value="government">Government housing solutions</option>
+<option value="other">Something else</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label" for="c-message">Your Message *</label>
+<textarea class="form-textarea" id="c-message" name="message" placeholder="Tell us what you're looking for, what questions you have, or what you're trying to achieve…" required=""></textarea>
+</div>
+<button class="btn btn-gold" id="c-submit" style="width:100%;justify-content:center" type="submit">
+              Send Message →
+            </button>
+<div id="c-status" style="font-size:12px;color:var(--text-muted);text-align:center"></div>
+<div style="font-size:11px;color:var(--text-muted);line-height:1.5">
+              We respect your privacy. Your information will never be shared with third parties. We respond within 2 business days.
+            </div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ -->
+<section aria-labelledby="faq-headline" class="faq-section">
+<div class="container">
+<div class="section-header">
+<div class="section-eyebrow section-eyebrow-navy">Common Questions</div>
+<h2 class="text-h2" id="faq-headline" style="color:var(--navy-deep)">Questions You Might Have</h2>
+</div>
+<div class="faq-grid">
+<div class="faq-item">
+<div class="faq-q">Do I need to talk to anyone to use the Design Studio?</div>
+<div class="faq-a">No. You can explore layouts, finishes, and indicative pricing without entering your details or booking a call. The Design Studio is yours to explore at your own pace.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What is the CRV pathway?</div>
+<div class="faq-a">CRV stands for Charity Ready Vehicle. It's our core, charity-ready specification with a ×1.00 multiplier. It requires a registered partner_id and is designed for community housing delivery.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What is the JTC pathway?</div>
+<div class="faq-a">JTC stands for Journey to Custodianship — also known as the Winifred Filamena line. It's our premium ceremonial tier with a ×1.18 multiplier that funds partner tenancy, support services, and pathway administration.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">How do I become a registered partner?</div>
+<div class="faq-a">Complete the partner enquiry form on our Partner page. We'll have a conversation to understand your organisation and whether our model is the right fit. If aligned, we'll register you and issue a partner_id.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Are the prices on the website final?</div>
+<div class="faq-a">All prices shown are indicative only. Final pricing is subject to configuration, delivery location, site conditions, and current material costs. Contact us for a formal quotation.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Do you deliver outside Perth metro?</div>
+<div class="faq-a">Yes. We deliver across Western Australia — metro, regional, and remote. Delivery costs vary by location. Use the Design Studio to get an indicative delivery estimate, or contact us for a site-specific quote.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">What does "20% of profits to community" mean?</div>
+<div class="faq-a">Twenty percent of Tiny Homes WA net profits are permanently allocated to WA community impact initiatives — financial reset, employment readiness, mental health support, family stability, and long-term independence. This is structural, not discretionary.</div>
+</div>
+<div class="faq-item">
+<div class="faq-q">Can I configure a home without committing to anything?</div>
+<div class="faq-a">Absolutely. The Design Studio is a no-pressure exploration tool. You can configure, save, share, and export a quote without any obligation. We'll only contact you if you ask us to.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="thwa-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+<div class="nav-logo-mark">T</div>
+<div class="footer-brand-name">Tiny Homes WA</div>
+</div>
+<div class="footer-tagline">People Over Profits. Homes Over Greed. Hope Over Hardship.</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<span class="badge badge-gold">20% to Community</span>
+<span class="badge badge-white">WA Built</span>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Our Homes</div>
+<div class="footer-links">
+<a class="footer-link" href="homes.html">All Series</a>
+<a class="footer-link" href="configure.html">Design Studio</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">The Movement</div>
+<div class="footer-links">
+<a class="footer-link" href="why.html">Why We Exist</a>
+<a class="footer-link" href="story.html">Our Story</a>
+<a class="footer-link" href="model.html">Our Model</a>
+<a class="footer-link" href="partners.html">Partner With Us</a>
+<a class="footer-link" href="contact.html">Contact</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Contact</div>
+<div class="footer-links">
+<a class="footer-link" href="mailto:hello@tinyhomeswa.com.au">hello@tinyhomeswa.com.au</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="footer-copy">© 2026 Tiny Homes WA. All rights reserved.</div>
+<div class="footer-code">People Over Profits. Always.</div>
+</div>
+</div>
+</footer>
+<script>
+const toggle = document.getElementById('nav-toggle');
+const mobileNav = document.getElementById('nav-mobile');
+toggle.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+
+// Enquiry type tabs
+const tabs = document.querySelectorAll('.enquiry-tab');
+const orgField = document.getElementById('org-field');
+const enquiryTypeInput = document.getElementById('enquiry-type');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    const type = tab.dataset.type;
+    enquiryTypeInput.value = type;
+    orgField.style.display = ['partner','government','media'].includes(type) ? 'block' : 'none';
+  });
+});
+
+// Pre-select from URL
+const params = new URLSearchParams(window.location.search);
+const typeParam = params.get('type');
+if (typeParam) {
+  const matchTab = document.querySelector(`.enquiry-tab[data-type="${typeParam}"]`);
+  if (matchTab) matchTab.click();
+}
+
+// Contact form
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('c-submit');
+  const status = document.getElementById('c-status');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  const data = {
+    name:          document.getElementById('c-name').value.trim(),
+    email:         document.getElementById('c-email').value.trim(),
+    phone:         document.getElementById('c-phone').value.trim(),
+    organisation:  document.getElementById('c-org').value.trim(),
+    interest:      document.getElementById('c-interest').value,
+    message:       document.getElementById('c-message').value.trim(),
+    enquiry_type:  enquiryTypeInput.value,
+    timestamp:     new Date().toISOString(),
+  };
+
+  if (!data.name || !data.email || !data.message) {
+    status.textContent = 'Please fill in your name, email, and message.';
+    status.style.color = '#dc2626';
+    btn.disabled = false;
+    btn.textContent = 'Send Message →';
+    return;
+  }
+
+  // Send to Wix parent
+  window.parent.postMessage({ type: 'THWA_CONTACT_FORM', data }, '*');
+
+  setTimeout(() => {
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = 'var(--green)';
+    btn.style.borderColor = 'var(--green)';
+    status.textContent = 'Thank you. We\'ll be in touch within 2 business days.';
+    status.style.color = 'var(--green-dark)';
+  }, 800);
+});
+</script>
+</body>
+</html>

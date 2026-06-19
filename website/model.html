@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Our Model — Tiny Homes WA | A Clean, Scalable Model for Western Australia</title>
+<meta content="Tiny Homes WA supplies the homes. Partners deliver the pathway. Families gain stability and a future they can own. Learn how our clean, scalable model works." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="thwa-system.css" rel="stylesheet"/>
+<style>
+.page-hero {
+  padding: 140px 0 80px;
+  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+.page-hero-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-size: 36px 36px; pointer-events: none;
+}
+
+/* Model overview */
+.model-overview {
+  padding: 96px 0;
+  background: var(--bg-white);
+}
+.model-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.do-dont-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 32px;
+}
+.do-card {
+  padding: 20px;
+  border-radius: 14px;
+  background: var(--green-soft);
+  border: 1px solid rgba(34,197,94,0.2);
+}
+.dont-card {
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(239,68,68,0.05);
+  border: 1px solid rgba(239,68,68,0.15);
+}
+.do-card-title { font-size: 12px; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.dont-card-title { font-size: 12px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.do-list, .dont-list { display: flex; flex-direction: column; gap: 6px; }
+.do-item { font-size: 12px; color: var(--text-body); display: flex; align-items: flex-start; gap: 7px; line-height: 1.4; }
+.do-item::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.dont-item { font-size: 12px; color: var(--text-body); display: flex; align-items: flex-start; gap: 7px; line-height: 1.4; }
+.dont-item::before { content: '✗'; color: #dc2626; font-weight: 700; flex-shrink: 0; }
+
+/* Three parts */
+.three-parts {
+  padding: 96px 0;
+  background: var(--bg-light);
+}
+.parts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.part-card {
+  padding: 32px 28px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-white);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+.part-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.part-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 48px;
+  color: rgba(0,60,113,0.08);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.part-title { font-size: 18px; font-weight: 800; color: var(--navy-deep); margin-bottom: 6px; }
+.part-sub { font-size: 12px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+.part-body { font-size: 13px; color: var(--text-soft); line-height: 1.7; margin-bottom: 16px; }
+.part-list { display: flex; flex-direction: column; gap: 6px; }
+.part-list-item { font-size: 12px; color: var(--text-body); display: flex; align-items: flex-start; gap: 7px; }
+.part-list-item::before { content: '→'; color: var(--navy); font-weight: 700; flex-shrink: 0; }
+
+/* CRF/JTC pathway */
+.pathway-section {
+  padding: 96px 0;
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  position: relative; overflow: hidden;
+}
+.pathway-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255,199,44,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.pathway-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 48px;
+  position: relative;
+}
+.pathway-steps::before {
+  content: '';
+  position: absolute;
+  left: 28px; top: 44px; bottom: 44px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), rgba(255,199,44,0.2));
+}
+.pathway-step {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 24px 0;
+  position: relative;
+}
+.pathway-step-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy-deep);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(255,199,44,0.3);
+  position: relative; z-index: 2;
+}
+.pathway-step-content { padding-top: 8px; }
+.pathway-step-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.pathway-step-body  { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+/* Pathway multipliers */
+.multipliers-section {
+  padding: 96px 0;
+  background: var(--bg-white);
+}
+.multipliers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.multiplier-card {
+  padding: 32px 28px;
+  border-radius: 20px;
+  border: 2px solid var(--border);
+  background: var(--bg-white);
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+.multiplier-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.multiplier-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, rgba(255,199,44,0.04), rgba(255,199,44,0.02));
+  box-shadow: var(--shadow-gold);
+}
+.multiplier-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; }
+.multiplier-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: var(--navy-deep); margin-bottom: 4px; }
+.multiplier-sub { font-size: 13px; color: var(--text-soft); margin-bottom: 16px; }
+.multiplier-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 48px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.multiplier-desc { font-size: 12px; color: var(--text-soft); line-height: 1.6; margin-bottom: 20px; }
+.multiplier-note {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--bg-light);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Why clean */
+.why-clean {
+  padding: 96px 0;
+  background: var(--bg-light);
+}
+.why-clean-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.clean-benefits { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+.clean-benefit {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.clean-benefit:hover { border-color: rgba(0,60,113,0.2); }
+.clean-benefit-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(0,60,113,0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.clean-benefit-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 4px; }
+.clean-benefit-body  { font-size: 12px; color: var(--text-soft); line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .model-overview-grid, .why-clean-grid { grid-template-columns: 1fr; gap: 40px; }
+  .do-dont-grid { grid-template-columns: 1fr; }
+  .parts-grid, .multipliers-grid { grid-template-columns: 1fr; }
+  .pathway-steps::before { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="thwa-nav scrolled" id="nav">
+<div class="nav-inner">
+<a class="nav-brand" href="index.html">
+<div class="nav-logo-mark">T</div>
+<div class="nav-logo-text">
+<div class="nav-logo-name">Tiny Homes WA</div>
+<div class="nav-logo-sub">People Over Profits</div>
+</div>
+</a>
+<div class="nav-links">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link active" href="model.html">Our Model</a>
+<a class="nav-link" href="why.html">Why We Exist</a>
+<a class="nav-link" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+</div>
+<div class="nav-cta">
+<a class="btn btn-outline-white btn-sm" href="configure.html">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html">Get in Touch</a>
+</div>
+<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" id="nav-toggle">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link active" href="model.html">Our Model</a>
+<a class="nav-link" href="why.html">Why We Exist</a>
+<a class="nav-link" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+<a class="btn btn-outline-white btn-sm" href="configure.html" style="margin-top:8px">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html" style="margin-top:6px">Get in Touch</a>
+</div>
+<!-- PAGE HERO -->
+<section class="page-hero">
+<div aria-hidden="true" class="page-hero-pattern"></div>
+<div class="container" style="position:relative;z-index:2">
+<div class="section-eyebrow" style="margin-bottom:20px">How It Works</div>
+<h1 class="text-hero" style="color:#fff;margin-bottom:16px;max-width:700px">
+      A Clean, Scalable Model for Western Australia
+    </h1>
+<p class="text-lead" style="color:rgba(255,255,255,0.65);max-width:600px;margin-bottom:32px">
+      Tiny Homes WA supplies the homes. Our partners deliver the pathway. Families gain stability and a future they can own. Our model is clean, ethical, and designed for long-term impact.
+    </p>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a class="btn btn-gold btn-lg" href="partners.html">Partner With Us</a>
+<a class="btn btn-outline-white btn-lg" href="configure.html">Start Your Build</a>
+</div>
+</div>
+</section>
+<!-- MODEL OVERVIEW -->
+<section aria-labelledby="model-overview-headline" class="model-overview">
+<div class="container">
+<div class="model-overview-grid">
+<div>
+<div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Our Role</div>
+<h2 class="text-h2" id="model-overview-headline" style="color:var(--navy-deep);margin-bottom:16px">
+          What We Do — And What We Don't
+        </h2>
+<p class="text-lead text-soft" style="margin-bottom:16px">
+          Tiny Homes WA focuses on what we do best — supplying the foundation that makes everything else possible.
+        </p>
+<p class="text-body text-soft" style="margin-bottom:24px">
+          This keeps us clean, scalable, and government-safe. It protects the integrity of the movement and ensures we can serve more families, more partners, and more communities — without adding operational burden to anyone.
+        </p>
+<div class="do-dont-grid">
+<div class="do-card">
+<div class="do-card-title">We Provide</div>
+<div class="do-list">
+<div class="do-item">Modular homes</div>
+<div class="do-item">Transparent pricing</div>
+<div class="do-item">Clean configurator</div>
+<div class="do-item">Deployment-ready documentation</div>
+<div class="do-item">The CRF/JTC pathway model</div>
+</div>
+</div>
+<div class="dont-card">
+<div class="dont-card-title">We Do Not</div>
+<div class="dont-list">
+<div class="dont-item">Run villages</div>
+<div class="dont-item">Manage tenants</div>
+<div class="dont-item">Deliver support services</div>
+<div class="dont-item">Operate programs</div>
+<div class="dont-item">Hold operational risk</div>
+</div>
+</div>
+</div>
+</div>
+<div>
+<div style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-radius:24px;padding:36px;color:#fff;border:1px solid rgba(255,199,44,0.2);box-shadow:0 24px 60px rgba(0,0,0,0.2)">
+<h3 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px;margin-bottom:8px">The THWA Principle</h3>
+<p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:24px">
+            A clean, scalable, WA-built model that strengthens families, partners, and the state — without adding operational burden.
+          </p>
+<div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+<div style="padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08)">
+<div style="font-size:11px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">THWA Supplies</div>
+<div style="font-size:13px;font-weight:600">Homes · Pricing · Documentation · Model</div>
+</div>
+<div style="text-align:center;font-size:20px;color:var(--gold)">↓</div>
+<div style="padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08)">
+<div style="font-size:11px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Partners Deliver</div>
+<div style="font-size:13px;font-weight:600">Tenancy · Support · Compliance · Operations</div>
+</div>
+<div style="text-align:center;font-size:20px;color:var(--gold)">↓</div>
+<div style="padding:14px 16px;border-radius:10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2)">
+<div style="font-size:11px;color:rgba(34,197,94,0.7);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Families Gain</div>
+<div style="font-size:13px;font-weight:600;color:#22c55e">Stability · Dignity · Ownership</div>
+</div>
+</div>
+<a class="btn btn-gold" href="partners.html" style="width:100%;justify-content:center">Become a Partner →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- THREE PARTS -->
+<section aria-labelledby="three-parts-headline" class="three-parts">
+<div class="container">
+<div class="section-header">
+<div class="section-eyebrow section-eyebrow-navy">The Model</div>
+<h2 class="text-h2" id="three-parts-headline" style="color:var(--navy-deep)">Three Parts. One Mission.</h2>
+<p class="text-lead text-soft" style="max-width:560px;margin:12px auto 0">
+        Our model has three parts — each with a clear role, clear boundaries, and clear accountability.
+      </p>
+</div>
+<div class="parts-grid">
+<div class="part-card">
+<div class="part-num">01</div>
+<div class="part-title">Supply</div>
+<div class="part-sub">THWA's Role</div>
+<div class="part-body">We supply the foundation that makes everything else possible. Our entire operational footprint — nothing more.</div>
+<div class="part-list">
+<div class="part-list-item">WA-built modular homes</div>
+<div class="part-list-item">Transparent pricing</div>
+<div class="part-list-item">Deployment-ready documentation</div>
+<div class="part-list-item">The CRF/JTC pathway model</div>
+<div class="part-list-item">3D configurator</div>
+</div>
+</div>
+<div class="part-card">
+<div class="part-num">02</div>
+<div class="part-title">Delivery</div>
+<div class="part-sub">Partners' Role</div>
+<div class="part-body">Registered partners — CHPs, NGOs, local governments, accredited operators — deliver the pathway using our homes and our model.</div>
+<div class="part-list">
+<div class="part-list-item">Tenancy management</div>
+<div class="part-list-item">Support services</div>
+<div class="part-list-item">Compliance and operations</div>
+<div class="part-list-item">Risk management</div>
+<div class="part-list-item">Pathway delivery</div>
+</div>
+</div>
+<div class="part-card">
+<div class="part-num">03</div>
+<div class="part-title">Outcomes</div>
+<div class="part-sub">Families &amp; WA</div>
+<div class="part-body">The result of a clean, ethical, scalable model — measurable outcomes for families, communities, and Western Australia.</div>
+<div class="part-list">
+<div class="part-list-item">Stability for families</div>
+<div class="part-list-item">Dignity and ownership pathways</div>
+<div class="part-list-item">Safer, stronger communities</div>
+<div class="part-list-item">Reduced crisis accommodation pressure</div>
+<div class="part-list-item">Long-term WA economic participation</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CRF/JTC PATHWAY -->
+<section aria-labelledby="pathway-headline" class="pathway-section">
+<div class="container" style="position:relative;z-index:2">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+<div>
+<div class="section-eyebrow" style="margin-bottom:20px">The CRF/JTC Pathway</div>
+<h2 class="text-h2" id="pathway-headline" style="color:#fff;margin-bottom:16px">
+          From Stability to Ownership
+        </h2>
+<p class="text-lead" style="color:rgba(255,255,255,0.65);margin-bottom:16px">
+          The CRF/JTC mechanism is a financial and ownership pathway — not a program. It helps families move from stability to custodianship without exploitation or debt traps.
+        </p>
+<p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:32px">
+          The 1.18× Pathway Activation Factor funds partner tenancy, support services, and pathway administration — ensuring the system is self-sustaining and scalable without government dependency.
+        </p>
+<div style="padding:20px 24px;border-radius:14px;background:rgba(255,199,44,0.08);border:1px solid rgba(255,199,44,0.2)">
+<div style="font-size:11px;color:rgba(255,199,44,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">The JTC Factor</div>
+<div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:36px;color:var(--gold);line-height:1">1.18×</div>
+<div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px;line-height:1.5">Funds partner tenancy, support services, and pathway administration. Requires a registered partner_id.</div>
+</div>
+</div>
+<div class="pathway-steps">
+<div class="pathway-step">
+<div class="pathway-step-num">1</div>
+<div class="pathway-step-content">
+<div class="pathway-step-title">Stability</div>
+<div class="pathway-step-body">Families enter stable housing through a registered partner organisation. A safe, dignified home is the foundation of everything that follows.</div>
+</div>
+</div>
+<div class="pathway-step">
+<div class="pathway-step-num">2</div>
+<div class="pathway-step-content">
+<div class="pathway-step-title">Contribution</div>
+<div class="pathway-step-body">With stability established, families begin contributing — to their household, their community, and their own financial future. Employment, education, and participation become possible.</div>
+</div>
+</div>
+<div class="pathway-step">
+<div class="pathway-step-num">3</div>
+<div class="pathway-step-content">
+<div class="pathway-step-title">Progression</div>
+<div class="pathway-step-body">The CRF/JTC mechanism creates a structured pathway toward ownership. Families progress at their own pace, supported by partners, without exploitation or debt traps.</div>
+</div>
+</div>
+<div class="pathway-step">
+<div class="pathway-step-num">4</div>
+<div class="pathway-step-content">
+<div class="pathway-step-title">Custodianship</div>
+<div class="pathway-step-body">Ownership is the destination. Families become custodians of their own home — and their own future. This is the Cawley Code in action: dignity, not dependency.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PATHWAY MULTIPLIERS -->
+<section aria-labelledby="multipliers-headline" class="multipliers-section">
+<div class="container">
+<div class="section-header">
+<div class="section-eyebrow section-eyebrow-navy">Build Pathways</div>
+<h2 class="text-h2" id="multipliers-headline" style="color:var(--navy-deep)">Three Pathways. One Mission.</h2>
+<p class="text-lead text-soft" style="max-width:560px;margin:12px auto 0">
+        Every pathway funds WA community impact. The multiplier activates a different system pathway with different funding flows — not an arbitrary price increase.
+      </p>
+</div>
+<div class="multipliers-grid">
+<div class="multiplier-card">
+<div class="multiplier-label">Pathway 1</div>
+<div class="multiplier-name">CRV</div>
+<div class="multiplier-sub">Charity Ready Vehicle</div>
+<div class="multiplier-num">×1.00</div>
+<div class="multiplier-desc">Core, charity-ready specification with transparent pricing and WA project contribution. Requires a registered partner_id.</div>
+<div class="multiplier-note">30% of profits to WA community programs (Reunite Series) · Partner required</div>
+</div>
+<div class="multiplier-card featured">
+<div class="multiplier-label">Pathway 2 · Most Common</div>
+<div class="multiplier-name">Standard</div>
+<div class="multiplier-sub">Turnkey Home</div>
+<div class="multiplier-num">×1.08</div>
+<div class="multiplier-desc">Turnkey residential specification with comfort upgrades and standard inclusions. No partner required for direct supply.</div>
+<div class="multiplier-note">20% of profits to WA community programs · No partner required</div>
+</div>
+<div class="multiplier-card">
+<div class="multiplier-label">Pathway 3</div>
+<div class="multiplier-name">JTC</div>
+<div class="multiplier-sub">Winifred Filamena</div>
+<div class="multiplier-num">×1.18</div>
+<div class="multiplier-desc">Premium ceremonial tier with elevated finishes and legacy-grade detailing. Funds partner tenancy, support, and pathway administration.</div>
+<div class="multiplier-note">20% of profits to WA community programs · Partner required</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:40px">
+<a class="btn btn-gold btn-lg" href="configure.html">Configure Your Home →</a>
+</div>
+</div>
+</section>
+<!-- WHY CLEAN -->
+<section aria-labelledby="why-clean-headline" class="why-clean">
+<div class="container">
+<div class="why-clean-grid">
+<div>
+<div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Why It Works</div>
+<h2 class="text-h2" id="why-clean-headline" style="color:var(--navy-deep);margin-bottom:16px">
+          Clean, Light, Scalable — By Design
+        </h2>
+<p class="text-lead text-soft" style="margin-bottom:16px">
+          The THWA model is designed to be clean, light, and scalable — not because it's convenient, but because it's the only way to serve more families without compromising the mission.
+        </p>
+<p class="text-body text-soft" style="margin-bottom:32px">
+          When a supplier tries to do everything — supply, tenancy, support, compliance, operations — they become a bureaucracy. Bureaucracies drift. They compromise. They lose sight of the people they exist to serve.
+        </p>
+<p class="text-body text-soft">
+          By staying clean, THWA can scale. By staying light, the founder can remain present for the people who matter most. By staying focused, the mission can outlive its founder.
+        </p>
+</div>
+<div class="clean-benefits">
+<div class="clean-benefit">
+<div class="clean-benefit-icon">🏛️</div>
+<div>
+<div class="clean-benefit-title">Government-Safe</div>
+<div class="clean-benefit-body">A clean supplier model is easier for government to engage with, fund, and scale. No operational complexity. No liability transfer.</div>
+</div>
+</div>
+<div class="clean-benefit">
+<div class="clean-benefit-icon">🤝</div>
+<div>
+<div class="clean-benefit-title">Partner-Friendly</div>
+<div class="clean-benefit-body">Partners get clean documentation, deployment-ready homes, and a model they can operate without THWA involvement in day-to-day delivery.</div>
+</div>
+</div>
+<div class="clean-benefit">
+<div class="clean-benefit-icon">📈</div>
+<div>
+<div class="clean-benefit-title">Infinitely Scalable</div>
+<div class="clean-benefit-body">A supply model can scale to meet demand. An operational model cannot. THWA is built to grow without growing its overhead.</div>
+</div>
+</div>
+<div class="clean-benefit">
+<div class="clean-benefit-icon">🛡️</div>
+<div>
+<div class="clean-benefit-title">Mission-Protected</div>
+<div class="clean-benefit-body">A clean model protects the mission from drift. When the role is clear, the values are easier to enforce — and the Cawley Code is easier to keep.</div>
+</div>
+</div>
+<div class="clean-benefit">
+<div class="clean-benefit-icon">🌱</div>
+<div>
+<div class="clean-benefit-title">Legacy-Ready</div>
+<div class="clean-benefit-body">A clean, documented, scalable model can be handed to a successor. The movement outlives the founder. The mission continues.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));padding:80px 0;text-align:center;border-top:2px solid var(--gold)">
+<div class="container">
+<h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.8rem,3vw,2.5rem);color:#fff;margin-bottom:16px">
+      Ready to Work With Us?
+    </h2>
+<p style="font-size:1.05rem;color:rgba(255,255,255,0.6);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">
+      Whether you're a family, a partner organisation, or a government body — we'd love to talk.
+    </p>
+<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+<a class="btn btn-gold btn-lg" href="partners.html">Partner With Us</a>
+<a class="btn btn-outline-white btn-lg" href="configure.html">Start Your Build</a>
+<a class="btn btn-outline-white btn-lg" href="contact.html">Get in Touch</a>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="thwa-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+<div class="nav-logo-mark">T</div>
+<div class="footer-brand-name">Tiny Homes WA</div>
+</div>
+<div class="footer-tagline">People Over Profits. Homes Over Greed. Hope Over Hardship.</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<span class="badge badge-gold">20% to Community</span>
+<span class="badge badge-white">WA Built</span>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Our Homes</div>
+<div class="footer-links">
+<a class="footer-link" href="homes.html">All Series</a>
+<a class="footer-link" href="configure.html">Design Studio</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">The Movement</div>
+<div class="footer-links">
+<a class="footer-link" href="why.html">Why We Exist</a>
+<a class="footer-link" href="story.html">Our Story</a>
+<a class="footer-link" href="model.html">Our Model</a>
+<a class="footer-link" href="partners.html">Partner With Us</a>
+<a class="footer-link" href="contact.html">Contact</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Contact</div>
+<div class="footer-links">
+<a class="footer-link" href="mailto:hello@tinyhomeswa.com.au">hello@tinyhomeswa.com.au</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="footer-copy">© 2026 Tiny Homes WA. All rights reserved.</div>
+<div class="footer-code">People Over Profits. Always.</div>
+</div>
+</div>
+</footer>
+<script>
+const toggle = document.getElementById('nav-toggle');
+const mobileNav = document.getElementById('nav-mobile');
+toggle.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+</script>
+</body>
+</html>

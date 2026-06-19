@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Why We Exist — Tiny Homes WA | Because WA Deserves Better</title>
+<meta content="Tiny Homes WA exists because every Western Australian deserves stability, dignity, and a fair chance at a future they can own. Learn why we exist and what drives us." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="thwa-system.css" rel="stylesheet"/>
+<style>
+.page-hero {
+  padding: 140px 0 80px;
+  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+.page-hero-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-size: 36px 36px; pointer-events: none;
+}
+
+/* WA Context */
+.wa-context {
+  padding: 96px 0;
+  background: var(--bg-white);
+}
+.wa-context-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.wa-problems {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+.wa-problem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: rgba(239,68,68,0.04);
+  border: 1px solid rgba(239,68,68,0.12);
+}
+.wa-problem-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.wa-problem-title { font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
+.wa-problem-body  { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
+
+.wa-response {
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border-radius: 24px;
+  padding: 36px;
+  color: #fff;
+  border: 1px solid rgba(255,199,44,0.2);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+}
+.wa-response h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 22px;
+  margin-bottom: 16px;
+}
+.wa-response-items { display: flex; flex-direction: column; gap: 12px; }
+.wa-response-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.wa-response-item-icon { font-size: 18px; flex-shrink: 0; }
+.wa-response-item-text { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+/* People first */
+.people-first {
+  padding: 96px 0;
+  background: var(--bg-light);
+}
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.people-card {
+  padding: 28px 24px;
+  border-radius: 18px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+.people-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: rgba(0,60,113,0.15); }
+.people-card-icon { font-size: 32px; margin-bottom: 14px; }
+.people-card-title { font-size: 16px; font-weight: 800; color: var(--navy-deep); margin-bottom: 8px; }
+.people-card-body  { font-size: 13px; color: var(--text-soft); line-height: 1.7; }
+
+/* Ripple effect */
+.ripple-section {
+  padding: 96px 0;
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  position: relative; overflow: hidden;
+}
+.ripple-section::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255,199,44,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.ripple-chain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 48px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ripple-item {
+  width: 100%;
+  padding: 20px 28px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  position: relative;
+}
+.ripple-item-num {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 11px;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.ripple-item-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.ripple-item-body  { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.ripple-arrow {
+  font-size: 24px;
+  color: var(--gold);
+  padding: 8px 0;
+  opacity: 0.6;
+}
+
+/* Ethical housing */
+.ethical-section {
+  padding: 96px 0;
+  background: var(--bg-white);
+}
+.ethical-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.ethical-commitments { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+.ethical-commitment {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.ethical-commitment:hover { border-color: rgba(0,60,113,0.2); }
+.ethical-commitment-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ethical-commitment-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 4px; }
+.ethical-commitment-body  { font-size: 12px; color: var(--text-soft); line-height: 1.6; }
+
+/* Legacy */
+.legacy-section {
+  padding: 96px 0;
+  background: var(--bg-light);
+  text-align: center;
+}
+.legacy-quote {
+  max-width: 700px;
+  margin: 0 auto 48px;
+  padding: 40px 48px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  border: 1px solid rgba(255,199,44,0.2);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+}
+.legacy-quote-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.legacy-quote-attr { font-size: 12px; color: rgba(255,255,255,0.45); }
+
+@media (max-width: 768px) {
+  .wa-context-grid, .ethical-grid { grid-template-columns: 1fr; gap: 40px; }
+  .people-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="thwa-nav scrolled" id="nav">
+<div class="nav-inner">
+<a class="nav-brand" href="index.html">
+<div class="nav-logo-mark">T</div>
+<div class="nav-logo-text">
+<div class="nav-logo-name">Tiny Homes WA</div>
+<div class="nav-logo-sub">People Over Profits</div>
+</div>
+</a>
+<div class="nav-links">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link" href="model.html">Our Model</a>
+<a class="nav-link active" href="why.html">Why We Exist</a>
+<a class="nav-link" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+</div>
+<div class="nav-cta">
+<a class="btn btn-outline-white btn-sm" href="configure.html">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html">Get in Touch</a>
+</div>
+<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" id="nav-toggle">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+<a class="nav-link" href="homes.html">Our Homes</a>
+<a class="nav-link" href="model.html">Our Model</a>
+<a class="nav-link active" href="why.html">Why We Exist</a>
+<a class="nav-link" href="story.html">Our Story</a>
+<a class="nav-link" href="partners.html">Partner With Us</a>
+<a class="btn btn-outline-white btn-sm" href="configure.html" style="margin-top:8px">Design Studio</a>
+<a class="btn btn-gold btn-sm" href="contact.html" style="margin-top:6px">Get in Touch</a>
+</div>
+<!-- PAGE HERO -->
+<section class="page-hero">
+<div aria-hidden="true" class="page-hero-pattern"></div>
+<div class="container" style="position:relative;z-index:2">
+<div class="section-eyebrow" style="margin-bottom:20px">Why We Exist</div>
+<h1 class="text-hero" style="color:#fff;margin-bottom:16px;max-width:700px">
+      Because Every Western Australian Deserves Stability, Dignity, and a Fair Chance.
+    </h1>
+<p class="text-lead" style="color:rgba(255,255,255,0.65);max-width:600px;margin-bottom:32px">
+      Tiny Homes WA exists because the current housing system leaves too many families behind. We exist to change that — not with promises, but with practical, ethical, scalable solutions.
+    </p>
+<a class="btn btn-gold btn-lg" href="story.html">Read Our Story</a>
+</div>
+</section>
+<!-- WA CONTEXT -->
+<section aria-labelledby="wa-context-headline" class="wa-context">
+<div class="container">
+<div class="wa-context-grid">
+<div>
+<div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">The WA Reality</div>
+<h2 class="text-h2" id="wa-context-headline" style="color:var(--navy-deep);margin-bottom:16px">
+          The System Is Leaving Families Behind
+        </h2>
+<p class="text-lead text-soft" style="margin-bottom:24px">
+          For years, Western Australians have faced a reality where stability is out of reach, ownership is impossible, and housing has been treated as a commodity instead of a foundation for life.
+        </p>
+<div class="wa-problems">
+<div class="wa-problem">
+<div class="wa-problem-icon">🏚️</div>
+<div>
+<div class="wa-problem-title">Crisis accommodation is overflowing</div>
+<div class="wa-problem-body">Demand for emergency housing far exceeds supply. Families in crisis have nowhere to go.</div>
+</div>
+</div>
+<div class="wa-problem">
+<div class="wa-problem-icon">💸</div>
+<div>
+<div class="wa-problem-title">Rentals are unaffordable</div>
+<div class="wa-problem-body">WA rental prices have surged. Families who work hard still can't access stable, affordable housing.</div>
+</div>
+</div>
+<div class="wa-problem">
+<div class="wa-problem-icon">🐌</div>
+<div>
+<div class="wa-problem-title">Traditional builds are too slow and expensive</div>
+<div class="wa-problem-body">Conventional construction cannot meet the pace or scale of WA's housing demand.</div>
+</div>
+</div>
+<div class="wa-problem">
+<div class="wa-problem-icon">🌾</div>
+<div>
+<div class="wa-problem-title">Regional towns can't house essential workers</div>
+<div class="wa-problem-body">Nurses, teachers, and tradespeople can't find housing in the communities they serve.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="wa-response">
+<h3>We Exist to Change That</h3>
+<p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:24px">
+          Not with promises. Not with programs. With practical, ethical, scalable solutions that strengthen the system rather than adding to it.
+        </p>
+<div class="wa-response-items">
+<div class="wa-response-item">
+<div class="wa-response-item-icon">🏠</div>
+<div class="wa-response-item-text">Modular homes that deploy faster and cost less than traditional builds</div>
+</div>
+<div class="wa-response-item">
+<div class="wa-response-item-icon">💰</div>
+<div class="wa-response-item-text">Transparent, ethical pricing with no hidden fees and no inflated margins</div>
+</div>
+<div class="wa-response-item">
+<div class="wa-response-item-icon">🤝</div>
+<div class="wa-response-item-text">A partner-delivered model that scales without adding government burden</div>
+</div>
+<div class="wa-response-item">
+<div class="wa-response-item-icon">🌱</div>
+<div class="wa-response-item-text">A pathway from stability to ownership — not dependency, but custodianship</div>
+</div>
+<div class="wa-response-item">
+<div class="wa-response-item-icon">💛</div>
+<div class="wa-response-item-text">20% of profits permanently reinvested into WA community impact initiatives</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PEOPLE FIRST -->
+<section aria-labelledby="people-first-headline" class="people-first">
+<div class="container">
+<div class="section-header">
+<div class="section-eyebrow section-eyebrow-navy">We Exist to Put People First</div>
+<h2 class="text-h2" id="people-first-headline" style="color:var(--navy-deep)">Housing Should Strengthen People, Not Exploit Them</h2>
+<p class="text-lead text-soft" style="max-width:580px;margin:12px auto 0">
+        That's why we operate on a people-over-profits model, with ethical margins, transparent pricing, and 20% of all profits permanently allocated to WA community impact initiatives.
+      </p>
+</div>
+<div class="people-grid">
+<div class="people-card">
+<div class="people-card-icon">👨‍👩‍👧</div>
+<div class="people-card-title">Family Stability</div>
+<div class="people-card-body">A stable home is the foundation of everything — child wellbeing, employment, mental health, and community participation. We exist to make that foundation accessible.</div>
+</div>
+<div class="people-card">
+<div class="people-card-icon">🏛️</div>
+<div class="people-card-title">Strengthen the System</div>
+<div class="people-card-body">Western Australia doesn't need more programs or more departments. It needs clean, scalable supply and partner-delivered pathways. That's what we provide.</div>
+</div>
+<div class="people-card">
+<div class="people-card-icon">🌿</div>
+<div class="people-card-title">Ethical by Design</div>
+<div class="people-card-body">People Over Profits isn't a slogan. It's a structural commitment built into the DNA of Tiny Homes WA — transparent pricing, ethical margins, and 20% community reinvestment.</div>
+</div>
+<div class="people-card">
+<div class="people-card-icon">🔑</div>
+<div class="people-card-title">Ownership as the Goal</div>
+<div class="people-card-body">Stability is the beginning, not the end. The CRF/JTC mechanism exists to help families move from stability to contribution to ownership — without exploitation.</div>
+</div>
+<div class="people-card">
+<div class="people-card-icon">🌏</div>
+<div class="people-card-title">WA Identity</div>
+<div class="people-card-body">Our homes, our partners, our impact, and our identity are all rooted in Western Australia. We build here because WA deserves solutions built for its people.</div>
+</div>
+<div class="people-card">
+<div class="people-card-icon">🕊️</div>
+<div class="people-card-title">Legacy Over Ego</div>
+<div class="people-card-body">This movement is built for impact, for families, for WA, and for the next generation. Every decision must outlive the founder. The mission must outlive the movement.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIPPLE EFFECT -->
+<section aria-labelledby="ripple-headline" class="ripple-section">
+<div class="container" style="position:relative;z-index:2">
+<div class="section-header">
+<div class="section-eyebrow">The Ripple Effect</div>
+<h2 class="text-h2" id="ripple-headline" style="color:#fff">A Single Home Can Change Everything</h2>
+<p class="text-lead" style="color:rgba(255,255,255,0.6);max-width:560px;margin:12px auto 0">
+        When housing is ethical, the ripple effect of good becomes measurable. Every home we build sends a wave of positive change through Western Australia.
+      </p>
+</div>
+<div class="ripple-chain">
+<div class="ripple-item">
+<div class="ripple-item-num">Step 1</div>
+<div class="ripple-item-title">A Family Gets a Home</div>
+<div class="ripple-item-body">Stability, dignity, and safety — the foundation of everything that follows.</div>
+</div>
+<div class="ripple-arrow">↓</div>
+<div class="ripple-item">
+<div class="ripple-item-num">Step 2</div>
+<div class="ripple-item-title">The Family Stabilises</div>
+<div class="ripple-item-body">Children attend school. Parents find work. Mental health improves. The family begins to contribute.</div>
+</div>
+<div class="ripple-arrow">↓</div>
+<div class="ripple-item">
+<div class="ripple-item-num">Step 3</div>
+<div class="ripple-item-title">The Community Strengthens</div>
+<div class="ripple-item-body">Stable families create safer, more cohesive communities. Local economies grow. Social capital increases.</div>
+</div>
+<div class="ripple-arrow">↓</div>
+<div class="ripple-item">
+<div class="ripple-item-num">Step 4</div>
+<div class="ripple-item-title">Government Pressure Eases</div>
+<div class="ripple-item-body">Fewer crisis accommodation demands. Reduced welfare dependency. Lower long-term government costs.</div>
+</div>
+<div class="ripple-arrow">↓</div>
+<div class="ripple-item" style="background:rgba(255,199,44,0.1);border-color:rgba(255,199,44,0.25)">
+<div class="ripple-item-num" style="color:var(--gold)">Result</div>
+<div class="ripple-item-title" style="color:var(--gold)">Western Australia Strengthens</div>
+<div class="ripple-item-body">More homeowners. More taxpayers. More stability. More dignity. A stronger WA — built one home at a time.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ETHICAL HOUSING -->
+<section aria-labelledby="ethical-headline" class="ethical-section">
+<div class="container">
+<div class="ethical-grid">
+<div>
+<div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Ethical by Design</div>
+<h2 class="text-h2" id="ethical-headline" style="color:var(--navy-deep);margin-bottom:16px">
+          What People Over Profits Looks Like in Practice
+        </h2>
+<p class="text-lead text-soft" style="margin-bottom:16px">
+          People Over Profits isn't a slogan. It's a structural commitment built into the DNA of Tiny Homes WA.
+        </p>
+<p class="text-body text-soft" style="margin-bottom:32px">
+          We believe that when housing is ethical, everyone wins — families, partners, communities, and the state. Ethical margins don't weaken a business. They strengthen a nation.
+        </p>
+<a class="btn btn-navy" href="story.html">Read Our Story</a>
+</div>
+<div class="ethical-commitments">
+<div class="ethical-commitment">
+<div class="ethical-commitment-num">1</div>
+<div>
+<div class="ethical-commitment-title">Ethical Pricing</div>
+<div class="ethical-commitment-body">We price our homes with integrity — no hidden margins, no inflated costs, no exploitation of housing stress. What you see is what you pay.</div>
+</div>
+</div>
+<div class="ethical-commitment">
+<div class="ethical-commitment-num">2</div>
+<div>
+<div class="ethical-commitment-title">Clean, Scalable Role</div>
+<div class="ethical-commitment-body">We supply the homes, the pricing, the documentation, and the CRF/JTC model. We do not run villages, manage tenants, or hold operational risk.</div>
+</div>
+</div>
+<div class="ethical-commitment">
+<div class="ethical-commitment-num">3</div>
+<div>
+<div class="ethical-commitment-title">A Pathway to Ownership</div>
+<div class="ethical-commitment-body">The CRF/JTC mechanism is a financial pathway, not a program. It helps families move from stability to ownership without exploitation or debt traps.</div>
+</div>
+</div>
+<div class="ethical-commitment">
+<div class="ethical-commitment-num">4</div>
+<div>
+<div class="ethical-commitment-title">Community Reinvestment</div>
+<div class="ethical-commitment-body">20% of all profits go directly into WA community impact initiatives — permanently. This is how we ensure the movement gives back more than it takes.</div>
+</div>
+</div>
+<div class="ethical-commitment">
+<div class="ethical-commitment-num">5</div>
+<div>
+<div class="ethical-commitment-title">Transparency Always</div>
+<div class="ethical-commitment-body">No hidden fees. No inflated markups. No opportunistic pricing based on demand. Honest pricing, honest operations, honest communication. Always.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- LEGACY -->
+<section aria-labelledby="legacy-headline" class="legacy-section">
+<div class="container">
+<div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:32px;display:inline-flex">The Legacy</div>
+<h2 class="text-h2" id="legacy-headline" style="color:var(--navy-deep);margin-bottom:40px">Built for the Next Generation</h2>
+<div class="legacy-quote">
+<div class="legacy-quote-text">
+        "A parent should never lose their child to work, and a child should never lose their parent to work."
+      </div>
+<div class="legacy-quote-attr">— Jason Thomas Cawley, Founder, Tiny Homes WA</div>
+</div>
+<p class="text-lead text-soft" style="max-width:600px;margin:0 auto 32px">
+      This movement is built with legacy in mind — for WA, for families, and for the next generation. Every decision must outlive the founder. Every system must be custodian-ready.
+    </p>
+<div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+<a class="btn btn-navy btn-lg" href="story.html">Read Our Story</a>
+<a class="btn btn-gold btn-lg" href="configure.html">Start Your Build</a>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="thwa-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+<div class="nav-logo-mark">T</div>
+<div class="footer-brand-name">Tiny Homes WA</div>
+</div>
+<div class="footer-tagline">People Over Profits. Homes Over Greed. Hope Over Hardship.</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap">
+<span class="badge badge-gold">20% to Community</span>
+<span class="badge badge-white">WA Built</span>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Our Homes</div>
+<div class="footer-links">
+<a class="footer-link" href="homes.html">All Series</a>
+<a class="footer-link" href="configure.html">Design Studio</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">The Movement</div>
+<div class="footer-links">
+<a class="footer-link" href="why.html">Why We Exist</a>
+<a class="footer-link" href="story.html">Our Story</a>
+<a class="footer-link" href="model.html">Our Model</a>
+<a class="footer-link" href="partners.html">Partner With Us</a>
+<a class="footer-link" href="contact.html">Contact</a>
+</div>
+</div>
+<div>
+<div class="footer-col-title">Contact</div>
+<div class="footer-links">
+<a class="footer-link" href="mailto:hello@tinyhomeswa.com.au">hello@tinyhomeswa.com.au</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="footer-copy">© 2026 Tiny Homes WA. All rights reserved.</div>
+<div class="footer-code">People Over Profits. Always.</div>
+</div>
+</div>
+</footer>
+<script>
+const toggle = document.getElementById('nav-toggle');
+const mobileNav = document.getElementById('nav-mobile');
+toggle.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+</script>
+</body>
+</html>
