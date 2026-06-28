@@ -13,24 +13,24 @@
 <style>
 .page-hero {
   padding: 140px 0 80px;
-  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  background: linear-gradient(135deg, #1E2746 0%, #2F3A5F 50%, #1E2746 100%);
   position: relative; overflow: hidden;
 }
 .page-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  background: radial-gradient(ellipse at 30% 60%, rgba(245,220,117,0.06) 0%, transparent 55%);
   pointer-events: none;
 }
 .page-hero-pattern {
   position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(245,220,117,0.03) 1px, transparent 1px);
   background-size: 36px 36px; pointer-events: none;
 }
 
 /* WA Context */
 .wa-context {
   padding: 96px 0;
-  background: var(--bg-white);
+  background: #FFFFFF;
 }
 .wa-context-grid {
   display: grid;
@@ -50,7 +50,7 @@
   gap: 14px;
   padding: 16px 18px;
   border-radius: 12px;
-  background: rgba(239,68,68,0.04);
+  background: rgba(220,38,38,0.04);
   border: 1px solid rgba(239,68,68,0.12);
 }
 .wa-problem-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
@@ -58,11 +58,11 @@
 .wa-problem-body  { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
 
 .wa-response {
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
   border-radius: 24px;
   padding: 36px;
   color: #fff;
-  border: 1px solid rgba(255,199,44,0.2);
+  border: 1px solid rgba(245,220,117,0.2);
   box-shadow: 0 24px 60px rgba(0,0,0,0.2);
 }
 .wa-response h3 {
@@ -86,7 +86,7 @@
 /* People first */
 .people-first {
   padding: 96px 0;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
 }
 .people-grid {
   display: grid;
@@ -97,25 +97,25 @@
 .people-card {
   padding: 28px 24px;
   border-radius: 18px;
-  background: var(--bg-white);
+  background: #FFFFFF;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   transition: all 0.2s;
 }
-.people-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: rgba(0,60,113,0.15); }
+.people-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: rgba(47,58,95,0.15); }
 .people-card-icon { font-size: 32px; margin-bottom: 14px; }
-.people-card-title { font-size: 16px; font-weight: 800; color: var(--navy-deep); margin-bottom: 8px; }
+.people-card-title { font-size: 16px; font-weight: 800; color: var(--cathedral-deep); margin-bottom: 8px; }
 .people-card-body  { font-size: 13px; color: var(--text-soft); line-height: 1.7; }
 
 /* Ripple effect */
 .ripple-section {
   padding: 96px 0;
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
   position: relative; overflow: hidden;
 }
 .ripple-section::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 50%, rgba(255,199,44,0.05) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(245,220,117,0.05) 0%, transparent 60%);
   pointer-events: none;
 }
 .ripple-chain {
@@ -141,7 +141,7 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   font-size: 11px;
-  color: var(--gold);
+  color: var(--dignity);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 6px;
@@ -150,7 +150,7 @@
 .ripple-item-body  { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
 .ripple-arrow {
   font-size: 24px;
-  color: var(--gold);
+  color: var(--dignity);
   padding: 8px 0;
   opacity: 0.6;
 }
@@ -158,7 +158,7 @@
 /* Ethical housing */
 .ethical-section {
   padding: 96px 0;
-  background: var(--bg-white);
+  background: #FFFFFF;
 }
 .ethical-grid {
   display: grid;
@@ -173,28 +173,28 @@
   align-items: flex-start;
   padding: 18px 20px;
   border-radius: 12px;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
   border: 1px solid var(--border);
   transition: all 0.2s;
 }
-.ethical-commitment:hover { border-color: rgba(0,60,113,0.2); }
+.ethical-commitment:hover { border-color: rgba(47,58,95,0.2); }
 .ethical-commitment-num {
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: var(--navy);
-  color: var(--gold);
+  background: var(--cathedral);
+  color: var(--dignity);
   font-family: 'Montserrat', sans-serif;
   font-weight: 900; font-size: 13px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.ethical-commitment-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 4px; }
+.ethical-commitment-title { font-size: 14px; font-weight: 700; color: var(--cathedral-deep); margin-bottom: 4px; }
 .ethical-commitment-body  { font-size: 12px; color: var(--text-soft); line-height: 1.6; }
 
 /* Legacy */
 .legacy-section {
   padding: 96px 0;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
   text-align: center;
 }
 .legacy-quote {
@@ -202,8 +202,8 @@
   margin: 0 auto 48px;
   padding: 40px 48px;
   border-radius: 24px;
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
-  border: 1px solid rgba(255,199,44,0.2);
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
+  border: 1px solid rgba(245,220,117,0.2);
   box-shadow: 0 24px 60px rgba(0,0,0,0.15);
 }
 .legacy-quote-text {
@@ -278,7 +278,7 @@
 <div class="wa-context-grid">
 <div>
 <div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">The WA Reality</div>
-<h2 class="text-h2" id="wa-context-headline" style="color:var(--navy-deep);margin-bottom:16px">
+<h2 class="text-h2" id="wa-context-headline" style="color:var(--cathedral-deep);margin-bottom:16px">
           The System Is Leaving Families Behind
         </h2>
 <p class="text-lead text-soft" style="margin-bottom:24px">
@@ -351,7 +351,7 @@
 <div class="container">
 <div class="section-header">
 <div class="section-eyebrow section-eyebrow-navy">We Exist to Put People First</div>
-<h2 class="text-h2" id="people-first-headline" style="color:var(--navy-deep)">Housing Should Strengthen People, Not Exploit Them</h2>
+<h2 class="text-h2" id="people-first-headline" style="color:var(--cathedral-deep)">Housing Should Strengthen People, Not Exploit Them</h2>
 <p class="text-lead text-soft" style="max-width:580px;margin:12px auto 0">
         That's why we operate on a people-over-profits model, with ethical margins, transparent pricing, and 20% of all profits permanently allocated to WA community impact initiatives.
       </p>
@@ -425,9 +425,9 @@
 <div class="ripple-item-body">Fewer crisis accommodation demands. Reduced welfare dependency. Lower long-term government costs.</div>
 </div>
 <div class="ripple-arrow">↓</div>
-<div class="ripple-item" style="background:rgba(255,199,44,0.1);border-color:rgba(255,199,44,0.25)">
-<div class="ripple-item-num" style="color:var(--gold)">Result</div>
-<div class="ripple-item-title" style="color:var(--gold)">Western Australia Strengthens</div>
+<div class="ripple-item" style="background:rgba(245,220,117,0.1);border-color:rgba(245,220,117,0.25)">
+<div class="ripple-item-num" style="color:var(--dignity)">Result</div>
+<div class="ripple-item-title" style="color:var(--dignity)">Western Australia Strengthens</div>
 <div class="ripple-item-body">More homeowners. More taxpayers. More stability. More dignity. A stronger WA — built one home at a time.</div>
 </div>
 </div>
@@ -439,7 +439,7 @@
 <div class="ethical-grid">
 <div>
 <div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Ethical by Design</div>
-<h2 class="text-h2" id="ethical-headline" style="color:var(--navy-deep);margin-bottom:16px">
+<h2 class="text-h2" id="ethical-headline" style="color:var(--cathedral-deep);margin-bottom:16px">
           What People Over Profits Looks Like in Practice
         </h2>
 <p class="text-lead text-soft" style="margin-bottom:16px">
@@ -494,7 +494,7 @@
 <section aria-labelledby="legacy-headline" class="legacy-section">
 <div class="container">
 <div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:32px;display:inline-flex">The Legacy</div>
-<h2 class="text-h2" id="legacy-headline" style="color:var(--navy-deep);margin-bottom:40px">Built for the Next Generation</h2>
+<h2 class="text-h2" id="legacy-headline" style="color:var(--cathedral-deep);margin-bottom:40px">Built for the Next Generation</h2>
 <div class="legacy-quote">
 <div class="legacy-quote-text">
         "A parent should never lose their child to work, and a child should never lose their parent to work."

@@ -13,24 +13,24 @@
 <style>
 .page-hero {
   padding: 140px 0 80px;
-  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  background: linear-gradient(135deg, #1E2746 0%, #2F3A5F 50%, #1E2746 100%);
   position: relative; overflow: hidden;
 }
 .page-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  background: radial-gradient(ellipse at 30% 60%, rgba(245,220,117,0.06) 0%, transparent 55%);
   pointer-events: none;
 }
 .page-hero-pattern {
   position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(245,220,117,0.03) 1px, transparent 1px);
   background-size: 36px 36px; pointer-events: none;
 }
 
 /* Contact layout */
 .contact-section {
   padding: 96px 0;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
 }
 .contact-grid {
   display: grid;
@@ -50,19 +50,19 @@
   padding: 8px 16px;
   border-radius: 999px;
   border: 1.5px solid var(--border);
-  background: var(--bg-white);
+  background: #FFFFFF;
   color: var(--text-soft);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
-.enquiry-tab:hover { border-color: rgba(0,60,113,0.3); color: var(--navy); }
-.enquiry-tab.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+.enquiry-tab:hover { border-color: rgba(47,58,95,0.3); color: var(--cathedral); }
+.enquiry-tab.active { background: var(--cathedral); border-color: var(--cathedral); color: #fff; }
 
 /* Contact form */
 .contact-form-card {
-  background: var(--bg-white);
+  background: #FFFFFF;
   border-radius: 20px;
   padding: 36px;
   border: 1px solid var(--border);
@@ -75,24 +75,24 @@
 .contact-info-card {
   padding: 20px 24px;
   border-radius: 14px;
-  background: var(--bg-white);
+  background: #FFFFFF;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   transition: all 0.2s;
 }
-.contact-info-card:hover { border-color: rgba(0,60,113,0.2); }
+.contact-info-card:hover { border-color: rgba(47,58,95,0.2); }
 .contact-info-icon { font-size: 24px; margin-bottom: 10px; }
-.contact-info-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 4px; }
+.contact-info-title { font-size: 14px; font-weight: 700; color: var(--cathedral-deep); margin-bottom: 4px; }
 .contact-info-body  { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
-.contact-info-link  { font-size: 13px; color: var(--navy); font-weight: 600; text-decoration: none; display: block; margin-top: 6px; }
-.contact-info-link:hover { color: var(--gold); }
+.contact-info-link  { font-size: 13px; color: var(--cathedral); font-weight: 600; text-decoration: none; display: block; margin-top: 6px; }
+.contact-info-link:hover { color: var(--dignity); }
 
 /* WA statement */
 .wa-statement {
   padding: 20px 24px;
   border-radius: 14px;
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
-  border: 1px solid rgba(255,199,44,0.2);
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
+  border: 1px solid rgba(245,220,117,0.2);
   color: #fff;
 }
 .wa-statement-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; margin-bottom: 8px; }
@@ -101,7 +101,7 @@
 /* FAQ */
 .faq-section {
   padding: 96px 0;
-  background: var(--bg-white);
+  background: #FFFFFF;
 }
 .faq-grid {
   display: grid;
@@ -112,12 +112,12 @@
 .faq-item {
   padding: 20px 24px;
   border-radius: 14px;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
   border: 1px solid var(--border);
   transition: all 0.2s;
 }
-.faq-item:hover { border-color: rgba(0,60,113,0.2); }
-.faq-q { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 8px; }
+.faq-item:hover { border-color: rgba(47,58,95,0.2); }
+.faq-q { font-size: 14px; font-weight: 700; color: var(--cathedral-deep); margin-bottom: 8px; }
 .faq-a { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
 
 @media (max-width: 768px) {
@@ -183,7 +183,7 @@
 <!-- Left — info -->
 <div class="contact-info">
 <div>
-<h2 class="text-h3" id="contact-headline" style="color:var(--navy-deep);margin-bottom:8px">Contact Information</h2>
+<h2 class="text-h3" id="contact-headline" style="color:var(--cathedral-deep);margin-bottom:8px">Contact Information</h2>
 <p class="text-body text-soft">We respond to all enquiries within 2 business days. For urgent matters, please indicate this in your message.</p>
 </div>
 <div class="contact-info-card">
@@ -219,7 +219,7 @@
 </div>
 <!-- Right — form -->
 <div class="contact-form-card">
-<h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:var(--navy-deep);margin-bottom:8px">Send Us a Message</h3>
+<h3 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:var(--cathedral-deep);margin-bottom:8px">Send Us a Message</h3>
 <p style="font-size:13px;color:var(--text-soft);margin-bottom:20px">No pressure. No sales scripts. Just a genuine conversation.</p>
 <!-- Enquiry type tabs -->
 <div aria-label="Enquiry type" class="enquiry-tabs" role="tablist">
@@ -285,7 +285,7 @@
 <div class="container">
 <div class="section-header">
 <div class="section-eyebrow section-eyebrow-navy">Common Questions</div>
-<h2 class="text-h2" id="faq-headline" style="color:var(--navy-deep)">Questions You Might Have</h2>
+<h2 class="text-h2" id="faq-headline" style="color:var(--cathedral-deep)">Questions You Might Have</h2>
 </div>
 <div class="faq-grid">
 <div class="faq-item">
@@ -432,10 +432,10 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
 
   setTimeout(() => {
     btn.textContent = 'Message Sent ✓';
-    btn.style.background = 'var(--green)';
-    btn.style.borderColor = 'var(--green)';
+    btn.style.background = 'var(--accordance)';
+    btn.style.borderColor = 'var(--accordance)';
     status.textContent = 'Thank you. We\'ll be in touch within 2 business days.';
-    status.style.color = 'var(--green-dark)';
+    status.style.color = 'var(--accordance-deep)';
   }, 800);
 });
 </script>

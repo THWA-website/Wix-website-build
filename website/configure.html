@@ -15,8 +15,8 @@
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #0b0e14;
-  color: #f1f5f9;
+  background: #101828;
+  color: #F5DC75;
   overflow: hidden;
   height: 100vh;
 }
@@ -25,8 +25,8 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 56px;
-  background: rgba(0,31,63,0.97);
-  border-bottom: 2px solid #FFC72C;
+  background: rgba(30,39,70,0.97);
+  border-bottom: 2px solid #F5DC75;
   backdrop-filter: blur(20px);
   z-index: 100;
   display: flex;
@@ -45,11 +45,11 @@ body {
 .config-nav-logo {
   width: 30px; height: 30px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #FFD966, #FFC72C, #c27a2f);
+  background: linear-gradient(135deg, #FFD700, #F5DC75, #C9A600);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 900; font-size: 14px;
-  color: #001F3F;
+  color: #1E2746;
 }
 
 .config-nav-name {
@@ -69,8 +69,8 @@ body {
 .config-nav-title-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+  background: #8BC34A;
+  box-shadow: 0 0 0 3px rgba(139,195,74,0.2);
 }
 
 .config-nav-actions {
@@ -91,9 +91,9 @@ body {
   text-decoration: none;
 }
 .btn-gold {
-  background: linear-gradient(135deg, #FFD966, #FFC72C, #e6a800);
-  border-color: rgba(255,199,44,0.5);
-  color: #001F3F;
+  background: linear-gradient(135deg, #FFD700, #F5DC75, #C9A600);
+  border-color: rgba(245,220,117,0.5);
+  color: #1E2746;
 }
 .btn-gold:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .btn-ghost {
@@ -107,7 +107,7 @@ body {
 .configurator-frame-wrap {
   position: fixed;
   top: 56px; left: 0; right: 0; bottom: 0;
-  background: #0b0e14;
+  background: #101828;
 }
 
 .configurator-iframe {
@@ -124,7 +124,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #0b0e14;
+  background: #101828;
   gap: 20px;
   z-index: 10;
   transition: opacity 0.4s;
@@ -134,17 +134,17 @@ body {
 .config-loading-logo {
   width: 56px; height: 56px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #FFD966, #FFC72C, #c27a2f);
+  background: linear-gradient(135deg, #FFD700, #F5DC75, #C9A600);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Montserrat', sans-serif;
   font-weight: 900; font-size: 26px;
-  color: #001F3F;
-  box-shadow: 0 8px 24px rgba(255,199,44,0.3);
+  color: #1E2746;
+  box-shadow: 0 8px 24px rgba(245,220,117,0.3);
   animation: pulse-logo 2s ease-in-out infinite;
 }
 @keyframes pulse-logo {
-  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(255,199,44,0.3); }
-  50%       { transform: scale(1.05); box-shadow: 0 12px 32px rgba(255,199,44,0.5); }
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(245,220,117,0.3); }
+  50%       { transform: scale(1.05); box-shadow: 0 12px 32px rgba(245,220,117,0.5); }
 }
 
 .config-loading-title {
@@ -162,7 +162,7 @@ body {
 }
 .config-loading-bar {
   height: 100%;
-  background: linear-gradient(90deg, #003C71, #FFC72C);
+  background: linear-gradient(90deg, #2F3A5F, #F5DC75);
   border-radius: 2px;
   animation: loading-progress 2s ease-in-out infinite;
 }
@@ -179,9 +179,9 @@ body {
   transform: translateX(-50%) translateY(80px);
   padding: 10px 20px;
   border-radius: 999px;
-  background: rgba(0,31,63,0.96);
-  border: 1px solid rgba(255,199,44,0.3);
-  color: #f1f5f9;
+  background: rgba(30,39,70,0.96);
+  border: 1px solid rgba(245,220,117,0.3);
+  color: #F5DC75;
   font-size: 12px;
   z-index: 200;
   transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
@@ -190,13 +190,13 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 #toast.show { transform: translateX(-50%) translateY(0); }
-#toast.success { border-color: rgba(34,197,94,0.4); color: #22c55e; }
+#toast.success { border-color: rgba(139,195,74,0.4); color: #8BC34A; }
 
 .mobile-fallback {
   display: none;
   position: fixed;
   inset: 56px 0 0;
-  background: #0b0e14;
+  background: #101828;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -220,7 +220,7 @@ body {
 <!-- SLIM NAV -->
 <nav aria-label="Design Studio navigation" class="config-nav">
 <a aria-label="Tiny Homes WA home" class="config-nav-brand" href="index.html">
-<div class="config-nav-logo">T</div>
+<img src="../assets/logos/thwa-logo.png" alt="Tiny Homes WA" style="height:28px;width:auto;filter:brightness(0) invert(1)" onerror="this.style.display='none'"/>
 <div class="config-nav-name">Tiny Homes WA</div>
 </a>
 <div class="config-nav-title">
@@ -236,7 +236,7 @@ body {
 <div class="configurator-frame-wrap">
 <!-- Loading state -->
 <div class="config-loading" id="config-loading">
-<div class="config-loading-logo">T</div>
+<img src="../assets/logos/thwa-logo.png" alt="Tiny Homes WA" style="height:56px;width:auto;filter:brightness(0) invert(1)" onerror="this.style.display='none'"/>
 <div class="config-loading-title">Design Studio</div>
 <div class="config-loading-sub">Loading your 3D configurator…</div>
 <div class="config-loading-bar-wrap">

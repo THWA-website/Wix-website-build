@@ -13,24 +13,24 @@
 <style>
 .page-hero {
   padding: 140px 0 80px;
-  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  background: linear-gradient(135deg, #1E2746 0%, #2F3A5F 50%, #1E2746 100%);
   position: relative; overflow: hidden;
 }
 .page-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  background: radial-gradient(ellipse at 30% 60%, rgba(245,220,117,0.06) 0%, transparent 55%);
   pointer-events: none;
 }
 .page-hero-pattern {
   position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(245,220,117,0.03) 1px, transparent 1px);
   background-size: 36px 36px; pointer-events: none;
 }
 
 /* Model overview */
 .model-overview {
   padding: 96px 0;
-  background: var(--bg-white);
+  background: #FFFFFF;
 }
 .model-overview-grid {
   display: grid;
@@ -47,27 +47,27 @@
 .do-card {
   padding: 20px;
   border-radius: 14px;
-  background: var(--green-soft);
-  border: 1px solid rgba(34,197,94,0.2);
+  background: rgba(139,195,74,0.12);
+  border: 1px solid rgba(139,195,74,0.2);
 }
 .dont-card {
   padding: 20px;
   border-radius: 14px;
-  background: rgba(239,68,68,0.05);
+  background: rgba(220,38,38,0.05);
   border: 1px solid rgba(239,68,68,0.15);
 }
-.do-card-title { font-size: 12px; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.do-card-title { font-size: 12px; font-weight: 700; color: var(--accordance-deep); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
 .dont-card-title { font-size: 12px; font-weight: 700; color: #dc2626; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
 .do-list, .dont-list { display: flex; flex-direction: column; gap: 6px; }
 .do-item { font-size: 12px; color: var(--text-body); display: flex; align-items: flex-start; gap: 7px; line-height: 1.4; }
-.do-item::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.do-item::before { content: '✓'; color: var(--accordance); font-weight: 700; flex-shrink: 0; }
 .dont-item { font-size: 12px; color: var(--text-body); display: flex; align-items: flex-start; gap: 7px; line-height: 1.4; }
 .dont-item::before { content: '✗'; color: #dc2626; font-weight: 700; flex-shrink: 0; }
 
 /* Three parts */
 .three-parts {
   padding: 96px 0;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
 }
 .parts-grid {
   display: grid;
@@ -79,7 +79,7 @@
   padding: 32px 28px;
   border-radius: 20px;
   border: 1px solid var(--border);
-  background: var(--bg-white);
+  background: #FFFFFF;
   box-shadow: var(--shadow-sm);
   transition: all 0.2s;
 }
@@ -88,26 +88,26 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   font-size: 48px;
-  color: rgba(0,60,113,0.08);
+  color: rgba(47,58,95,0.08);
   line-height: 1;
   margin-bottom: 12px;
 }
-.part-title { font-size: 18px; font-weight: 800; color: var(--navy-deep); margin-bottom: 6px; }
-.part-sub { font-size: 12px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+.part-title { font-size: 18px; font-weight: 800; color: var(--cathedral-deep); margin-bottom: 6px; }
+.part-sub { font-size: 12px; color: var(--dignity); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
 .part-body { font-size: 13px; color: var(--text-soft); line-height: 1.7; margin-bottom: 16px; }
 .part-list { display: flex; flex-direction: column; gap: 6px; }
 .part-list-item { font-size: 12px; color: var(--text-body); display: flex; align-items: flex-start; gap: 7px; }
-.part-list-item::before { content: '→'; color: var(--navy); font-weight: 700; flex-shrink: 0; }
+.part-list-item::before { content: '→'; color: var(--cathedral); font-weight: 700; flex-shrink: 0; }
 
 /* CRV/JTC pathway */
 .pathway-section {
   padding: 96px 0;
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
   position: relative; overflow: hidden;
 }
 .pathway-section::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 100%, rgba(255,199,44,0.06) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 100%, rgba(245,220,117,0.06) 0%, transparent 60%);
   pointer-events: none;
 }
 .pathway-steps {
@@ -122,7 +122,7 @@
   position: absolute;
   left: 28px; top: 44px; bottom: 44px;
   width: 2px;
-  background: linear-gradient(to bottom, var(--gold), rgba(255,199,44,0.2));
+  background: linear-gradient(to bottom, var(--dignity), rgba(245,220,117,0.2));
 }
 .pathway-step {
   display: flex;
@@ -134,13 +134,13 @@
 .pathway-step-num {
   width: 56px; height: 56px;
   border-radius: 50%;
-  background: var(--gold);
-  color: var(--navy-deep);
+  background: var(--dignity);
+  color: var(--cathedral-deep);
   font-family: 'Montserrat', sans-serif;
   font-weight: 900; font-size: 20px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(255,199,44,0.3);
+  box-shadow: 0 4px 16px rgba(245,220,117,0.3);
   position: relative; z-index: 2;
 }
 .pathway-step-content { padding-top: 8px; }
@@ -150,7 +150,7 @@
 /* Pathway multipliers */
 .multipliers-section {
   padding: 96px 0;
-  background: var(--bg-white);
+  background: #FFFFFF;
 }
 .multipliers-grid {
   display: grid;
@@ -162,25 +162,25 @@
   padding: 32px 28px;
   border-radius: 20px;
   border: 2px solid var(--border);
-  background: var(--bg-white);
+  background: #FFFFFF;
   text-align: center;
   transition: all 0.2s;
   box-shadow: var(--shadow-sm);
 }
 .multiplier-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .multiplier-card.featured {
-  border-color: var(--gold);
-  background: linear-gradient(135deg, rgba(255,199,44,0.04), rgba(255,199,44,0.02));
+  border-color: var(--dignity);
+  background: linear-gradient(135deg, rgba(245,220,117,0.04), rgba(245,220,117,0.02));
   box-shadow: var(--shadow-gold);
 }
 .multiplier-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; }
-.multiplier-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: var(--navy-deep); margin-bottom: 4px; }
+.multiplier-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: var(--cathedral-deep); margin-bottom: 4px; }
 .multiplier-sub { font-size: 13px; color: var(--text-soft); margin-bottom: 16px; }
 .multiplier-num {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   font-size: 48px;
-  color: var(--gold);
+  color: var(--dignity);
   line-height: 1;
   margin-bottom: 4px;
 }
@@ -188,7 +188,7 @@
 .multiplier-note {
   padding: 10px 14px;
   border-radius: 8px;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
   font-size: 11px;
   color: var(--text-muted);
   line-height: 1.5;
@@ -197,7 +197,7 @@
 /* Why clean */
 .why-clean {
   padding: 96px 0;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
 }
 .why-clean-grid {
   display: grid;
@@ -212,19 +212,19 @@
   align-items: flex-start;
   padding: 16px 20px;
   border-radius: 12px;
-  background: var(--bg-white);
+  background: #FFFFFF;
   border: 1px solid var(--border);
   transition: all 0.2s;
 }
-.clean-benefit:hover { border-color: rgba(0,60,113,0.2); }
+.clean-benefit:hover { border-color: rgba(47,58,95,0.2); }
 .clean-benefit-icon {
   width: 40px; height: 40px;
   border-radius: 10px;
-  background: rgba(0,60,113,0.08);
+  background: rgba(47,58,95,0.08);
   display: flex; align-items: center; justify-content: center;
   font-size: 18px; flex-shrink: 0;
 }
-.clean-benefit-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 4px; }
+.clean-benefit-title { font-size: 14px; font-weight: 700; color: var(--cathedral-deep); margin-bottom: 4px; }
 .clean-benefit-body  { font-size: 12px; color: var(--text-soft); line-height: 1.6; }
 
 @media (max-width: 768px) {
@@ -294,7 +294,7 @@
 <div class="model-overview-grid">
 <div>
 <div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Our Role</div>
-<h2 class="text-h2" id="model-overview-headline" style="color:var(--navy-deep);margin-bottom:16px">
+<h2 class="text-h2" id="model-overview-headline" style="color:var(--cathedral-deep);margin-bottom:16px">
           What We Do — And What We Don't
         </h2>
 <p class="text-lead text-soft" style="margin-bottom:16px">
@@ -327,7 +327,7 @@
 </div>
 </div>
 <div>
-<div style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));border-radius:24px;padding:36px;color:#fff;border:1px solid rgba(255,199,44,0.2);box-shadow:0 24px 60px rgba(0,0,0,0.2)">
+<div style="background:linear-gradient(135deg,var(--cathedral-deep),var(--cathedral));border-radius:24px;padding:36px;color:#fff;border:1px solid rgba(245,220,117,0.2);box-shadow:0 24px 60px rgba(0,0,0,0.2)">
 <h3 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:20px;margin-bottom:8px">The THWA Principle</h3>
 <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.7;margin-bottom:24px">
             A clean, scalable, WA-built model that strengthens families, partners, and the state — without adding operational burden.
@@ -337,15 +337,15 @@
 <div style="font-size:11px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">THWA Supplies</div>
 <div style="font-size:13px;font-weight:600">Homes · Pricing · Documentation · Model</div>
 </div>
-<div style="text-align:center;font-size:20px;color:var(--gold)">↓</div>
+<div style="text-align:center;font-size:20px;color:var(--dignity)">↓</div>
 <div style="padding:14px 16px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08)">
 <div style="font-size:11px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Partners Deliver</div>
 <div style="font-size:13px;font-weight:600">Tenancy · Support · Compliance · Operations</div>
 </div>
-<div style="text-align:center;font-size:20px;color:var(--gold)">↓</div>
-<div style="padding:14px 16px;border-radius:10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2)">
-<div style="font-size:11px;color:rgba(34,197,94,0.7);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Families Gain</div>
-<div style="font-size:13px;font-weight:600;color:#22c55e">Stability · Dignity · Ownership</div>
+<div style="text-align:center;font-size:20px;color:var(--dignity)">↓</div>
+<div style="padding:14px 16px;border-radius:10px;background:rgba(139,195,74,0.1);border:1px solid rgba(139,195,74,0.2)">
+<div style="font-size:11px;color:rgba(139,195,74,0.7);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Families Gain</div>
+<div style="font-size:13px;font-weight:600;color:#8BC34A">Stability · Dignity · Ownership</div>
 </div>
 </div>
 <a class="btn btn-gold" href="partners.html" style="width:100%;justify-content:center">Become a Partner →</a>
@@ -359,7 +359,7 @@
 <div class="container">
 <div class="section-header">
 <div class="section-eyebrow section-eyebrow-navy">The Model</div>
-<h2 class="text-h2" id="three-parts-headline" style="color:var(--navy-deep)">Three Parts. One Mission.</h2>
+<h2 class="text-h2" id="three-parts-headline" style="color:var(--cathedral-deep)">Three Parts. One Mission.</h2>
 <p class="text-lead text-soft" style="max-width:560px;margin:12px auto 0">
         Our model has three parts — each with a clear role, clear boundaries, and clear accountability.
       </p>
@@ -422,9 +422,9 @@
 <p style="font-size:14px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:32px">
           The JTC pathway activates partner tenancy, support services, and pathway administration — ensuring the system is self-sustaining and scalable without government dependency.
         </p>
-<div style="padding:20px 24px;border-radius:14px;background:rgba(255,199,44,0.08);border:1px solid rgba(255,199,44,0.2)">
-<div style="font-size:11px;color:rgba(255,199,44,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">The JTC Factor</div>
-<div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:36px;color:var(--gold);line-height:1">1.18×</div>
+<div style="padding:20px 24px;border-radius:14px;background:rgba(245,220,117,0.08);border:1px solid rgba(245,220,117,0.2)">
+<div style="font-size:11px;color:rgba(245,220,117,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">The JTC Factor</div>
+<div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:36px;color:var(--dignity);line-height:1">1.18×</div>
 <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px;line-height:1.5">Funds partner tenancy, support services, and pathway administration. Requires a registered partner_id.</div>
 </div>
 </div>
@@ -466,7 +466,7 @@
 <div class="container">
 <div class="section-header">
 <div class="section-eyebrow section-eyebrow-navy">Build Pathways</div>
-<h2 class="text-h2" id="multipliers-headline" style="color:var(--navy-deep)">Three Pathways. One Mission.</h2>
+<h2 class="text-h2" id="multipliers-headline" style="color:var(--cathedral-deep)">Three Pathways. One Mission.</h2>
 <p class="text-lead text-soft" style="max-width:560px;margin:12px auto 0">
         Every pathway funds WA community impact. Each pathway activates a different system configuration with different funding flows and partner requirements. Pricing to customers is transparent and consistent across all pathways.
       </p>
@@ -476,7 +476,7 @@
 <div class="multiplier-label">Pathway 1</div>
 <div class="multiplier-name">CRV</div>
 <div class="multiplier-sub">Community Resilience Vehicle</div>
-<div class="multiplier-num" style="font-size:28px;color:var(--green)">CRV</div>
+<div class="multiplier-num" style="font-size:28px;color:var(--accordance)">CRV</div>
 <div class="multiplier-desc">Core, charity-ready specification. Activates the Community Resilience Vehicle pathway. Requires a registered partner.</div>
 <div class="multiplier-note">20% of profits to WA community programs · Partner required</div>
 </div>
@@ -508,7 +508,7 @@
 <div class="why-clean-grid">
 <div>
 <div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Why It Works</div>
-<h2 class="text-h2" id="why-clean-headline" style="color:var(--navy-deep);margin-bottom:16px">
+<h2 class="text-h2" id="why-clean-headline" style="color:var(--cathedral-deep);margin-bottom:16px">
           Clean, Light, Scalable — By Design
         </h2>
 <p class="text-lead text-soft" style="margin-bottom:16px">
@@ -562,7 +562,7 @@
 </div>
 </section>
 <!-- CTA -->
-<section style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));padding:80px 0;text-align:center;border-top:2px solid var(--gold)">
+<section style="background:linear-gradient(135deg,var(--cathedral-deep),var(--cathedral));padding:80px 0;text-align:center;border-top:2px solid var(--dignity)">
 <div class="container">
 <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.8rem,3vw,2.5rem);color:#fff;margin-bottom:16px">
       Ready to Work With Us?

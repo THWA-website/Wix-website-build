@@ -13,24 +13,24 @@
 <style>
 .page-hero {
   padding: 140px 0 80px;
-  background: linear-gradient(135deg, #001F3F 0%, #003C71 50%, #001F3F 100%);
+  background: linear-gradient(135deg, #1E2746 0%, #2F3A5F 50%, #1E2746 100%);
   position: relative; overflow: hidden;
 }
 .page-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(255,199,44,0.06) 0%, transparent 55%);
+  background: radial-gradient(ellipse at 30% 60%, rgba(245,220,117,0.06) 0%, transparent 55%);
   pointer-events: none;
 }
 .page-hero-pattern {
   position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(255,199,44,0.03) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(245,220,117,0.03) 1px, transparent 1px);
   background-size: 36px 36px; pointer-events: none;
 }
 
 /* Origin story */
 .origin-section {
   padding: 96px 0;
-  background: var(--bg-white);
+  background: #FFFFFF;
 }
 .origin-grid {
   display: grid;
@@ -46,8 +46,8 @@
 }
 .origin-pull-quote {
   padding: 24px 28px;
-  border-left: 4px solid var(--gold);
-  background: rgba(255,199,44,0.04);
+  border-left: 4px solid var(--dignity);
+  background: rgba(245,220,117,0.04);
   border-radius: 0 12px 12px 0;
   margin: 28px 0;
 }
@@ -55,17 +55,17 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 1.15rem;
-  color: var(--navy-deep);
+  color: var(--cathedral-deep);
   line-height: 1.5;
 }
 
 .origin-right { position: sticky; top: 96px; }
 .founder-card {
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
   border-radius: 24px;
   padding: 36px;
   color: #fff;
-  border: 1px solid rgba(255,199,44,0.2);
+  border: 1px solid rgba(245,220,117,0.2);
   box-shadow: 0 24px 60px rgba(0,0,0,0.2);
   margin-bottom: 20px;
 }
@@ -84,12 +84,12 @@
   font-size: 12px;
   color: rgba(255,255,255,0.65);
 }
-.founder-value::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.founder-value::before { content: '✓'; color: var(--accordance); font-weight: 700; flex-shrink: 0; }
 
 /* Gaps section */
 .gaps-section {
   padding: 96px 0;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
 }
 .gaps-grid {
   display: grid;
@@ -100,25 +100,25 @@
 .gap-card {
   padding: 24px 20px;
   border-radius: 16px;
-  background: var(--bg-white);
+  background: #FFFFFF;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   transition: all 0.2s;
 }
 .gap-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .gap-icon { font-size: 28px; margin-bottom: 12px; }
-.gap-title { font-size: 15px; font-weight: 700; color: var(--navy-deep); margin-bottom: 8px; }
+.gap-title { font-size: 15px; font-weight: 700; color: var(--cathedral-deep); margin-bottom: 8px; }
 .gap-body  { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
 
 /* Cawley Code full */
 .cawley-full {
   padding: 96px 0;
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
   position: relative; overflow: hidden;
 }
 .cawley-full::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255,199,44,0.06) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(245,220,117,0.06) 0%, transparent 60%);
   pointer-events: none;
 }
 .cawley-principles {
@@ -134,11 +134,11 @@
   border: 1px solid rgba(255,255,255,0.08);
   transition: all 0.2s;
 }
-.cawley-principle:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,199,44,0.2); }
+.cawley-principle:hover { background: rgba(255,255,255,0.08); border-color: rgba(245,220,117,0.2); }
 .cawley-principle-num {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900; font-size: 11px;
-  color: var(--gold);
+  color: var(--dignity);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 6px;
@@ -149,7 +149,7 @@
 /* Movement ethic */
 .movement-section {
   padding: 96px 0;
-  background: var(--bg-white);
+  background: #FFFFFF;
 }
 .movement-pillars-grid {
   display: grid;
@@ -160,20 +160,20 @@
 .movement-pillar-card {
   padding: 24px 20px;
   border-radius: 16px;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
   border: 1px solid var(--border);
   text-align: center;
   transition: all 0.2s;
 }
-.movement-pillar-card:hover { border-color: rgba(0,60,113,0.2); transform: translateY(-4px); box-shadow: var(--shadow); }
+.movement-pillar-card:hover { border-color: rgba(47,58,95,0.2); transform: translateY(-4px); box-shadow: var(--shadow); }
 .movement-pillar-icon { font-size: 32px; margin-bottom: 12px; }
-.movement-pillar-title { font-size: 14px; font-weight: 700; color: var(--navy-deep); margin-bottom: 6px; }
+.movement-pillar-title { font-size: 14px; font-weight: 700; color: var(--cathedral-deep); margin-bottom: 6px; }
 .movement-pillar-body  { font-size: 12px; color: var(--text-soft); line-height: 1.5; }
 
 /* Jai section */
 .jai-section {
   padding: 96px 0;
-  background: var(--bg-light);
+  background: var(--bg-canvas);
 }
 .jai-grid {
   display: grid;
@@ -182,11 +182,11 @@
   align-items: center;
 }
 .jai-card {
-  background: linear-gradient(135deg, var(--navy-deep), var(--navy));
+  background: linear-gradient(135deg, var(--cathedral-deep), var(--cathedral));
   border-radius: 24px;
   padding: 40px;
   color: #fff;
-  border: 1px solid rgba(255,199,44,0.2);
+  border: 1px solid rgba(245,220,117,0.2);
   box-shadow: 0 24px 60px rgba(0,0,0,0.15);
   text-align: center;
 }
@@ -200,12 +200,12 @@
 .jai-card-quote {
   padding: 20px 24px;
   border-radius: 12px;
-  background: rgba(255,199,44,0.08);
-  border: 1px solid rgba(255,199,44,0.2);
+  background: rgba(245,220,117,0.08);
+  border: 1px solid rgba(245,220,117,0.2);
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 15px;
-  color: var(--gold);
+  color: var(--dignity);
   line-height: 1.5;
 }
 
@@ -277,7 +277,7 @@
 <div class="origin-grid">
 <div>
 <div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">Where It Started</div>
-<h2 class="text-h2" id="origin-headline" style="color:var(--navy-deep);margin-bottom:24px">
+<h2 class="text-h2" id="origin-headline" style="color:var(--cathedral-deep);margin-bottom:24px">
           A Simple Belief. A Powerful Movement.
         </h2>
 <p class="origin-body">
@@ -316,7 +316,7 @@
 <div class="founder-value">WA-rooted — built here, for here</div>
 </div>
 </div>
-<div style="padding:20px 24px;border-radius:14px;background:var(--bg-light);border:1px solid var(--border)">
+<div style="padding:20px 24px;border-radius:14px;background:var(--bg-canvas);border:1px solid var(--border)">
 <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:8px">The Cawley Code</div>
 <div style="font-size:13px;color:var(--text-body);line-height:1.7">
             The moral backbone of Tiny Homes WA. The promise that this movement will never drift into greed, never compromise on dignity, and never forget why it exists.
@@ -331,7 +331,7 @@
 <div class="container">
 <div class="section-header">
 <div class="section-eyebrow section-eyebrow-navy">The Gaps We Saw</div>
-<h2 class="text-h2" id="gaps-headline" style="color:var(--navy-deep)">We Saw the Gaps. We Built the Solution.</h2>
+<h2 class="text-h2" id="gaps-headline" style="color:var(--cathedral-deep)">We Saw the Gaps. We Built the Solution.</h2>
 <p class="text-lead text-soft" style="max-width:560px;margin:12px auto 0">
         Every gap in the system became a design requirement. Every problem became a feature of the model.
       </p>
@@ -416,9 +416,9 @@
 <div class="cawley-principle-title">Protect the Founder, Protect the Mission</div>
 <div class="cawley-principle-body">A movement collapses when its founder collapses. The model must remain light, clean, and time-protected so the founder never loses the ability to be present for the people who matter most.</div>
 </div>
-<div class="cawley-principle" style="background:rgba(255,199,44,0.08);border-color:rgba(255,199,44,0.2)">
-<div class="cawley-principle-num" style="color:var(--gold)">The Code</div>
-<div class="cawley-principle-title" style="color:var(--gold)">Immutable. Eternal. Non-Negotiable.</div>
+<div class="cawley-principle" style="background:rgba(245,220,117,0.08);border-color:rgba(245,220,117,0.2)">
+<div class="cawley-principle-num" style="color:var(--dignity)">The Code</div>
+<div class="cawley-principle-title" style="color:var(--dignity)">Immutable. Eternal. Non-Negotiable.</div>
 <div class="cawley-principle-body">The Cawley Code is not branding. It is not marketing. It is the ethic, the promise, the standard, and the spine of everything Tiny Homes WA stands for — and everything the next custodian will inherit.</div>
 </div>
 </div>
@@ -429,7 +429,7 @@
 <div class="container">
 <div class="section-header">
 <div class="section-eyebrow section-eyebrow-navy">The Movement Ethic</div>
-<h2 class="text-h2" id="movement-headline" style="color:var(--navy-deep)">What We Stand For</h2>
+<h2 class="text-h2" id="movement-headline" style="color:var(--cathedral-deep)">What We Stand For</h2>
 </div>
 <div class="movement-pillars-grid">
 <div class="movement-pillar-card">
@@ -461,7 +461,7 @@
 <div class="jai-grid">
 <div>
 <div class="section-eyebrow section-eyebrow-navy" style="margin-bottom:20px">The Next Generation</div>
-<h2 class="text-h2" id="jai-headline" style="color:var(--navy-deep);margin-bottom:16px">
+<h2 class="text-h2" id="jai-headline" style="color:var(--cathedral-deep);margin-bottom:16px">
           Built for Jai. Built for WA. Built for Good.
         </h2>
 <p class="text-lead text-soft" style="margin-bottom:16px">
@@ -495,7 +495,7 @@
 </div>
 </section>
 <!-- CTA -->
-<section style="background:linear-gradient(135deg,var(--navy-deep),var(--navy));padding:80px 0;text-align:center;border-top:2px solid var(--gold)">
+<section style="background:linear-gradient(135deg,var(--cathedral-deep),var(--cathedral));padding:80px 0;text-align:center;border-top:2px solid var(--dignity)">
 <div class="container">
 <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.8rem,3vw,2.5rem);color:#fff;margin-bottom:16px">
       Be Part of the Movement
