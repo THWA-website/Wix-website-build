@@ -1152,7 +1152,7 @@ const DATA = {
     anchor: {
       id: 'anchor', icon: '⚓', label: 'Anchor Series',
       desc: 'Long-term, dignified living for individuals, couples, and families. Grounded, WA-ready, and built for the long haul.',
-      charityRate: 0.20,
+      charityRate: 0.30,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
         { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
@@ -1163,7 +1163,7 @@ const DATA = {
     bridge: {
       id: 'bridge', icon: '🌉', label: 'Bridge Series',
       desc: 'Professional practice rooms for counsellors, psychologists, youth workers, and NDIS providers. Flexible, modern, and purpose-built.',
-      charityRate: 0.20,
+      charityRate: 0.30,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
         { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
@@ -1173,7 +1173,7 @@ const DATA = {
     horizon: {
       id: 'horizon', icon: '🌅', label: 'Horizon Series',
       desc: 'Premium tourism cabins for parks, farms, and retreats. Revenue funds community impact. Spacious, future-focused, and built for growth.',
-      charityRate: 0.20,
+      charityRate: 0.30,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
         { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
@@ -1185,15 +1185,15 @@ const DATA = {
   // ── Pathways ─────────────────────────────────────────────────────────────
   pathways: {
     crv: {
-      id: 'crv', label: 'CRV', sublabel: 'Charity Ready Vehicle',
+      id: 'crf', label: 'CRF', sublabel: 'Cawley Reset Fund',
       multiplier: 1.00,
-      desc: 'Core, charity-ready spec with transparent pricing and WA project contribution.',
+      desc: 'Core, charity-ready specification with transparent pricing and WA project contribution.',
       color: '#003C71',
     },
     standard: {
       id: 'standard', label: 'Standard', sublabel: 'Turnkey Home',
       multiplier: 1.08,
-      desc: 'Turnkey residential spec with comfort upgrades and standard inclusions.',
+      desc: 'Turnkey residential specification with comfort upgrades and standard inclusions.',
       color: '#003C71',
     },
     jtc: {
@@ -1299,7 +1299,7 @@ const DATA = {
 const state = {
   series:   'reunite',
   sizeId:   'studio20',
-  pathway:  'crv',
+  pathway:  'crf',
   colour:   'white',
   cladding: 'smooth',
   roof:     'flat',
@@ -2279,7 +2279,7 @@ function wireEvents() {
 function boot() {
   // Reset state
   Object.assign(state, {
-    series: 'reunite', sizeId: 'studio20', pathway: 'crv',
+    series: 'reunite', sizeId: 'studio20', pathway: 'crf',
     colour: 'white', cladding: 'smooth', roof: 'flat',
     kitchen: 'straight', bathroom: 'standard', floor: 'pvc1',
     addOns: { porch:false, deck:false, solarPrep:false, fullSolar:false, water:false, offgrid:false, ramp:false, secondFloor:false, metalPanels:false, smartHome:false },
