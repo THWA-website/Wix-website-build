@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tiny Homes WA — 3D Configurator</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&amp;family=Open+Sans:wght@400;600&amp;family=Playfair+Display:ital@1&amp;display=swap" rel="stylesheet"/>
+<!-- Babylon.js (for mesh-level control of your GLB models) -->
+<script src="https://cdn.babylonjs.com/babylon.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+<!-- PDF Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    /* ── THWA Visual DNA ─────────────────────────────────── */
+    :root {
+      --primary:  #003C71;
+      --accent:   #FFC72C;
+      --navy:     #001F3F;
+      --light:    #F4F4F4;
+      --white:    #FFFFFF;
+      --text:     #001F3F;
+      --muted:    #64748b;
+      --border:   #e2e8f0;
+      --radius:   10px;
+      --shadow:   0 4px 16px rgba(0,60,113,0.10);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--light); color: var(--text); font-size: 16px; line-height: 1.5; }
+    h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; line-height: 1.2; }
+
+    /* ── Header ──────────────────────────────────────────── */
+    .thwa-header { background: var(--primary); color: var(--white); padding: 28px 24px 20px; text-align: center; border-bottom: 4px solid var(--accent); }
+    .thwa-header h1 { font-size: 2rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .thwa-header h1 span { color: var(--accent); }
+    .thwa-header p { font-size: 0.9375rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+    .thwa-tagline { display: inline-block; margin-top: 10px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.875rem; color: var(--accent); opacity: 0.9; }
+
+    /* ── Wrap ────────────────────────────────────────────── */
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+
+    /* ── Model tabs ──────────────────────────────────────── */
+    .model-tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+    .model-tabs button { padding: 12px 24px; border: 2px solid var(--primary); background: var(--white); color: var(--primary); border-radius: var(--radius); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.875rem; cursor: pointer; transition: all 0.2s ease; }
+    .model-tabs button:hover, .model-tabs button.active { background: var(--primary); color: var(--white); }
+
+    /* ── Layout ──────────────────────────────────────────── */
+    .layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+    /* ── Cards ───────────────────────────────────────────── */
+    .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+
+    /* ── Babylon canvas ──────────────────────────────────── */
+    .viewer-wrap { position: relative; border-radius: 8px; overflow: hidden; background: var(--navy); margin-bottom: 16px; }
+    #babylonCanvas { width: 100%; height: 360px; display: block; border-radius: 8px; touch-action: none; }
+    .viewer-badge { position: absolute; top: 12px; left: 12px; background: rgba(0,60,113,0.85); color: var(--accent); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,199,44,0.4); pointer-events: none; }
+    .viewer-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,31,63,0.92); color: var(--white); font-size: 0.875rem; gap: 12px; border-radius: 8px; transition: opacity 0.4s; }
+    .viewer-loading.hidden { opacity: 0; pointer-events: none; }
+    .spinner { width: 36px; height: 36px; border: 3px solid rgba(255,199,44,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .no-glb-notice { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #001F3F 0%, #003C71 100%); color: rgba(255,255,255,0.7); font-size: 0.8rem; text-align: center; padding: 20px; border-radius: 8px; gap: 8px; }
+    .no-glb-notice strong { color: var(--accent); font-size: 1rem; }
+
+    /* ── Model info chips ────────────────────────────────── */
+    .model-info { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+    .model-info-chip { background: var(--light); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; font-weight: 600; color: var(--primary); }
+
+    /* ── Controls ────────────────────────────────────────── */
+    .controls h3 { font-size: 1rem; color: var(--primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+    .group { margin-bottom: 16px; }
+    .group h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 8px; }
+    select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Open Sans', sans-serif; font-size: 0.875rem; color: var(--text); background: var(--white); cursor: pointer; transition: border-color 0.2s; }
+    select:focus { outline: none; border-color: var(--primary); }
+
+    /* ── Colour swatches ─────────────────────────────────── */
+    .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+    .swatches button { width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 1px 4px rgba(0,0,0,0.15); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+    .swatches button:hover { transform: scale(1.15); }
+    .swatches button.active { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+    /* ── Toggles ─────────────────────────────────────────── */
+    .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .toggle { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--border); background: var(--light); transition: all 0.15s; }
+    .toggle:hover { border-color: var(--primary); background: #EBF2FA; }
+    .toggle input[type="checkbox"] { accent-color: var(--primary); width: 15px; height: 15px; }
+
+    /* ── Mesh indicator ──────────────────────────────────── */
+    .mesh-tag { display: inline-block; font-size: 0.65rem; font-family: monospace; background: #EBF2FA; color: var(--primary); border-radius: 3px; padding: 1px 4px; margin-left: 4px; opacity: 0.7; }
+
+    /* ── Summary ─────────────────────────────────────────── */
+    .summary { margin-top: 24px; }
+    .summary h3 { font-size: 1rem; color: var(--primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+    .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    @media (max-width: 600px) { .price-grid { grid-template-columns: 1fr; } }
+    .price-line { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; font-size: 0.875rem; border-bottom: 1px solid var(--border); }
+    .price-line span:last-child { font-weight: 600; color: var(--primary); }
+    .price-line.zero span:last-child { color: var(--muted); }
+    .total-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 12px; background: var(--primary); color: var(--white); border-radius: 8px; margin-top: 12px; }
+    .total-row span:first-child { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; }
+    .total-row span:last-child { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--accent); }
+    .community-note { margin-top: 10px; padding: 10px 14px; background: #FFF8E1; border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; font-size: 0.8rem; color: var(--navy); font-style: italic; }
+
+    /* ── Actions ─────────────────────────────────────────── */
+    .actions { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .btn-primary { flex: 1; min-width: 160px; padding: 14px 20px; background: var(--primary); color: var(--white); border: none; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: background 0.2s, transform 0.1s; }
+    .btn-primary:hover { background: var(--accent); color: var(--primary); transform: translateY(-1px); }
+    .btn-secondary { flex: 1; min-width: 160px; padding: 14px 20px; background: transparent; color: var(--primary); border: 2px solid var(--primary); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+    .btn-secondary:hover { background: var(--primary); color: var(--white); }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .thwa-footer { background: var(--navy); color: rgba(255,255,255,0.7); text-align: center; padding: 20px; font-size: 0.8rem; margin-top: 24px; }
+    .thwa-footer strong { color: var(--accent); }
+  </style>
+</head>
+<body>
+<header class="thwa-header">
+<h1>Tiny Homes <span>WA</span> — Configure Your Home</h1>
+<p>People Over Profits. Homes Over Greed. Hope Over Hardship.</p>
+<span class="thwa-tagline">"When greed is removed from housing, the ripple effect of good becomes measurable."</span>
+</header>
+<div class="wrap">
+<div class="model-tabs" id="modelTabs"></div>
+<div class="layout">
+<!-- LEFT: 3D Viewer -->
+<div class="card">
+<div class="viewer-wrap">
+<div class="viewer-badge" id="viewerBadge">Studio 20 · 3D View</div>
+<!-- Babylon.js canvas -->
+<canvas id="babylonCanvas"></canvas>
+<!-- Loading overlay -->
+<div class="viewer-loading" id="viewerLoading">
+<div class="spinner"></div>
+<span>Loading 3D model…</span>
+</div>
+<!-- No-GLB placeholder (shown when no GLB URL set) -->
+<div class="no-glb-notice" id="noGlbNotice" style="display:none">
+<strong>🏠 3D Model Ready</strong>
+<span>Upload your GLB file URL to activate live 3D view</span>
+<span style="font-size:0.7rem;margin-top:4px;opacity:0.6">Studio20_FullManifest.glb · Studio30_FullManifest.glb · Studio40_FullManifest.glb</span>
+</div>
+</div>
+<div class="model-info" id="modelInfo"></div>
+</div>
+<!-- RIGHT: Controls -->
+<div class="card controls">
+<h3>Customise Your Home</h3>
+<div class="group">
+<h4>Roof Type</h4>
+<select id="roofSelect"></select>
+</div>
+<div class="group">
+<h4>Exterior Panels</h4>
+<select id="panelsSelect"></select>
+</div>
+<div class="group">
+<h4>Exterior Colour</h4>
+<div class="swatches" id="colorSwatches"></div>
+</div>
+<div class="group">
+<h4>Windows</h4>
+<select id="windowsSelect"></select>
+</div>
+<div class="group">
+<h4>Kitchen</h4>
+<select id="kitchenSelect"></select>
+</div>
+<div class="group">
+<h4>Bathroom</h4>
+<select id="bathroomSelect"></select>
+</div>
+<div class="group">
+<h4>Flooring</h4>
+<select id="floorSelect"></select>
+</div>
+<div class="group">
+<h4>Add-Ons</h4>
+<div class="toggle-grid">
+<label class="toggle"><input id="terraceToggle" type="checkbox"/> Terrace/Deck <span class="mesh-tag">TerraceDeck</span></label>
+<label class="toggle"><input id="solarPrepToggle" type="checkbox"/> Solar Prep <span class="mesh-tag">SolarPrep</span></label>
+<label class="toggle"><input id="fullSolarToggle" type="checkbox"/> Full Solar System</label>
+<label class="toggle"><input id="smartHomeToggle" type="checkbox"/> Smart Home Prep <span class="mesh-tag">SmartHomePrep</span></label>
+<label class="toggle"><input id="waterToggle" type="checkbox"/> Water-Saving Pack</label>
+<label class="toggle"><input id="offgridToggle" type="checkbox"/> Off-Grid Pack</label>
+<label class="toggle"><input id="secondFloorToggle" type="checkbox"/> Second Floor</label>
+<label class="toggle"><input id="metalPanelsToggle" type="checkbox"/> Metal Panels</label>
+</div>
+</div>
+</div>
+</div>
+<!-- PRICING SUMMARY -->
+<div class="card summary">
+<h3>Your Build Summary</h3>
+<div class="price-grid">
+<div class="price-line"><span>Base Model</span><span id="basePrice">AUD $0</span></div>
+<div class="price-line"><span>Roof</span><span id="roofPrice">AUD $0</span></div>
+<div class="price-line"><span>Exterior Panels</span><span id="panelsPrice">AUD $0</span></div>
+<div class="price-line"><span>Windows</span><span id="windowsPrice">AUD $0</span></div>
+<div class="price-line"><span>Kitchen</span><span id="kitchenPrice">AUD $0</span></div>
+<div class="price-line"><span>Bathroom</span><span id="bathroomPrice">AUD $0</span></div>
+<div class="price-line"><span>Flooring</span><span id="floorPrice">AUD $0</span></div>
+<div class="price-line"><span>Terrace/Deck</span><span id="terracePrice">AUD $0</span></div>
+<div class="price-line"><span>Solar Prep</span><span id="solarPrepPrice">AUD $0</span></div>
+<div class="price-line"><span>Full Solar</span><span id="fullSolarPrice">AUD $0</span></div>
+<div class="price-line"><span>Smart Home</span><span id="smartHomePrice">AUD $0</span></div>
+<div class="price-line"><span>Water-Saving</span><span id="waterPrice">AUD $0</span></div>
+<div class="price-line"><span>Off-Grid</span><span id="offgridPrice">AUD $0</span></div>
+<div class="price-line"><span>Second Floor</span><span id="secondFloorPrice">AUD $0</span></div>
+<div class="price-line"><span>Metal Panels</span><span id="metalPanelsPrice">AUD $0</span></div>
+</div>
+<div class="total-row">
+<span>Total (AUD incl. GST)</span>
+<span id="totalPrice">AUD $0</span>
+</div>
+<div class="community-note">
+      ❤️ 20% of profits from every home go directly to WA community projects through charity pathways. People Over Profits — always.
+    </div>
+<div class="actions">
+<button class="btn-primary" onclick="downloadBuild()">📄 Download My Build (PDF)</button>
+<button class="btn-secondary" onclick="sendQuoteToWix()">📨 Request a Quote</button>
+</div>
+</div>
+</div>
+<footer class="thwa-footer">
+<p>© 2025 Tiny Homes WA. All rights reserved. | <strong>People Over Profits. Always.</strong></p>
+<p style="margin-top:6px;font-size:0.75rem;">Prices in AUD. Subject to site assessment, delivery zone, and council requirements. GST inclusive estimate only.</p>
+</footer>
+<script>
+// ═══════════════════════════════════════════════════════════
+// THWA CONFIGURATOR — Babylon.js Mesh-Level Control
+//
+// Your GLB models have named meshes that map directly to
+// configurator options. When a user selects an upgrade,
+// the corresponding mesh is shown/hidden in real-time.
+//
+// MESH MAP (from your Studio manifests):
+//   RoofSlopingUpgrade     → Sloping roof selection
+//   ExteriorPanelsPremium  → Premium panels selection
+//   WindowsLargeUpgrade    → Large windows selection
+//   FloorSPCUpgrade        → SPC flooring selection
+//   KitchenCabinetryPremium → Premium kitchen
+//   KitchenBenchtopPremium  → Premium benchtop
+//   BathroomFixturesPremium → Premium bathroom
+//   TerraceDeck            → Terrace add-on
+//   SolarPrep              → Solar prep add-on
+//   SmartHomePrep          → Smart home add-on
+//
+// TO ACTIVATE: Replace glb_url values with your hosted GLB URLs
+// ═══════════════════════════════════════════════════════════
+
+const DATA = {
+  models: [
+    {
+      id: 'studio20', label: 'Studio 20', code: 'THWA-20',
+      tagline: 'Starter pod. Quick deploy. Dignity from day one.',
+      specs: { sqm: '20m²', beds: '1 Bed', bath: '1 Bath' },
+      base_aud: 108585,
+      // ↓ REPLACE WITH YOUR HOSTED GLB URL ↓
+      glb_url: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb',
+      // Mesh names from Studio20_FullManifest.json
+      upgrade_meshes: ['ExteriorPanelsPremium','RoofSlopingUpgrade','WindowsLargeUpgrade','FloorSPCUpgrade','KitchenCabinetryPremium','KitchenBenchtopPremium','BathroomFixturesPremium']
+    },
+    {
+      id: 'studio30', label: 'Studio 30', code: 'THWA-30',
+      tagline: 'Compact comfort for couples or growing families.',
+      specs: { sqm: '30m²', beds: '2 Bed', bath: '1 Bath' },
+      base_aud: 118000,
+      glb_url: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb',
+      upgrade_meshes: ['ExteriorPanelsPremium','RoofSlopingUpgrade','WindowsLargeUpgrade','FloorSPCUpgrade','KitchenCabinetryPremium','KitchenBenchtopPremium','BathroomFixturesPremium']
+    },
+    {
+      id: 'studio40', label: 'Studio 40', code: 'THWA-40',
+      tagline: 'Full family space. Long-term living.',
+      specs: { sqm: '40m²', beds: '2–3 Bed', bath: '2 Bath' },
+      base_aud: 128150,
+      glb_url: 'https://static.wixstatic.com/3d/9526fd_6190641f4d1b4475bc0c02770f6caa9d.glb',
+      upgrade_meshes: ['ExteriorPanelsPremium.002','RoofSlopingUpgrade.002','WindowsLargeUpgrade.002','FloorSPCUpgrade.002','KitchenCabinetryPremium.002','KitchenBenchtopPremium.002','BathroomFixturesPremium.002','KitchenIslandPremium.001','MasterBathroomPremium','SecondaryBathroomPremium']
+    }
+  ],
+
+  roof: {
+    flat:    { label: 'Flat Roof (Standard)',  mesh: null,                price: 0 },
+    sloping: { label: 'Sloping Roof',          mesh: 'RoofSlopingUpgrade', price: 17000 }
+  },
+
+  panels: {
+    standard: { label: 'Standard Panels (Included)', mesh: null,                    price: 0 },
+    premium:  { label: 'Premium Panels',             mesh: 'ExteriorPanelsPremium', price: 8500 }
+  },
+
+  exteriorColors: [
+    { id: 'white',    label: 'Crisp White',  hex: '#F4F4F4', price: 0 },
+    { id: 'navy',     label: 'THWA Navy',    hex: '#003C71', price: 0 },
+    { id: 'gold',     label: 'Warm Gold',    hex: '#FFC72C', price: 0 },
+    { id: 'forest',   label: 'Forest Green', hex: '#2f4f4f', price: 0 },
+    { id: 'charcoal', label: 'Charcoal',     hex: '#333333', price: 0 },
+    { id: 'sand',     label: 'WA Sand',      hex: '#d8c7a3', price: 0 }
+  ],
+
+  windows: {
+    standard: { label: 'Standard Windows (Included)', mesh: null,                   price: 0 },
+    large:    { label: 'Large Windows Upgrade',        mesh: 'WindowsLargeUpgrade', price: 4500 }
+  },
+
+  kitchens: {
+    base:    { label: 'Base Kitchen (Included)',  mesh: null,                    price: 0 },
+    premium: { label: 'Premium Cabinetry',        mesh: 'KitchenCabinetryPremium', price: 6500 }
+  },
+
+  bathrooms: {
+    base:    { label: 'Base Bathroom (Included)', mesh: null,                      price: 0 },
+    premium: { label: 'Premium Fixtures',         mesh: 'BathroomFixturesPremium', price: 4800 }
+  },
+
+  flooring: {
+    base: { label: 'Base Flooring (Included)', mesh: null,             price: 0 },
+    spc:  { label: 'SPC/LVT Upgrade',          mesh: 'FloorSPCUpgrade', price: 3200 }
+  },
+
+  addOns: {
+    terrace:     { label: 'Terrace/Deck',       mesh: 'TerraceDeck',   price: 9000 },
+    solarPrep:   { label: 'Solar Prep',         mesh: 'SolarPrep',     price: 2200 },
+    fullSolar:   { label: 'Full Solar System',  mesh: null,            price: 8500 },
+    smartHome:   { label: 'Smart Home Prep',    mesh: 'SmartHomePrep', price: 3500 },
+    water:       { label: 'Water-Saving Pack',  mesh: null,            price: 1250 },
+    offgrid:     { label: 'Off-Grid Pack',      mesh: null,            price: 12000 },
+    secondFloor: { label: 'Second Floor',       mesh: null,            price: 25000 },
+    metalPanels: { label: 'Metal Panels',       mesh: null,            price: 3800 }
+  }
+};
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+const state = {
+  modelId: 'studio20',
+  roof: 'flat', panels: 'standard', exteriorColor: 'white',
+  windows: 'standard', kitchen: 'base', bathroom: 'base', flooring: 'base',
+  addOns: { terrace:false, solarPrep:false, fullSolar:false, smartHome:false, water:false, offgrid:false, secondFloor:false, metalPanels:false }
+};
+
+// ═══════════════════════════════════════════════════════════
+// BABYLON.JS ENGINE
+// ═══════════════════════════════════════════════════════════
+let babylonEngine = null;
+let babylonScene = null;
+let loadedMeshes = [];
+
+function initBabylon() {
+  const canvas = document.getElementById('babylonCanvas');
+  babylonEngine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+  babylonScene = new BABYLON.Scene(babylonEngine);
+  babylonScene.clearColor = new BABYLON.Color4(0, 0.12, 0.25, 1);
+
+  // Camera
+  const camera = new BABYLON.ArcRotateCamera('cam', -Math.PI/2, Math.PI/3, 12, BABYLON.Vector3.Zero(), babylonScene);
+  camera.attachControl(canvas, true);
+  camera.lowerRadiusLimit = 4;
+  camera.upperRadiusLimit = 30;
+  camera.wheelPrecision = 50;
+
+  // Lighting
+  const hemi = new BABYLON.HemisphericLight('hemi', new BABYLON.Vector3(0,1,0), babylonScene);
+  hemi.intensity = 0.8;
+  const dir = new BABYLON.DirectionalLight('dir', new BABYLON.Vector3(-1,-2,-1), babylonScene);
+  dir.intensity = 0.6;
+
+  babylonEngine.runRenderLoop(() => babylonScene.render());
+  window.addEventListener('resize', () => babylonEngine.resize());
+}
+
+function loadGLB(glbUrl) {
+  if (!glbUrl || !glbUrl.trim()) {
+    document.getElementById('viewerLoading').classList.add('hidden');
+    document.getElementById('noGlbNotice').style.display = 'flex';
+    document.getElementById('babylonCanvas').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('noGlbNotice').style.display = 'none';
+  document.getElementById('babylonCanvas').style.display = 'block';
+  document.getElementById('viewerLoading').classList.remove('hidden');
+
+  // Dispose previous meshes
+  loadedMeshes.forEach(m => m.dispose());
+  loadedMeshes = [];
+
+  BABYLON.SceneLoader.ImportMesh('', '', glbUrl, babylonScene, (meshes) => {
+    loadedMeshes = meshes;
+    document.getElementById('viewerLoading').classList.add('hidden');
+
+    // Auto-fit camera
+    const bounds = babylonScene.getWorldExtends();
+    const center = BABYLON.Vector3.Center(bounds.min, bounds.max);
+    const size = bounds.max.subtract(bounds.min).length();
+    babylonScene.activeCamera.target = center;
+    babylonScene.activeCamera.radius = size * 1.5;
+
+    // Apply current state mesh visibility
+    applyMeshVisibility();
+  }, null, (scene, msg) => {
+    console.error('GLB load error:', msg);
+    document.getElementById('viewerLoading').classList.add('hidden');
+  });
+}
+
+function applyMeshVisibility() {
+  if (!loadedMeshes.length) return;
+
+  const m = currentModel();
+
+  // Build set of meshes that should be VISIBLE (upgrades)
+  const visibleUpgrades = new Set();
+
+  // Roof
+  if (state.roof !== 'flat' && DATA.roof[state.roof].mesh) {
+    visibleUpgrades.add(DATA.roof[state.roof].mesh);
+  }
+
+  // Panels
+  if (state.panels !== 'standard' && DATA.panels[state.panels].mesh) {
+    visibleUpgrades.add(DATA.panels[state.panels].mesh);
+  }
+
+  // Windows
+  if (state.windows !== 'standard' && DATA.windows[state.windows].mesh) {
+    visibleUpgrades.add(DATA.windows[state.windows].mesh);
+  }
+
+  // Kitchen
+  if (state.kitchen !== 'base' && DATA.kitchens[state.kitchen].mesh) {
+    visibleUpgrades.add(DATA.kitchens[state.kitchen].mesh);
+  }
+
+  // Bathroom
+  if (state.bathroom !== 'base' && DATA.bathrooms[state.bathroom].mesh) {
+    visibleUpgrades.add(DATA.bathrooms[state.bathroom].mesh);
+  }
+
+  // Flooring
+  if (state.flooring !== 'base' && DATA.flooring[state.flooring].mesh) {
+    visibleUpgrades.add(DATA.flooring[state.flooring].mesh);
+  }
+
+  // Add-ons
+  Object.entries(state.addOns).forEach(([key, active]) => {
+    if (active && DATA.addOns[key].mesh) {
+      visibleUpgrades.add(DATA.addOns[key].mesh);
+    }
+  });
+
+  // Apply visibility to all loaded meshes
+  loadedMeshes.forEach(mesh => {
+    if (!mesh.name || mesh.name === '__root__') return;
+
+    const isUpgradeMesh = m.upgrade_meshes.some(um => mesh.name.startsWith(um.split('.')[0]));
+
+    if (isUpgradeMesh) {
+      // Show only if selected
+      mesh.isVisible = visibleUpgrades.has(mesh.name) ||
+        [...visibleUpgrades].some(u => mesh.name.startsWith(u.split('.')[0]));
+    } else {
+      // Base meshes always visible
+      mesh.isVisible = true;
+    }
+  });
+
+  // Apply exterior colour tint
+  const col = DATA.exteriorColors.find(c => c.id === state.exteriorColor);
+  if (col) {
+    const r = parseInt(col.hex.slice(1,3),16)/255;
+    const g = parseInt(col.hex.slice(3,5),16)/255;
+    const b = parseInt(col.hex.slice(5,7),16)/255;
+    loadedMeshes.forEach(mesh => {
+      if (mesh.name && (mesh.name.includes('Exterior') || mesh.name.includes('Shell'))) {
+        if (mesh.material) {
+          mesh.material.albedoColor = new BABYLON.Color3(r, g, b);
+        }
+      }
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+const fmt = n => 'AUD $' + n.toLocaleString('en-AU', { minimumFractionDigits: 0 });
+function currentModel() { return DATA.models.find(m => m.id === state.modelId); }
+
+// ═══════════════════════════════════════════════════════════
+// RENDER TABS
+// ═══════════════════════════════════════════════════════════
+function renderTabs() {
+  const el = document.getElementById('modelTabs');
+  el.innerHTML = '';
+  DATA.models.forEach(m => {
+    const btn = document.createElement('button');
+    btn.textContent = m.label;
+    btn.className = m.id === state.modelId ? 'active' : '';
+    btn.onclick = () => {
+      state.modelId = m.id;
+      renderTabs();
+      updateViewerBadge();
+      updateModelInfo();
+      loadGLB(currentModel().glb_url);
+      updatePricing();
+    };
+    el.appendChild(btn);
+  });
+}
+
+function updateViewerBadge() {
+  const m = currentModel();
+  document.getElementById('viewerBadge').textContent = `${m.label} · ${m.code} · 3D View`;
+}
+
+function updateModelInfo() {
+  const m = currentModel();
+  document.getElementById('modelInfo').innerHTML = `
+    <span class="model-info-chip">📐 ${m.specs.sqm}</span>
+    <span class="model-info-chip">🛏 ${m.specs.beds}</span>
+    <span class="model-info-chip">🚿 ${m.specs.bath}</span>
+    <span class="model-info-chip" style="font-style:italic;color:#64748b">${m.tagline}</span>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER SELECTS
+// ═══════════════════════════════════════════════════════════
+function renderSelect(id, obj, stateKey, onChange) {
+  const el = document.getElementById(id);
+  el.innerHTML = '';
+  Object.entries(obj).forEach(([key, val]) => {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = val.label + (val.price > 0 ? ` (+${fmt(val.price)})` : '');
+    el.appendChild(opt);
+  });
+  el.value = state[stateKey];
+  el.onchange = e => {
+    state[stateKey] = e.target.value;
+    if (onChange) onChange();
+    applyMeshVisibility();
+    updatePricing();
+  };
+}
+
+function renderColorSwatches() {
+  const el = document.getElementById('colorSwatches');
+  el.innerHTML = '';
+  DATA.exteriorColors.forEach(c => {
+    const btn = document.createElement('button');
+    btn.style.background = c.hex;
+    btn.title = c.label;
+    btn.className = c.id === state.exteriorColor ? 'active' : '';
+    btn.onclick = () => {
+      state.exteriorColor = c.id;
+      renderColorSwatches();
+      applyMeshVisibility();
+      updatePricing();
+    };
+    el.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// PRICING
+// ═══════════════════════════════════════════════════════════
+function calcPricing() {
+  const m = currentModel();
+  const base = m.base_aud;
+  const roof = DATA.roof[state.roof]?.price || 0;
+  const panels = DATA.panels[state.panels]?.price || 0;
+  const windows = DATA.windows[state.windows]?.price || 0;
+  const kitchen = DATA.kitchens[state.kitchen]?.price || 0;
+  const bathroom = DATA.bathrooms[state.bathroom]?.price || 0;
+  const floor = DATA.flooring[state.flooring]?.price || 0;
+  const terrace = state.addOns.terrace ? DATA.addOns.terrace.price : 0;
+  const solarPrep = state.addOns.solarPrep ? DATA.addOns.solarPrep.price : 0;
+  const fullSolar = state.addOns.fullSolar ? DATA.addOns.fullSolar.price : 0;
+  const smartHome = state.addOns.smartHome ? DATA.addOns.smartHome.price : 0;
+  const water = state.addOns.water ? DATA.addOns.water.price : 0;
+  const offgrid = state.addOns.offgrid ? DATA.addOns.offgrid.price : 0;
+  const secondFloor = state.addOns.secondFloor ? DATA.addOns.secondFloor.price : 0;
+  const metalPanels = state.addOns.metalPanels ? DATA.addOns.metalPanels.price : 0;
+  const total = base+roof+panels+windows+kitchen+bathroom+floor+terrace+solarPrep+fullSolar+smartHome+water+offgrid+secondFloor+metalPanels;
+  return { base,roof,panels,windows,kitchen,bathroom,floor,terrace,solarPrep,fullSolar,smartHome,water,offgrid,secondFloor,metalPanels,total };
+}
+
+function updatePricing() {
+  const p = calcPricing();
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = fmt(val); el.closest('.price-line')?.classList.toggle('zero', val===0); }
+  };
+  set('basePrice',p.base); set('roofPrice',p.roof); set('panelsPrice',p.panels);
+  set('windowsPrice',p.windows); set('kitchenPrice',p.kitchen); set('bathroomPrice',p.bathroom);
+  set('floorPrice',p.floor); set('terracePrice',p.terrace); set('solarPrepPrice',p.solarPrep);
+  set('fullSolarPrice',p.fullSolar); set('smartHomePrice',p.smartHome); set('waterPrice',p.water);
+  set('offgridPrice',p.offgrid); set('secondFloorPrice',p.secondFloor); set('metalPanelsPrice',p.metalPanels);
+  document.getElementById('totalPrice').textContent = fmt(p.total);
+}
+
+// ═══════════════════════════════════════════════════════════
+// ADD-ON TOGGLES
+// ═══════════════════════════════════════════════════════════
+function wireToggle(id, key) {
+  document.getElementById(id).onchange = e => {
+    state.addOns[key] = e.target.checked;
+    applyMeshVisibility();
+    updatePricing();
+  };
+}
+wireToggle('terraceToggle','terrace'); wireToggle('solarPrepToggle','solarPrep');
+wireToggle('fullSolarToggle','fullSolar'); wireToggle('smartHomeToggle','smartHome');
+wireToggle('waterToggle','water'); wireToggle('offgridToggle','offgrid');
+wireToggle('secondFloorToggle','secondFloor'); wireToggle('metalPanelsToggle','metalPanels');
+
+// ═══════════════════════════════════════════════════════════
+// PDF EXPORT
+// ═══════════════════════════════════════════════════════════
+async function downloadBuild() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const p = calcPricing();
+  const m = currentModel();
+
+  doc.setFillColor(0,60,113); doc.rect(0,0,210,40,'F');
+  doc.setTextColor(255,199,44); doc.setFontSize(20); doc.setFont('helvetica','bold');
+  doc.text('Tiny Homes WA',14,18);
+  doc.setTextColor(255,255,255); doc.setFontSize(11); doc.setFont('helvetica','normal');
+  doc.text('Build & Price Summary',14,28);
+  doc.text(new Date().toLocaleDateString('en-AU'),160,28);
+
+  doc.setTextColor(0,60,113); doc.setFontSize(14); doc.setFont('helvetica','bold');
+  doc.text(`Model: ${m.label}`,14,52);
+  doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(100,116,139);
+  doc.text(`Code: ${m.code} | ${m.specs.sqm} | ${m.specs.beds} | ${m.specs.bath}`,14,60);
+  doc.text(`"${m.tagline}"`,14,68);
+
+  doc.setTextColor(0,31,63); doc.setFontSize(11); doc.setFont('helvetica','bold');
+  doc.text('Your Selections:',14,80);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  const sels = [
+    `Roof: ${DATA.roof[state.roof].label}`,
+    `Exterior Panels: ${DATA.panels[state.panels].label}`,
+    `Exterior Colour: ${DATA.exteriorColors.find(c=>c.id===state.exteriorColor)?.label}`,
+    `Windows: ${DATA.windows[state.windows].label}`,
+    `Kitchen: ${DATA.kitchens[state.kitchen].label}`,
+    `Bathroom: ${DATA.bathrooms[state.bathroom].label}`,
+    `Flooring: ${DATA.flooring[state.flooring].label}`,
+  ];
+  sels.forEach((s,i) => doc.text(s,18,90+i*8));
+  const addOnsList = Object.entries(state.addOns).filter(([,v])=>v).map(([k])=>DATA.addOns[k].label);
+  doc.text(`Add-Ons: ${addOnsList.length ? addOnsList.join(', ') : 'None'}`,18,90+sels.length*8);
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(0,60,113);
+  doc.text('Pricing Breakdown:',14,160);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(0,31,63);
+  const lines = [
+    ['Base Model',p.base],['Roof',p.roof],['Exterior Panels',p.panels],
+    ['Windows',p.windows],['Kitchen',p.kitchen],['Bathroom',p.bathroom],
+    ['Flooring',p.floor],['Terrace/Deck',p.terrace],['Solar Prep',p.solarPrep],
+    ['Full Solar',p.fullSolar],['Smart Home',p.smartHome],['Water-Saving',p.water],
+    ['Off-Grid',p.offgrid],['Second Floor',p.secondFloor],['Metal Panels',p.metalPanels]
+  ];
+  lines.forEach(([label,val],i) => {
+    if (val>0) { doc.text(label,18,170+i*7); doc.text(fmt(val),192,170+i*7,{align:'right'}); }
+  });
+
+  doc.setFillColor(0,60,113); doc.rect(14,240,182,14,'F');
+  doc.setTextColor(255,199,44); doc.setFont('helvetica','bold'); doc.setFontSize(13);
+  doc.text('TOTAL (AUD)',18,250); doc.text(fmt(p.total),192,250,{align:'right'});
+
+  doc.setTextColor(100,116,139); doc.setFont('helvetica','italic'); doc.setFontSize(9);
+  doc.text('20% of profits from every home go directly to WA community projects through charity pathways.',14,268);
+  doc.text('People Over Profits. Always. | tinyhomeswa.com.au',14,275);
+  doc.text('Prices are estimates only. Subject to site assessment and council requirements.',14,282);
+
+  doc.save(`TinyHomesWA_${m.label.replace(' ','')}_Build.pdf`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// SEND QUOTE TO WIX
+// ═══════════════════════════════════════════════════════════
+function sendQuoteToWix() {
+  const p = calcPricing();
+  const m = currentModel();
+  const addOnsList = Object.entries(state.addOns).filter(([,v])=>v)
+    .map(([k])=>({ code: k, label: DATA.addOns[k].label, price: DATA.addOns[k].price }));
+  const payload = {
+    type: 'thwaConfiguratorQuote',
+    timestamp: new Date().toISOString(),
+    model: { id: m.id, label: m.label, code: m.code, base_aud: m.base_aud },
+    selections: { roof:state.roof, panels:state.panels, exteriorColor:state.exteriorColor, windows:state.windows, kitchen:state.kitchen, bathroom:state.bathroom, flooring:state.flooring, addOns: addOnsList },
+    pricing: p, total_aud: p.total
+  };
+  window.parent.postMessage(payload, '*');
+  alert(`Your build summary has been sent!\n\nModel: ${m.label}\nTotal: ${fmt(p.total)}\n\nOur team will contact you shortly.\nPeople Over Profits — always.`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════
+function boot() {
+  initBabylon();
+  renderTabs();
+  updateViewerBadge();
+  updateModelInfo();
+  renderSelect('roofSelect', DATA.roof, 'roof');
+  renderSelect('panelsSelect', DATA.panels, 'panels');
+  renderColorSwatches();
+  renderSelect('windowsSelect', DATA.windows, 'windows');
+  renderSelect('kitchenSelect', DATA.kitchens, 'kitchen');
+  renderSelect('bathroomSelect', DATA.bathrooms, 'bathroom');
+  renderSelect('floorSelect', DATA.flooring, 'flooring');
+  loadGLB(currentModel().glb_url);
+  updatePricing();
+}
+
+boot();
+window.downloadBuild = downloadBuild;
+window.sendQuoteToWix = sendQuoteToWix;
+</script>
+</body>
+</html>
