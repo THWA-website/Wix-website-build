@@ -323,14 +323,6 @@ html, body {
   margin-bottom: 3px;
 }
 .pathway-name { font-size: 12px; font-weight: 700; }
-.pathway-mult {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--dignity);
-  background: rgba(245,220,117,0.12);
-  padding: 2px 7px;
-  border-radius: var(--radius-pill);
-}
 .pathway-sub { font-size: 10px; color: var(--text-muted); }
 
 /* ─── COLOUR SWATCHES ────────────────────────────────────────────────────── */
@@ -1401,7 +1393,6 @@ function renderPathwayCards() {
          data-pathway="${p.id}" role="button" tabindex="0">
       <div class="pathway-header">
         <span class="pathway-name">${p.label} — ${p.sublabel}</span>
-        <span class="pathway-mult">×${p.multiplier.toFixed(2)}</span>
       </div>
       <div class="pathway-sub">${p.desc}</div>
     </div>
@@ -1489,7 +1480,7 @@ function updatePricing() {
   // Breakdown
   const rows = [
     { label: 'Base Home', amount: p.baseRaw, always: true },
-    { label: `Pathway (${pathway.label} ×${pathway.multiplier.toFixed(2)})`, amount: p.pathwayDelta, cls: 'pathway-row' },
+    { label: `Pathway (${pathway.label})`, amount: p.pathwayDelta, cls: 'pathway-row' },
     { label: `Roof — ${DATA.roof.find(r=>r.id===state.roof)?.label}`, amount: p.roofPrice },
     { label: `Cladding — ${DATA.cladding.find(c=>c.id===state.cladding)?.label}`, amount: p.claddingPrice },
     { label: `Kitchen — ${DATA.kitchens.find(k=>k.id===state.kitchen)?.label}`, amount: p.kitchenPrice },
@@ -1789,7 +1780,7 @@ ${customer.name || customer.email ? `
     <thead><tr><th>Item</th><th style="text-align:right">Price</th></tr></thead>
     <tbody>
       <tr><td>${series.label} ${size.label} — Base</td><td style="text-align:right;font-weight:600">${fmt(p.baseRaw)}</td></tr>
-      ${p.pathwayDelta>0?`<tr><td>Pathway Adjustment (${pathway.label} ×${pathway.multiplier.toFixed(2)})</td><td style="text-align:right">${fmt(p.pathwayDelta)}</td></tr>`:''}
+      ${p.pathwayDelta>0?`<tr><td>Pathway Adjustment (${pathway.label})</td><td style="text-align:right">${fmt(p.pathwayDelta)}</td></tr>`:''}
       ${p.roofPrice>0?`<tr><td>Roof — ${DATA.roof.find(r=>r.id===state.roof)?.label}</td><td style="text-align:right">${fmt(p.roofPrice)}</td></tr>`:''}
       ${p.claddingPrice>0?`<tr><td>Cladding — ${DATA.cladding.find(c=>c.id===state.cladding)?.label}</td><td style="text-align:right">${fmt(p.claddingPrice)}</td></tr>`:''}
       ${p.kitchenPrice>0?`<tr><td>Kitchen — ${DATA.kitchens.find(k=>k.id===state.kitchen)?.label}</td><td style="text-align:right">${fmt(p.kitchenPrice)}</td></tr>`:''}
@@ -1881,7 +1872,7 @@ function downloadPDF() {
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100, 116, 139);
-  doc.text(`Pathway: ${pathway.label} — ${pathway.sublabel} (×${pathway.multiplier.toFixed(2)})`, 14, 63);
+  doc.text(`Pathway: ${pathway.label} — ${pathway.sublabel}`, 14, 63);
 
   // Breakdown
   doc.setTextColor(0, 31, 63);

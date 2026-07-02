@@ -15,7 +15,7 @@ Creator and sovereign custodian of the THWA Cathedral, its mission, its canon, i
 **Co-Custodian / Successor Authority:** Jai Thomas Cawley
 Designated successor and future steward of the THWA Cathedral.
 
-**Canon:** This repository is locked to the THWA Rosetta Stone V3. No agent, system, or person may override Founder authority or alter canon without explicit Founder instruction.
+**Canon:** This repository is locked to the THWA Rosetta Stone V4.1. No agent, system, or person may override Founder authority or alter canon without explicit Founder instruction.
 
 **Repository Protection:** This repository is protected. No external agents are authorised to modify files in this repository.
 
@@ -77,7 +77,7 @@ Wix-website-build/
 ### `website/index.html` — Homepage
 The crown jewel. Full movement identity page.
 - Hero: *"People Over Profits. Homes Over Greed. Hope Over Hardship."*
-- Stats strip: 20% giveback, 3 series, CRV pathway, 100% transparent pricing
+- Stats strip: 20% giveback, 3 series, Standard or JTC pathway, 100% transparent pricing
 - Movement identity: We Supply / Partners Deliver / Families Progress
 - 4-series home preview grid with SVG illustrations
 - Our Model section with CRV / Standard / JTC pathway cards
@@ -100,7 +100,7 @@ All four home series with full specifications.
 The structural core. How THWA works.
 - What We Do / What We Don't (do/don't grid)
 - Three Parts: Supply (THWA) / Delivery (Partners) / Outcomes (Families & WA)
-- CRV/JTC Pathway — 4-step journey: Stability → Contribution → Progression → Custodianship
+- Standard/JTC Pathway — 4-step journey: Stability → Contribution → Progression → Custodianship
 - Three pathway cards: CRV / Standard / JTC (internal routing codes, not price increases)
 - Why Clean section: government-safe, partner-friendly, scalable, mission-protected, legacy-ready
 
@@ -165,10 +165,10 @@ The production 3D configurator. Single HTML file, no build step required.
 - 5 camera presets: Isometric, Front, Rear, Left, Top
 - Auto-rotate toggle, animated loading bar
 
-**Product Data (Rosetta Stone V3 Canon):**
+**Product Data (Rosetta Stone V4.1 Canon):**
 - 4 Series: Reunite (30% JTC), Anchor, Bridge, Horizon (all 20% standard)
-- 3 sizes per series: Studio 20 ($108,585), Studio 30 ($118,000), Studio 40 ($128,150)
-- 3 Pathways: CRV (Community Resilience Vehicle), Standard, JTC (Winifred Filamena · 30%)
+- 3 sizes per series: Studio 20 ($67,000), Studio 30 ($98,500), Studio 40 ($118,500)
+- 3 Pathways: CRV (Standard Supply), Standard, JTC (Winifred Filamena · 30%)
 - 7 exterior colours, 4 cladding options, 2 roof styles
 - 4 kitchen layouts, 2 bathroom options, 5 flooring options
 - 10 add-ons: Porch, Deck, Solar Prep, Full Solar, Water Pack, Off-Grid Pack,
@@ -239,7 +239,7 @@ The production 3D configurator. Single HTML file, no build step required.
 ### Pathway Canon
 | Pathway | ID | Partner Required | Community Impact |
 |---------|-----|-----------------|-----------------|
-| Community Resilience Vehicle | `crv` | Yes | 20% |
+| Standard Supply | `crv` | Yes | 20% |
 | Standard | `standard` | No | 20% |
 | Journey to Custodianship (Winifred Filamena) | `jtc` | Yes | **30%** |
 
@@ -247,7 +247,7 @@ The production 3D configurator. Single HTML file, no build step required.
 
 ### Charity Canon
 - **CRF = Cawley Reset Fund** — the 20% giveback fund (tracked by Engine 9)
-- **CRV = Community Resilience Vehicle** — the pathway name (separate concept)
+- **CRV = Standard Supply** — the pathway name (separate concept)
 - Standard giveback: **20%** of net profits
 - JTC / Winifred Filamena: **30%** of net profits (Founder instruction)
 
@@ -314,4 +314,5 @@ When the full Cathedral platform is ready, this repo is archived and the Cathedr
 
 *THWA Wix Website Build · Brand System 2.0 · Canon: Locked*
 *Authority: Jason Thomas Cawley — Founder & Supreme Custodian*
+*BUILT FROM GRIT. POWERED BY HEART.*
 *People Over Profits. Always.*
