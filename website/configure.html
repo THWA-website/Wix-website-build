@@ -192,6 +192,7 @@ body {
 #toast.show { transform: translateX(-50%) translateY(0); }
 #toast.success { border-color: rgba(139,195,74,0.4); color: #8BC34A; }
 
+/* ── MOBILE FALLBACK ── */
 .mobile-fallback {
   display: none;
   position: fixed;
@@ -199,17 +200,143 @@ body {
   background: #101828;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 32px 24px;
+  justify-content: flex-start;
+  padding: 40px 24px 32px;
   text-align: center;
-  gap: 20px;
+  gap: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
+
+.mobile-fallback-logo {
+  width: 64px; height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #FFD700, #F5DC75, #C9A600);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900; font-size: 28px;
+  color: #1E2746;
+  box-shadow: 0 8px 32px rgba(245,220,117,0.25);
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
 .mobile-fallback-title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 900; font-size: 22px;
+  font-weight: 900; font-size: 26px;
   color: #fff;
+  line-height: 1.2;
+  margin-bottom: 12px;
 }
-.mobile-fallback-body { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+.mobile-fallback-subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto 32px;
+}
+
+.mobile-fallback-divider {
+  width: 48px; height: 2px;
+  background: linear-gradient(90deg, #F5DC75, #8BC34A);
+  border-radius: 2px;
+  margin: 0 auto 32px;
+}
+
+.mobile-cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 32px;
+}
+
+.mobile-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  border-radius: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-cta-primary {
+  background: linear-gradient(135deg, #FFD700, #F5DC75, #C9A600);
+  color: #1E2746;
+  box-shadow: 0 4px 20px rgba(245,220,117,0.3);
+}
+.mobile-cta-primary:hover { filter: brightness(1.06); transform: translateY(-2px); }
+
+.mobile-cta-secondary {
+  background: rgba(139,195,74,0.12);
+  border: 1.5px solid rgba(139,195,74,0.4);
+  color: #8BC34A;
+}
+.mobile-cta-secondary:hover { background: rgba(139,195,74,0.2); }
+
+.mobile-cta-ghost {
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+}
+.mobile-cta-ghost:hover { background: rgba(255,255,255,0.08); color: #fff; }
+
+.mobile-models-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 32px;
+}
+
+.mobile-model-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(245,220,117,0.15);
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.mobile-model-card:hover {
+  background: rgba(245,220,117,0.08);
+  border-color: rgba(245,220,117,0.35);
+  transform: translateY(-2px);
+}
+.mobile-model-name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800; font-size: 13px;
+  color: #F5DC75;
+  margin-bottom: 4px;
+}
+.mobile-model-price {
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.3;
+}
+
+.mobile-fallback-note {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.mobile-fallback-note a {
+  color: rgba(245,220,117,0.5);
+  text-decoration: none;
+}
 
 @media (max-width: 480px) {
   .config-nav-title { display: none; }
@@ -220,7 +347,7 @@ body {
 <!-- SLIM NAV -->
 <nav aria-label="Design Studio navigation" class="config-nav">
 <a aria-label="Tiny Homes WA home" class="config-nav-brand" href="index.html">
-<img src="../assets/logos/thwa-logo-primary.png" alt="Tiny Homes WA" style="height:30px;width:30px;object-fit:cover;border-radius:8px;flex-shrink:0" onerror="this.style.display='none'"/>
+<img alt="Tiny Homes WA" onerror="this.style.display='none'" src="../assets/logos/thwa-logo-primary.png?expires=1785579152&amp;signature=ed479194f3f58d2f563fa5369a59ed6cc43785ce19f3e6f50b77eae56b03822f&amp;kid=prod-250922" style="height:30px;width:30px;object-fit:cover;border-radius:8px;flex-shrink:0"/>
 <div class="config-nav-name">Tiny Homes WA</div>
 </a>
 <div class="config-nav-title">
@@ -232,11 +359,11 @@ body {
 <a class="btn btn-gold btn-sm" href="contact.html">Get in Touch</a>
 </div>
 </nav>
-<!-- CONFIGURATOR FRAME -->
-<div class="configurator-frame-wrap">
+<!-- CONFIGURATOR FRAME (desktop) -->
+<div class="configurator-frame-wrap" id="desktop-frame">
 <!-- Loading state -->
 <div class="config-loading" id="config-loading">
-<img src="../assets/logos/thwa-logo-primary.png" alt="Tiny Homes WA" style="height:56px;width:56px;object-fit:cover;border-radius:16px" onerror="this.style.display='none'"/>
+<img alt="Tiny Homes WA" onerror="this.style.display='none'" src="../assets/logos/thwa-logo-primary.png?expires=1785579152&amp;signature=ed479194f3f58d2f563fa5369a59ed6cc43785ce19f3e6f50b77eae56b03822f&amp;kid=prod-250922" style="height:56px;width:56px;object-fit:cover;border-radius:16px"/>
 <div class="config-loading-title">Design Studio</div>
 <div class="config-loading-sub">Loading your 3D configurator…</div>
 <div class="config-loading-bar-wrap">
@@ -246,16 +373,46 @@ body {
 </div>
 <!-- The configurator iframe -->
 <iframe allow="fullscreen; xr-spatial-tracking" aria-label="Interactive 3D home configurator" class="configurator-iframe" id="configurator-iframe" loading="eager" src="thwa-configurator-v3.html" title="Tiny Homes WA 3D Design Studio"></iframe>
-<!-- Mobile fallback -->
-<div aria-hidden="true" class="mobile-fallback" id="mobile-fallback">
-<div style="font-size:48px">🏠</div>
-<div class="mobile-fallback-title">Design Studio</div>
-<div class="mobile-fallback-body">
-      The 3D Design Studio works best on desktop. On mobile, you can still explore our homes and get in touch with us directly.
-    </div>
-<a class="btn btn-gold" href="homes.html" style="padding:12px 28px;font-size:14px">Explore Our Homes</a>
-<a class="btn btn-ghost" href="contact.html" style="padding:12px 28px;font-size:14px;border-color:rgba(255,255,255,0.3);color:#fff">Get in Touch</a>
 </div>
+<!-- MOBILE FALLBACK (phones & tablets < 768px) -->
+<div aria-hidden="true" class="mobile-fallback" id="mobile-fallback">
+<div class="mobile-fallback-logo">🏠</div>
+<div class="mobile-fallback-title">Design Studio</div>
+<div class="mobile-fallback-subtitle">
+    Our 3D Design Studio is built for desktop. On mobile, explore our homes and get in touch — we'll walk you through everything.
+  </div>
+<div class="mobile-fallback-divider"></div>
+<!-- Model quick links -->
+<div class="mobile-models-grid">
+<a class="mobile-model-card" href="homes.html#studio20">
+<div class="mobile-model-name">Studio 20</div>
+<div class="mobile-model-price">From $108,585</div>
+</a>
+<a class="mobile-model-card" href="homes.html#studio30">
+<div class="mobile-model-name">Studio 30</div>
+<div class="mobile-model-price">From $125,000</div>
+</a>
+<a class="mobile-model-card" href="homes.html#studio40">
+<div class="mobile-model-name">Studio 40</div>
+<div class="mobile-model-price">From $165,000</div>
+</a>
+</div>
+<!-- Primary CTAs -->
+<div class="mobile-cta-stack">
+<a class="mobile-cta-btn mobile-cta-primary" href="homes.html">
+      🏡 Explore Our Homes
+    </a>
+<a class="mobile-cta-btn mobile-cta-secondary" href="contact.html">
+      💬 Talk to Our Team
+    </a>
+<a class="mobile-cta-btn mobile-cta-ghost" href="why.html">
+      ✦ Our Story &amp; Mission
+    </a>
+</div>
+<div class="mobile-fallback-note">
+    For the full 3D experience, open this page on a desktop or laptop.<br/>
+<a href="contact.html">Contact us</a> and we'll send you a desktop link.
+  </div>
 </div>
 <!-- TOAST -->
 <div aria-live="polite" id="toast" role="status"></div>
@@ -263,37 +420,52 @@ body {
 const iframe = document.getElementById('configurator-iframe');
 const loading = document.getElementById('config-loading');
 const configTitle = document.getElementById('config-title');
+const desktopFrame = document.getElementById('desktop-frame');
+const mobileFallback = document.getElementById('mobile-fallback');
 
-iframe.addEventListener('load', () => {
-  setTimeout(() => loading.classList.add('hidden'), 600);
-});
+// ── MOBILE DETECTION ──
+// Threshold: 768px covers all phones and most tablets.
+// The 3D WebGL configurator requires desktop-grade rendering.
+const isMobile = window.innerWidth < 768;
 
-window.addEventListener('message', (event) => {
-  if (!event.data || typeof event.data !== 'object') return;
-  switch (event.data.type) {
-    case 'THWA_CONFIGURATOR_READY':
-      loading.classList.add('hidden');
-      const params = new URLSearchParams(window.location.search);
-      const series = params.get('series');
-      const size   = params.get('size');
-      if (series) sendToConfigurator({ type: 'THWA_SET_SERIES', seriesId: series });
-      if (size)   sendToConfigurator({ type: 'THWA_SET_SIZE',   sizeId: size });
-      break;
-    case 'THWA_CONFIG_CHANGED':
-    case 'THWA_MODEL_SELECTED':
-      if (event.data.model || event.data.modelId) {
-        configTitle.textContent = 'Design Studio — ' + (event.data.model || event.data.modelId);
-      }
-      break;
-    case 'THWA_QUOTE_REQUEST':
-      window.parent.postMessage(event.data, '*');
-      showToast('Quote prepared — check the PDF window', 'success');
-      break;
-    case 'THWA_SHARE_URL':
-      handleShareUrl(event.data.url);
-      break;
-  }
-});
+if (isMobile) {
+  // Show mobile fallback, hide desktop frame
+  desktopFrame.style.display = 'none';
+  mobileFallback.style.display = 'flex';
+  mobileFallback.setAttribute('aria-hidden', 'false');
+} else {
+  // Desktop: load configurator normally
+  iframe.addEventListener('load', () => {
+    setTimeout(() => loading.classList.add('hidden'), 600);
+  });
+
+  window.addEventListener('message', (event) => {
+    if (!event.data || typeof event.data !== 'object') return;
+    switch (event.data.type) {
+      case 'THWA_CONFIGURATOR_READY':
+        loading.classList.add('hidden');
+        const params = new URLSearchParams(window.location.search);
+        const series = params.get('series');
+        const size   = params.get('size');
+        if (series) sendToConfigurator({ type: 'THWA_SET_SERIES', seriesId: series });
+        if (size)   sendToConfigurator({ type: 'THWA_SET_SIZE',   sizeId: size });
+        break;
+      case 'THWA_CONFIG_CHANGED':
+      case 'THWA_MODEL_SELECTED':
+        if (event.data.model || event.data.modelId) {
+          configTitle.textContent = 'Design Studio — ' + (event.data.model || event.data.modelId);
+        }
+        break;
+      case 'THWA_QUOTE_REQUEST':
+        window.parent.postMessage(event.data, '*');
+        showToast('Quote prepared — check the PDF window', 'success');
+        break;
+      case 'THWA_SHARE_URL':
+        handleShareUrl(event.data.url);
+        break;
+    }
+  });
+}
 
 function sendToConfigurator(message) {
   try { iframe.contentWindow.postMessage(message, '*'); } catch(e) {}
@@ -323,12 +495,6 @@ function showToast(msg, type = '') {
   el.className = 'show ' + type;
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { el.className = ''; }, 3500);
-}
-
-if (window.innerWidth < 360) {
-  document.getElementById('mobile-fallback').style.display = 'flex';
-  document.getElementById('mobile-fallback').setAttribute('aria-hidden', 'false');
-  iframe.style.display = 'none';
 }
 
 window.parent.postMessage({ type: 'THWA_PAGE_LOADED', page: 'configure' }, '*');
