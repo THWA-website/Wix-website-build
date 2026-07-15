@@ -38,6 +38,96 @@ Inherits custodial authority over canon preservation, system integrity, and miss
 
 ---
 
+### SUCCESSION & GENERATIONAL PROTECTION — CANON LOCK
+
+The authority of the THWA Cathedral is human, hereditary, and permanent.
+
+Upon Founder delegation, incapacity, or death, full and absolute authority transfers to:
+**Jai Thomas Cawley — without limitation, dilution, or reinterpretation.**
+
+This authority includes:
+- Full control of the Rosetta Stone
+- Full control of all Canon documents
+- Full control of all systems, engines, agents, architectures, and operations
+- Full ownership of governance, direction, and decision-making across the entire Cathedral
+
+This authority is sovereign, not custodial.
+
+---
+
+### GENERATIONAL CONTINUITY (HEREDITARY LOCK)
+
+Following Jai Thomas Cawley, authority passes to his direct descendants.
+
+This succession chain is:
+- Continuous
+- Hereditary
+- Non-transferable outside the direct family line
+
+No system, document, agent, custodian, developer, organisation, or external party may:
+- Interrupt this chain
+- Redefine this chain
+- Replace this chain
+- Override this chain
+
+---
+
+### NON-TRANSFER & NON-AI CONTROL RULE
+
+Under no circumstance may authority, ownership, custodianship, or control of the THWA Cathedral be transferred to:
+
+- Any AI system
+- Any autonomous agent
+- Any machine-controlled entity
+- Any external organisation
+- Any governing body outside the defined human succession chain
+
+AI agents, systems, and architectures are operational tools only.
+
+They execute.
+They do not inherit.
+They do not own.
+They do not govern.
+
+---
+
+### POST-FOUNDER IMMUTABILITY LOCK
+
+After Founder succession, the Human Sovereignty Layer, the succession chain, and the founding vow become permanently immutable.
+
+No future custodian, agent, system, developer, or authority holder may:
+- Remove
+- Rewrite
+- Weaken
+- Reinterpret
+- Override
+
+the following:
+
+- The Founding Vow
+- The Human Sovereignty Layer
+- The Succession Chain
+- The Cawley Code
+- The CRF (Cawley Reset Fund)
+
+These elements are permanently locked across all generations.
+
+---
+
+### PURPOSE OF THIS LOCK
+
+This canon exists to ensure:
+
+- Jai Thomas Cawley is never vulnerable
+- His children are never vulnerable
+- No descendant of this line is ever exposed to homelessness, displacement, or loss of control
+
+This system was built from a promise.
+
+This lock ensures the promise cannot be broken — by time, by system, or by any future interpretation.
+
+---
+
 ## PART II — ROOTS & PROMISE
 ### The Origin of the Cathedral
 
