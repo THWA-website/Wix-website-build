@@ -1123,7 +1123,8 @@ textarea.form-input { resize: vertical; min-height: 70px; }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SECTION 1 — CANONICAL DATA (Engine 3: Product Truth)
-// Real GLB URLs from Wix CDN. Pricing from Rosetta Stone V3.
+// GLB URLs: Studio-20 from GitHub Pages (canon GLBs). Studio-30/40 from Wix CDN (pending).
+// Authority: THWA Rosetta Stone V4.1 — Canon Locked.
 // ═══════════════════════════════════════════════════════════════════════════
 
 const DATA = {
@@ -1136,7 +1137,7 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
         { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
         { id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 118500, glb: 'https://static.wixstatic.com/3d/9526fd_6190641f4d1b4475bc0c02770f6caa9d.glb' },
       ],
@@ -1147,7 +1148,7 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
         { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
         { id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 118500, glb: 'https://static.wixstatic.com/3d/9526fd_6190641f4d1b4475bc0c02770f6caa9d.glb' },
       ],
@@ -1158,7 +1159,7 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
         { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
       ],
     },
@@ -1168,7 +1169,7 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
         { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
       ],
     },
@@ -1558,7 +1559,7 @@ function loadModel(size, series) {
     bar.style.width = progress + '%';
   }, 200);
 
-  viewer.src = size.glb;
+  viewer.src = resolveGLBUrl(size, state);
   viewer.poster = series.render || '';
 
   viewer.addEventListener('load', function onLoad() {
@@ -1578,6 +1579,94 @@ function loadModel(size, series) {
     viewer.removeEventListener('error', onError);
   }, { once: true });
 }
+// ══════════════════════════════════════════════════════════════════════════════════
+// SECTION 6B — GLB VARIANT RESOLVER (Engine 1: 3D Truth — Studio-20 Canon Pack)
+// Maps upgrade slot combinations to pre-built GLB filenames.
+// Source: THWA_TinyHomes v2 — Studio-20-FullPack-Manifest.json
+// Authority: THWA Rosetta Stone V4.1 — Canon Locked
+// ══════════════════════════════════════════════════════════════════════════════════
+
+const GLB_BASE_URL = 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/';
+
+const GLB_VARIANTS = {
+  'studio20': {
+    // Key: sorted active upgrade slot IDs joined by '+'
+    // Value: canonical GLB filename from Studio-20-FullPack-Manifest.json
+    '':                                                          'Studio-20-Base.glb',
+    'UpgradeSlopingRoof':                                        'Studio-20-SlopingRoof.glb',
+    'UpgradeExteriorPremiumPanels+UpgradeKitchenPremium+UpgradeBathroomPremium+UpgradeLargeWindows': 'Studio-20-Premium.glb',
+    'UpgradeTerraceDeck':                                        'Studio-20-TerraceDeck.glb',
+    'UpgradeSolarPrep':                                          'Studio-20-SolarPrep.glb',
+    'UpgradeFullSolar':                                          'Studio-20-FullSolar.glb',
+    'UpgradeSmartHome':                                          'Studio-20-SmartHome.glb',
+    'UpgradeFullSolar+UpgradeTerraceDeck':                       'Studio-20-FullSolar+TerraceDeck.glb',
+    'UpgradeExteriorPremiumPanels+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeBathroomPremium+UpgradeLargeWindows': 'Studio-20-Premium+FullSolar.glb',
+    'UpgradeFullSolar+UpgradeSlopingRoof':                       'Studio-20-SlopingRoof+FullSolar.glb',
+    // Colour variants — Base model with supplier-verified exterior colour
+    'colour:angel_white':           'Studio-20-Base-AngelWhite.glb',
+    'colour:ivory_white':           'Studio-20-Base-IvoryWhite.glb',
+    'colour:mauve':                 'Studio-20-Base-Mauve.glb',
+    'colour:rice_yellow':           'Studio-20-Base-RiceYellow.glb',
+    'colour:desert_yellow':         'Studio-20-Base-DesertYellow.glb',
+    'colour:antique_wall_grey':     'Studio-20-Base-AntiqueWallGrey.glb',
+    'colour:micro_grain_yellow_slate': 'Studio-20-Base-MicroGrainYellowSlate.glb',
+    'colour:wenge_wood':            'Studio-20-Base-WengeWood.glb',
+    'colour:dark_brown':            'Studio-20-Base-DarkBrown.glb',
+    'colour:maroon_red':            'Studio-20-Base-MaroonRed.glb',
+    'colour:crimson_red':           'Studio-20-Base-CrimsonRed.glb',
+    'colour:brick_red':             'Studio-20-Base-BrickRed.glb',
+    'colour:terracotta':            'Studio-20-Base-Terracotta.glb',
+    'colour:charcoal_silver':       'Studio-20-Base-CharcoalSilver.glb',
+    'colour:golden_tan':            'Studio-20-Base-GoldenTan.glb',
+  }
+};
+
+/**
+ * Build the active upgrade slot key from current configurator state.
+ * Translates v3 state keys to canonical upgrade slot IDs from the manifest.
+ */
+function buildUpgradeKey(st) {
+  const slots = [];
+  if (st.roof === 'sloping')                          slots.push('UpgradeSlopingRoof');
+  if (st.cladding === 'premium')                      slots.push('UpgradeExteriorPremiumPanels');
+  if (st.windows === 'large')                         slots.push('UpgradeLargeWindows');
+  if (st.floor === 'spc1' || st.floor === 'spc2')    slots.push('UpgradeFloorSPC');
+  if (st.kitchen === 'l' || st.kitchen === 'u')      slots.push('UpgradeKitchenPremium');
+  if (st.bathroom === 'bathtub')                      slots.push('UpgradeBathroomPremium');
+  if (st.addOns && st.addOns.deck)                   slots.push('UpgradeTerraceDeck');
+  if (st.addOns && st.addOns.solarPrep && !st.addOns.fullSolar) slots.push('UpgradeSolarPrep');
+  if (st.addOns && st.addOns.fullSolar)              slots.push('UpgradeFullSolar');
+  if (st.addOns && st.addOns.smartHome)              slots.push('UpgradeSmartHome');
+  return slots.sort().join('+');
+}
+
+/**
+ * Resolve the correct GLB URL for Studio-20 based on current state.
+ * Falls back gracefully to Base GLB if no exact variant match.
+ * For Studio-30/40: continues to use existing Wix CDN GLBs.
+ */
+function resolveGLBUrl(size, st) {
+  // Only Studio-20 has canon GLB variants — others use Wix CDN
+  if (size.id !== 'studio20') return size.glb;
+
+  const variantMap = GLB_VARIANTS['studio20'];
+
+  // Colour variant takes priority when no upgrades active
+  const upgradeKey = buildUpgradeKey(st);
+  if (!upgradeKey && st.colour) {
+    const colourKey = 'colour:' + st.colour;
+    if (variantMap[colourKey]) return GLB_BASE_URL + variantMap[colourKey];
+  }
+
+  // Upgrade variant
+  if (variantMap[upgradeKey]) return GLB_BASE_URL + variantMap[upgradeKey];
+
+  // Fallback: Base GLB
+  console.log('[THWA GLB] No exact variant for key:', upgradeKey, '— using Base');
+  return GLB_BASE_URL + 'Studio-20-Base.glb';
+}
+
+
 
 function setCameraOrbit(orbit) {
   viewer.cameraOrbit = orbit;
