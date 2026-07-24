@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "model_id": "Duplex-20",
+  "variant_id": "Retirement",
+  "lod_level": "LOD1",
+  "glb_filename": "Duplex-20-Retirement-LOD1.glb",
+  "glb_size_mb": 0.028,
+  "upgrades_active": [
+    "UpgradeAccessibilityRetirement",
+    "UpgradeFloorSPC"
+  ],
+  "colour_name": "Angel White",
+  "colour_hex": "#F5F5F3",
+  "partner_applicability": [
+    "Retirement",
+    "CHP"
+  ],
+  "floorplan_options": [
+    "Duplex-20-Retirement-Floorplan-Furnished"
+  ],
+  "bundle": "Retirement",
+  "texture_embedding": "embedded",
+  "coordinate_system": "Y-up right-hand (Babylon.js / Model Viewer)",
+  "root_transform": [
+    1,
+    1,
+    -1
+  ],
+  "draco_compression": true,
+  "validation_passed": true,
+  "chinese_free": true,
+  "blender_version": "5.1.2",
+  "babylon_js_compatible": true,
+  "model_viewer_compatible": true,
+  "generated_date": "2026-07-23",
+  "authority": "THWA Rosetta Stone v4.1"
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "model_id": "Studio-40",
+  "variant_id": "Premium+TerraceDeck",
+  "lod_level": "LOD1",
+  "glb_filename": "Studio-40-Premium+TerraceDeck-LOD1.glb",
+  "glb_size_mb": 0.032,
+  "upgrades_active": [
+    "UpgradeExteriorPremiumPanels",
+    "UpgradeKitchenPremium",
+    "UpgradeBathroomPremium",
+    "UpgradeLargeWindows",
+    "UpgradeTerraceDeck"
+  ],
+  "colour_name": "Angel White",
+  "colour_hex": "#F5F5F3",
+  "partner_applicability": [
+    "Base"
+  ],
+  "floorplan_options": [
+    "Studio-40-Premium+TerraceDeck-Floorplan-Furnished"
+  ],
+  "bundle": "Base",
+  "texture_embedding": "embedded",
+  "coordinate_system": "Y-up right-hand (Babylon.js / Model Viewer)",
+  "root_transform": [
+    1,
+    1,
+    -1
+  ],
+  "draco_compression": true,
+  "validation_passed": true,
+  "chinese_free": true,
+  "blender_version": "5.1.2",
+  "babylon_js_compatible": true,
+  "model_viewer_compatible": true,
+  "generated_date": "2026-07-23",
+  "authority": "THWA Rosetta Stone v4.1"
+}

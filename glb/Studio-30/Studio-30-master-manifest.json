@@ -1,0 +1,867 @@
+{
+  "model_id": "Studio-30",
+  "version": "universal-2026-07-23",
+  "blender_version": "5.1.2",
+  "total_variants": 34,
+  "lod_levels": [
+    "LOD0",
+    "LOD1",
+    "LOD2",
+    "LOD3"
+  ],
+  "total_glbs": 136,
+  "variants": [
+    {
+      "variant_id": "Base",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Premium",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Premium-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Premium-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Premium-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Premium-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Village",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Village-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD1": {
+          "glb": "Studio-30-Village-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD2": {
+          "glb": "Studio-30-Village-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.021
+        },
+        "LOD3": {
+          "glb": "Studio-30-Village-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Government",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Government-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Government-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Government-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Government-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Retirement",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Retirement-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD1": {
+          "glb": "Studio-30-Retirement-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD2": {
+          "glb": "Studio-30-Retirement-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.021
+        },
+        "LOD3": {
+          "glb": "Studio-30-Retirement-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "SlopingRoof",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-SlopingRoof-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-SlopingRoof-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-SlopingRoof-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-SlopingRoof-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "TerraceDeck",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-TerraceDeck-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD1": {
+          "glb": "Studio-30-TerraceDeck-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD2": {
+          "glb": "Studio-30-TerraceDeck-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.021
+        },
+        "LOD3": {
+          "glb": "Studio-30-TerraceDeck-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "SolarPrep",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-SolarPrep-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD1": {
+          "glb": "Studio-30-SolarPrep-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD2": {
+          "glb": "Studio-30-SolarPrep-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.021
+        },
+        "LOD3": {
+          "glb": "Studio-30-SolarPrep-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "FullSolar",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-FullSolar-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.035
+        },
+        "LOD1": {
+          "glb": "Studio-30-FullSolar-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD2": {
+          "glb": "Studio-30-FullSolar-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD3": {
+          "glb": "Studio-30-FullSolar-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "SmartHome",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-SmartHome-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD1": {
+          "glb": "Studio-30-SmartHome-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD2": {
+          "glb": "Studio-30-SmartHome-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-SmartHome-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "FullSolar+TerraceDeck",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-FullSolar+TerraceDeck-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.036
+        },
+        "LOD1": {
+          "glb": "Studio-30-FullSolar+TerraceDeck-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.029
+        },
+        "LOD2": {
+          "glb": "Studio-30-FullSolar+TerraceDeck-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD3": {
+          "glb": "Studio-30-FullSolar+TerraceDeck-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Premium+FullSolar",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Premium+FullSolar-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.035
+        },
+        "LOD1": {
+          "glb": "Studio-30-Premium+FullSolar-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD2": {
+          "glb": "Studio-30-Premium+FullSolar-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD3": {
+          "glb": "Studio-30-Premium+FullSolar-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "SlopingRoof+FullSolar",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-SlopingRoof+FullSolar-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.035
+        },
+        "LOD1": {
+          "glb": "Studio-30-SlopingRoof+FullSolar-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD2": {
+          "glb": "Studio-30-SlopingRoof+FullSolar-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD3": {
+          "glb": "Studio-30-SlopingRoof+FullSolar-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Premium+SlopingRoof",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Premium+SlopingRoof-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Premium+SlopingRoof-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Premium+SlopingRoof-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Premium+SlopingRoof-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Premium+TerraceDeck",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Premium+TerraceDeck-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.028
+        },
+        "LOD1": {
+          "glb": "Studio-30-Premium+TerraceDeck-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.023
+        },
+        "LOD2": {
+          "glb": "Studio-30-Premium+TerraceDeck-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.021
+        },
+        "LOD3": {
+          "glb": "Studio-30-Premium+TerraceDeck-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-AngelWhite",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-AngelWhite-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-AngelWhite-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-AngelWhite-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-AngelWhite-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-IvoryWhite",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-IvoryWhite-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-IvoryWhite-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-IvoryWhite-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-IvoryWhite-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-Mauve",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-Mauve-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-Mauve-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-Mauve-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-Mauve-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-RiceYellow",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-RiceYellow-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-RiceYellow-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-RiceYellow-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-RiceYellow-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-DesertYellow",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-DesertYellow-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-DesertYellow-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-DesertYellow-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-DesertYellow-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-AntiqueWallGrey",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-AntiqueWallGrey-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-AntiqueWallGrey-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-AntiqueWallGrey-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-AntiqueWallGrey-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-LightGrey",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-LightGrey-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-LightGrey-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-LightGrey-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-LightGrey-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-AncientWallGrey",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-AncientWallGrey-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-AncientWallGrey-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-AncientWallGrey-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-AncientWallGrey-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-MicroGrainYellowSlate",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-MicroGrainYellowSlate-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-MicroGrainYellowSlate-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-MicroGrainYellowSlate-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-MicroGrainYellowSlate-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-WengeWood",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-WengeWood-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-WengeWood-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-WengeWood-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-WengeWood-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-DarkBrown",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-DarkBrown-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-DarkBrown-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-DarkBrown-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-DarkBrown-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-MaroonRed",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-MaroonRed-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-MaroonRed-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-MaroonRed-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-MaroonRed-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-CrimsonRed",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-CrimsonRed-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-CrimsonRed-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-CrimsonRed-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-CrimsonRed-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-BrickRed",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-BrickRed-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-BrickRed-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-BrickRed-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-BrickRed-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-Terracotta",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-Terracotta-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-Terracotta-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-Terracotta-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-Terracotta-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-CharcoalSilver",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-CharcoalSilver-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-CharcoalSilver-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-CharcoalSilver-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-CharcoalSilver-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-GoldenTan",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-GoldenTan-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-GoldenTan-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-GoldenTan-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-GoldenTan-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-OxidisedRed",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-OxidisedRed-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-OxidisedRed-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-OxidisedRed-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-OxidisedRed-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    },
+    {
+      "variant_id": "Base-LightBrownSand",
+      "lods": {
+        "LOD0": {
+          "glb": "Studio-30-Base-LightBrownSand-LOD0.glb",
+          "status": "OK",
+          "size_mb": 0.027
+        },
+        "LOD1": {
+          "glb": "Studio-30-Base-LightBrownSand-LOD1.glb",
+          "status": "OK",
+          "size_mb": 0.022
+        },
+        "LOD2": {
+          "glb": "Studio-30-Base-LightBrownSand-LOD2.glb",
+          "status": "OK",
+          "size_mb": 0.02
+        },
+        "LOD3": {
+          "glb": "Studio-30-Base-LightBrownSand-LOD3.glb",
+          "status": "OK",
+          "size_mb": 0.014
+        }
+      }
+    }
+  ],
+  "chinese_free": true,
+  "authority": "THWA Rosetta Stone v4.1"
+}

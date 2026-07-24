@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "model_id": "Duplex-20",
+  "variant_id": "Base-CharcoalSilver",
+  "lod_level": "LOD1",
+  "glb_filename": "Duplex-20-Base-CharcoalSilver-LOD1.glb",
+  "glb_size_mb": 0.027,
+  "upgrades_active": [],
+  "colour_name": "Charcoal Silver",
+  "colour_hex": "#3A3A3C",
+  "partner_applicability": [
+    "Base",
+    "Government",
+    "CHP",
+    "Retirement"
+  ],
+  "floorplan_options": [
+    "Duplex-20-Base-Floorplan-Furnished"
+  ],
+  "bundle": "Base",
+  "texture_embedding": "embedded",
+  "coordinate_system": "Y-up right-hand (Babylon.js / Model Viewer)",
+  "root_transform": [
+    1,
+    1,
+    -1
+  ],
+  "draco_compression": true,
+  "validation_passed": true,
+  "chinese_free": true,
+  "blender_version": "5.1.2",
+  "babylon_js_compatible": true,
+  "model_viewer_compatible": true,
+  "generated_date": "2026-07-23",
+  "authority": "THWA Rosetta Stone v4.1"
+}

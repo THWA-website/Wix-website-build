@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "model_id": "Studio-30",
+  "variant_id": "Base-OxidisedRed",
+  "lod_level": "LOD3",
+  "glb_filename": "Studio-30-Base-OxidisedRed-LOD3.glb",
+  "glb_size_mb": 0.014,
+  "upgrades_active": [],
+  "colour_name": "Oxidised Red",
+  "colour_hex": "#8B3A2A",
+  "partner_applicability": [
+    "Base",
+    "Government",
+    "CHP",
+    "Retirement"
+  ],
+  "floorplan_options": [
+    "Studio-30-Base-Floorplan-Furnished"
+  ],
+  "bundle": "Base",
+  "texture_embedding": "embedded",
+  "coordinate_system": "Y-up right-hand (Babylon.js / Model Viewer)",
+  "root_transform": [
+    1,
+    1,
+    -1
+  ],
+  "draco_compression": true,
+  "validation_passed": true,
+  "chinese_free": true,
+  "blender_version": "5.1.2",
+  "babylon_js_compatible": true,
+  "model_viewer_compatible": true,
+  "generated_date": "2026-07-23",
+  "authority": "THWA Rosetta Stone v4.1"
+}
