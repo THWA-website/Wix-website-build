@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Tiny Homes WA — Design Studio</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Google Model Viewer (handles GLB natively, no Three.js needed) -->
+<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
+<!-- jsPDF for PDF export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+THWA DESIGN SYSTEM — Visual DNA
+Navy #2F3A5F · Gold #F5DC75 · Dark #101828 · Green #8BC34A
+═══════════════════════════════════════════════════════════════════════════ */
+:root {
+--navy: #2F3A5F;
+--navy-deep: #1E2746;
+--navy-mid: #4A5A8A;
+--gold: #F5DC75;
+--gold-soft: rgba(245,220,117,0.12);
+--gold-str: #FFD700;
+--green: #8BC34A;
+--green-soft: rgba(139,195,74,0.12);
+--bg: #101828;
+--bg-soft: #1C2536;
+--bg-card: #1C2536;
+--bg-panel: #101828;
+--border: rgba(148,163,184,0.12);
+--border-gold:rgba(245,220,117,0.25);
+--text: #F5DC75;
+--text-soft: #94a3b8;
+--text-muted: #64748b;
+--radius: 14px;
+--radius-sm: 8px;
+--radius-pill:999px;
+--shadow: 0 20px 50px rgba(0,0,0,0.6);
+--shadow-gold:0 0 30px rgba(245,220,117,0.15);
+--transition: 0.18s ease-out;
+--panel-w: 300px;
+--right-w: 320px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+width: 100%; height: 100%;
+background: var(--bg);
+color: var(--text);
+font-family: 'Inter', system-ui, sans-serif;
+font-size: 13px;
+line-height: 1.5;
+-webkit-font-smoothing: antialiased;
+overflow: hidden;
+}
+
+/* ─── SCROLLBARS ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* ─── LAYOUT ─────────────────────────────────────────────────────────────── */
+#app {
+display: grid;
+grid-template-rows: 56px 1fr;
+grid-template-columns: var(--panel-w) 1fr var(--right-w);
+height: 100vh;
+width: 100%;
+}
+
+/* ─── TOP BAR ─────────────────────────────────────────────────────────────── */
+#topbar {
+grid-column: 1 / -1;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 18px;
+background: linear-gradient(135deg, rgba(30,39,70,0.98) 0%, rgba(47,58,95,0.95) 50%, rgba(30,39,70,0.98) 100%);
+border-bottom: 2px solid var(--dignity);
+z-index: 20;
+gap: 12px;
+}
+
+.topbar-brand {
+display: flex;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+}
+
+.brand-mark {
+width: 34px; height: 34px;
+border-radius: 10px;
+background: linear-gradient(135deg, var(--horizon) 0%, var(--dignity) 60%, #C9A600 100%);
+display: flex; align-items: center; justify-content: center;
+font-family: 'Montserrat', sans-serif;
+font-weight: 900; font-size: 16px;
+color: var(--cathedral-deep);
+box-shadow: 0 4px 12px rgba(245,220,117,0.3);
+flex-shrink: 0;
+}
+
+.brand-text { display: flex; flex-direction: column; gap: 1px; }
+.brand-name {
+font-family: 'Montserrat', sans-serif;
+font-weight: 800; font-size: 14px;
+color: #fff;
+letter-spacing: 0.02em;
+}
+.brand-sub { font-size: 10px; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+
+.topbar-center {
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+font-size: 12px;
+color: rgba(255,255,255,0.6);
+}
+
+.config-badge {
+display: flex;
+align-items: center;
+gap: 6px;
+padding: 5px 12px;
+border-radius: var(--radius-pill);
+background: rgba(255,255,255,0.06);
+border: 1px solid rgba(255,255,255,0.1);
+font-size: 11px;
+color: rgba(255,255,255,0.7);
+}
+
+.config-badge-dot {
+width: 6px; height: 6px;
+border-radius: 50%;
+background: var(--accordance);
+box-shadow: 0 0 0 3px rgba(139,195,74,0.2);
+}
+
+.topbar-actions {
+display: flex;
+align-items: center;
+gap: 6px;
+flex-shrink: 0;
+}
+
+/* ─── BUTTONS ─────────────────────────────────────────────────────────────── */
+.btn {
+display: inline-flex; align-items: center; gap: 6px;
+padding: 8px 16px;
+border-radius: var(--radius-pill);
+border: 1px solid transparent;
+font-family: 'Inter', sans-serif;
+font-size: 12px; font-weight: 600;
+cursor: pointer;
+transition: all var(--transition);
+white-space: nowrap;
+text-decoration: none;
+}
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-gold {
+background: linear-gradient(135deg, var(--horizon) 0%, var(--dignity) 60%, #C9A600 100%);
+border-color: rgba(245,220,117,0.6);
+color: var(--cathedral-deep);
+font-weight: 700;
+box-shadow: 0 4px 16px rgba(245,220,117,0.25);
+}
+.btn-gold:hover:not(:disabled) {
+filter: brightness(1.08);
+transform: translateY(-1px);
+box-shadow: 0 6px 20px rgba(245,220,117,0.35);
+}
+
+.btn-navy {
+background: var(--cathedral);
+border-color: rgba(255,255,255,0.15);
+color: #fff;
+}
+.btn-navy:hover:not(:disabled) { background: var(--cathedral-soft); }
+
+.btn-ghost {
+background: rgba(255,255,255,0.05);
+border-color: rgba(255,255,255,0.1);
+color: rgba(255,255,255,0.7);
+}
+.btn-ghost:hover:not(:disabled) {
+background: rgba(255,255,255,0.08);
+color: #fff;
+}
+
+.btn-green {
+background: rgba(139,195,74,0.15);
+border-color: rgba(139,195,74,0.3);
+color: var(--accordance);
+}
+.btn-green:hover:not(:disabled) { background: rgba(139,195,74,0.25); }
+
+.btn-sm { padding: 5px 12px; font-size: 11px; }
+.btn-icon { padding: 7px 10px; }
+
+/* ─── LEFT PANEL ─────────────────────────────────────────────────────────── */
+#left-panel {
+background: var(--bg-panel);
+border-right: 1px solid var(--border);
+overflow-y: auto;
+overflow-x: hidden;
+display: flex;
+flex-direction: column;
+}
+
+/* ─── RIGHT PANEL ─────────────────────────────────────────────────────────── */
+#right-panel {
+background: var(--bg-panel);
+border-left: 1px solid var(--border);
+overflow-y: auto;
+overflow-x: hidden;
+display: flex;
+flex-direction: column;
+}
+
+/* ─── PANEL SECTIONS ─────────────────────────────────────────────────────── */
+.panel-section {
+padding: 14px 14px 12px;
+border-bottom: 1px solid var(--border);
+}
+.panel-section:last-child { border-bottom: none; }
+
+.section-label {
+font-size: 9px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(--text-muted);
+margin-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+.section-label::after {
+content: '';
+flex: 1;
+height: 1px;
+background: var(--border);
+}
+
+/* ─── SERIES TABS ─────────────────────────────────────────────────────────── */
+.series-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 6px;
+}
+
+.series-card {
+padding: 10px 10px 8px;
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+background: var(--backdrop-soft);
+cursor: pointer;
+transition: all var(--transition);
+text-align: center;
+}
+.series-card:hover { border-color: var(--border-gold); background: rgba(245,220,117,0.04); }
+.series-card.active {
+border-color: var(--dignity);
+background: rgba(245,220,117,0.08);
+box-shadow: var(--shadow-gold);
+}
+
+.series-icon { font-size: 20px; margin-bottom: 4px; }
+.series-name { font-size: 11px; font-weight: 700; color: var(--text); }
+.series-sqm { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+
+/* ─── SIZE PILLS ─────────────────────────────────────────────────────────── */
+.size-pills { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.size-pill {
+padding: 6px 12px;
+border-radius: var(--radius-pill);
+border: 1px solid var(--border);
+background: var(--backdrop-soft);
+color: var(--text-soft);
+font-size: 11px; font-weight: 500;
+cursor: pointer;
+transition: all var(--transition);
+}
+.size-pill:hover { border-color: var(--border-gold); color: var(--dignity); }
+.size-pill.active {
+background: var(--dignity);
+border-color: var(--dignity);
+color: var(--cathedral-deep);
+font-weight: 700;
+}
+
+/* ─── PATHWAY SELECTOR ───────────────────────────────────────────────────── */
+.pathway-cards { display: flex; flex-direction: column; gap: 6px; }
+
+.pathway-card {
+padding: 10px 12px;
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+background: var(--backdrop-soft);
+cursor: pointer;
+transition: all var(--transition);
+}
+.pathway-card:hover { border-color: rgba(255,255,255,0.15); }
+.pathway-card.active { border-color: var(--cathedral); background: rgba(47,58,95,0.2); }
+.pathway-card.jtc.active {
+border-color: #7c3aed;
+background: rgba(124,58,237,0.12);
+}
+
+.pathway-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 3px;
+}
+.pathway-name { font-size: 12px; font-weight: 700; }
+.pathway-sub { font-size: 10px; color: var(--text-muted); }
+
+/* ─── COLOUR SWATCHES ────────────────────────────────────────────────────── */
+.colour-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.colour-swatch {
+width: 30px; height: 30px;
+border-radius: 8px;
+border: 2px solid transparent;
+cursor: pointer;
+transition: all var(--transition);
+position: relative;
+}
+.colour-swatch:hover { transform: scale(1.12); }
+.colour-swatch.active {
+border-color: var(--dignity);
+box-shadow: 0 0 0 2px rgba(245,220,117,0.3);
+}
+.colour-swatch.active::after {
+content: '✓';
+position: absolute;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 12px;
+font-weight: 700;
+color: rgba(255,255,255,0.9);
+text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.colour-name { font-size: 10px; color: var(--text-muted); margin-top: 6px; }
+
+/* ─── SELECTS ────────────────────────────────────────────────────────────── */
+.styled-select {
+width: 100%;
+padding: 8px 10px;
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+background: var(--backdrop-soft);
+color: var(--text);
+font-family: 'Inter', sans-serif;
+font-size: 12px;
+outline: none;
+cursor: pointer;
+transition: border-color var(--transition);
+appearance: none;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 10px center;
+padding-right: 28px;
+}
+.styled-select:focus { border-color: var(--border-gold); }
+
+/* ─── ADD-ONS ────────────────────────────────────────────────────────────── */
+.addon-grid { display: flex; flex-direction: column; gap: 4px; }
+
+.addon-item {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 8px 10px;
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+background: var(--backdrop-soft);
+cursor: pointer;
+transition: all var(--transition);
+}
+.addon-item:hover { border-color: rgba(255,255,255,0.1); }
+.addon-item.checked {
+border-color: var(--border-gold);
+background: rgba(245,220,117,0.06);
+}
+
+.addon-check {
+width: 16px; height: 16px;
+border-radius: 4px;
+border: 1.5px solid var(--border);
+display: flex; align-items: center; justify-content: center;
+font-size: 9px;
+flex-shrink: 0;
+transition: all var(--transition);
+}
+.addon-item.checked .addon-check {
+background: var(--dignity);
+border-color: var(--dignity);
+color: var(--cathedral-deep);
+font-weight: 700;
+}
+
+.addon-info { flex: 1; min-width: 0; }
+.addon-label { font-size: 11px; font-weight: 500; color: var(--text); }
+.addon-price { font-size: 10px; color: var(--dignity); font-weight: 600; }
+
+/* ─── 3D VIEWER ───────────────────────────────────────────────────────────── */
+#viewer-panel {
+position: relative;
+background: radial-gradient(ellipse at top, #1a2744 0%, #101828 60%, #101828 100%);
+overflow: hidden;
+}
+
+model-viewer {
+width: 100%;
+height: 100%;
+display: block;
+--poster-color: transparent;
+background: transparent;
+}
+
+/* Loading overlay */
+#loading-overlay {
+position: absolute;
+inset: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background: rgba(16,24,40,0.9);
+backdrop-filter: blur(10px);
+z-index: 5;
+gap: 16px;
+transition: opacity 0.4s;
+}
+#loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+.spinner {
+width: 44px; height: 44px;
+border: 3px solid rgba(245,220,117,0.15);
+border-top-color: var(--dignity);
+border-radius: 50%;
+animation: spin 0.75s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-label { font-size: 12px; color: var(--text-soft); }
+.loading-bar-wrap {
+width: 180px; height: 3px;
+background: rgba(255,255,255,0.08);
+border-radius: 2px;
+overflow: hidden;
+}
+.loading-bar {
+height: 100%;
+background: linear-gradient(90deg, var(--cathedral), var(--dignity));
+border-radius: 2px;
+width: 0%;
+transition: width 0.3s;
+animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+0% { filter: brightness(1); }
+50% { filter: brightness(1.3); }
+100% { filter: brightness(1); }
+}
+
+/* Model info badge */
+#model-badge {
+position: absolute;
+top: 14px; left: 14px;
+padding: 7px 14px;
+border-radius: var(--radius-pill);
+background: rgba(30,39,70,0.88);
+border: 1px solid rgba(245,220,117,0.2);
+backdrop-filter: blur(10px);
+font-size: 11px;
+color: rgba(255,255,255,0.8);
+z-index: 4;
+display: flex;
+align-items: center;
+gap: 8px;
+box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.badge-dot {
+width: 7px; height: 7px;
+border-radius: 50%;
+background: var(--accordance);
+box-shadow: 0 0 0 3px rgba(139,195,74,0.2);
+}
+
+/* View controls */
+#view-controls {
+position: absolute;
+bottom: 14px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 5px;
+z-index: 4;
+}
+
+.view-btn {
+padding: 5px 12px;
+border-radius: var(--radius-pill);
+border: 1px solid rgba(255,255,255,0.12);
+background: rgba(30,39,70,0.85);
+color: rgba(255,255,255,0.65);
+font-size: 10px;
+font-family: 'Inter', sans-serif;
+cursor: pointer;
+transition: all var(--transition);
+backdrop-filter: blur(8px);
+}
+.view-btn:hover { border-color: rgba(245,220,117,0.3); color: var(--dignity); }
+.view-btn.active { border-color: var(--dignity); color: var(--dignity); background: rgba(245,220,117,0.1); }
+
+/* AR / Fullscreen buttons */
+#viewer-actions {
+position: absolute;
+top: 14px; right: 14px;
+display: flex;
+gap: 6px;
+z-index: 4;
+}
+
+/* Colour preview overlay on model */
+#colour-overlay {
+position: absolute;
+bottom: 50px;
+right: 14px;
+padding: 8px 12px;
+border-radius: var(--radius-sm);
+background: rgba(30,39,70,0.88);
+border: 1px solid rgba(245,220,117,0.2);
+backdrop-filter: blur(8px);
+font-size: 10px;
+color: rgba(255,255,255,0.7);
+z-index: 4;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+#colour-dot {
+width: 16px; height: 16px;
+border-radius: 4px;
+border: 1px solid rgba(255,255,255,0.2);
+transition: background var(--transition);
+}
+
+/* ─── RIGHT PANEL — PRICING ───────────────────────────────────────────────── */
+#price-hero {
+padding: 16px 14px;
+background: linear-gradient(135deg, rgba(30,39,70,0.6) 0%, rgba(47,58,95,0.3) 100%);
+border-bottom: 1px solid var(--border-gold);
+}
+
+.price-label {
+font-size: 9px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+color: var(--text-muted);
+margin-bottom: 4px;
+}
+
+.price-total {
+font-family: 'Montserrat', sans-serif;
+font-size: 30px;
+font-weight: 900;
+color: var(--dignity);
+line-height: 1;
+letter-spacing: -0.02em;
+}
+
+.price-pathway {
+font-size: 11px;
+color: var(--text-soft);
+margin-top: 4px;
+}
+
+.price-note {
+font-size: 10px;
+color: var(--text-muted);
+margin-top: 6px;
+line-height: 1.4;
+}
+
+/* Breakdown rows */
+.breakdown-row {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+padding: 5px 0;
+border-bottom: 1px solid rgba(255,255,255,0.04);
+gap: 8px;
+}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-label { color: var(--text-soft); font-size: 11px; flex: 1; }
+.breakdown-amount { font-size: 11px; font-weight: 600; color: var(--text); white-space: nowrap; }
+.breakdown-row.zero { opacity: 0.35; }
+.breakdown-row.total-row .breakdown-label { color: var(--text); font-weight: 700; font-size: 12px; }
+.breakdown-row.total-row .breakdown-amount { color: var(--dignity); font-size: 14px; font-weight: 800; }
+.breakdown-row.pathway-row .breakdown-amount { color: var(--horizon); }
+.breakdown-row.gst-row { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 8px; }
+
+/* Payment schedule */
+.payment-stage {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 8px 0;
+border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.payment-stage:last-child { border-bottom: none; }
+
+.payment-pct {
+width: 38px; height: 38px;
+border-radius: 50%;
+background: rgba(47,58,95,0.4);
+border: 1px solid rgba(245,220,117,0.2);
+display: flex; align-items: center; justify-content: center;
+font-size: 11px; font-weight: 800;
+color: var(--dignity);
+flex-shrink: 0;
+font-family: 'Montserrat', sans-serif;
+}
+
+.payment-info { flex: 1; }
+.payment-stage-label { font-size: 11px; font-weight: 600; }
+.payment-trigger { font-size: 10px; color: var(--text-muted); }
+.payment-amount { font-size: 12px; font-weight: 700; color: var(--text); }
+
+/* Impact block */
+.impact-block {
+padding: 12px;
+border-radius: var(--radius-sm);
+background: rgba(139,195,74,0.12);
+border: 1px solid rgba(139,195,74,0.2);
+}
+.impact-pct {
+font-family: 'Montserrat', sans-serif;
+font-size: 22px; font-weight: 900;
+color: var(--accordance);
+}
+.impact-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; line-height: 1.4; }
+.impact-line { font-size: 11px; color: var(--text-soft); margin-top: 6px; line-height: 1.5; }
+
+/* Inclusions */
+.inclusions-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.inclusions-list li {
+font-size: 11px;
+color: var(--text-soft);
+display: flex;
+align-items: flex-start;
+gap: 6px;
+line-height: 1.4;
+}
+.inclusions-list li::before {
+content: '✓';
+color: var(--accordance);
+font-weight: 700;
+flex-shrink: 0;
+margin-top: 1px;
+}
+
+/* ─── DELIVERY & GST ─────────────────────────────────────────────────────── */
+.delivery-row {
+display: flex;
+align-items: center;
+gap: 8px;
+}
+.delivery-input {
+flex: 1;
+padding: 7px 10px;
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+background: var(--backdrop-soft);
+color: var(--text);
+font-family: 'Inter', sans-serif;
+font-size: 12px;
+outline: none;
+transition: border-color var(--transition);
+}
+.delivery-input:focus { border-color: var(--border-gold); }
+
+.gst-toggle {
+display: flex;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+font-size: 11px;
+color: var(--text-soft);
+}
+.toggle-switch {
+width: 32px; height: 18px;
+border-radius: 9px;
+background: var(--border);
+position: relative;
+transition: background var(--transition);
+flex-shrink: 0;
+}
+.toggle-switch.on { background: var(--cathedral); }
+.toggle-knob {
+width: 14px; height: 14px;
+border-radius: 50%;
+background: #fff;
+position: absolute;
+top: 2px; left: 2px;
+transition: transform var(--transition);
+box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.toggle-switch.on .toggle-knob { transform: translateX(14px); }
+
+/* ─── QUOTE FORM ─────────────────────────────────────────────────────────── */
+.quote-form { display: flex; flex-direction: column; gap: 8px; }
+.form-field { display: flex; flex-direction: column; gap: 4px; }
+.form-label { font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.form-input {
+padding: 8px 10px;
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+background: var(--backdrop-soft);
+color: var(--text);
+font-family: 'Inter', sans-serif;
+font-size: 12px;
+outline: none;
+transition: border-color var(--transition);
+}
+.form-input:focus { border-color: var(--border-gold); }
+.form-input::placeholder { color: var(--text-muted); }
+textarea.form-input { resize: vertical; min-height: 70px; }
+
+/* ─── TOAST ───────────────────────────────────────────────────────────────── */
+#toast {
+position: fixed;
+bottom: 20px;
+left: 50%;
+transform: translateX(-50%) translateY(80px);
+padding: 10px 20px;
+border-radius: var(--radius-pill);
+background: rgba(30,39,70,0.96);
+border: 1px solid rgba(245,220,117,0.3);
+color: var(--text);
+font-size: 12px;
+z-index: 100;
+transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+backdrop-filter: blur(12px);
+white-space: nowrap;
+box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+#toast.success { border-color: rgba(139,195,74,0.4); color: var(--accordance); }
+#toast.error { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+/* ─── MODAL ───────────────────────────────────────────────────────────────── */
+#modal-overlay {
+position: fixed; inset: 0;
+background: rgba(0,0,0,0.75);
+backdrop-filter: blur(8px);
+z-index: 50;
+display: flex; align-items: center; justify-content: center;
+opacity: 0; pointer-events: none;
+transition: opacity 0.2s;
+}
+#modal-overlay.open { opacity: 1; pointer-events: all; }
+
+#modal {
+background: var(--bg-canvas);
+border: 1px solid var(--border);
+border-top: 2px solid var(--dignity);
+border-radius: var(--radius);
+padding: 24px;
+width: 90%;
+max-width: 500px;
+max-height: 85vh;
+overflow-y: auto;
+box-shadow: var(--shadow);
+transform: scale(0.95);
+transition: transform 0.2s;
+}
+#modal-overlay.open #modal { transform: scale(1); }
+
+.modal-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 18px;
+}
+.modal-title {
+font-family: 'Montserrat', sans-serif;
+font-size: 16px; font-weight: 800;
+color: var(--text);
+}
+.modal-close {
+background: none; border: none;
+color: var(--text-muted); font-size: 20px;
+cursor: pointer; padding: 0; line-height: 1;
+transition: color var(--transition);
+}
+.modal-close:hover { color: var(--text); }
+
+/* ─── MOBILE ──────────────────────────────────────────────────────────────── */
+#mobile-nav {
+display: none;
+position: fixed;
+bottom: 0; left: 0; right: 0;
+background: rgba(30,39,70,0.97);
+border-top: 1px solid var(--border-gold);
+z-index: 30;
+backdrop-filter: blur(16px);
+}
+.mobile-tab-bar { display: flex; }
+.mobile-tab {
+flex: 1;
+padding: 10px 4px 12px;
+display: flex; flex-direction: column; align-items: center; gap: 3px;
+border: none; background: none;
+color: var(--text-muted); font-size: 10px;
+font-family: 'Inter', sans-serif;
+cursor: pointer; transition: color var(--transition);
+}
+.mobile-tab.active { color: var(--dignity); }
+.mobile-tab-icon { font-size: 18px; }
+
+@media (max-width: 960px) {
+#app {
+grid-template-rows: 56px 1fr 58px;
+grid-template-columns: 1fr;
+}
+#left-panel, #right-panel {
+position: fixed;
+top: 56px; bottom: 58px;
+width: 100%; left: 0;
+z-index: 25;
+display: none;
+}
+#left-panel.mobile-show, #right-panel.mobile-show { display: flex; }
+#viewer-panel { grid-column: 1; }
+#mobile-nav { display: block; }
+#view-controls { bottom: 70px; }
+.topbar-center { display: none; }
+}
+
+@media (max-width: 480px) {
+.series-grid { grid-template-columns: 1fr 1fr; }
+#topbar { padding: 0 12px; }
+.brand-name { font-size: 12px; }
+}
+
+/* ─── UTILITY ─────────────────────────────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 4px 0; }
+.text-gold { color: var(--dignity); }
+.text-green { color: var(--accordance); }
+.text-muted { color: var(--text-muted); }
+.fw-700 { font-weight: 700; }
+.mt-4 { margin-top: 4px; }
+.mt-8 { margin-top: 8px; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+</style>
+</head>
+<body>
+<div id="app">
+<!-- ══════════════════════════════════════════════════════════════════════════
+TOP BAR
+══════════════════════════════════════════════════════════════════════════ -->
+<header id="topbar">
+<div class="topbar-brand">
+<img src="../assets/logos/thwa-logo-primary.png" alt="Tiny Homes WA" style="height:34px;width:34px;object-fit:cover;border-radius:10px;flex-shrink:0" onerror="this.style.display='none'"/>
+<div class="brand-text">
+<div class="brand-name">Tiny Homes WA</div>
+<div class="brand-sub">DESIGN STUDIO</div>
+</div>
+</div>
+<div class="topbar-center">
+<div class="config-badge">
+<div class="config-badge-dot"></div>
+<span id="topbar-config-name">Select a series to begin</span>
+</div>
+</div>
+<div class="topbar-actions">
+<button class="btn btn-ghost btn-sm btn-icon" id="btn-share" title="Share configuration">🔗</button>
+<button class="btn btn-ghost btn-sm btn-icon" id="btn-save" title="Save plan">💾</button>
+<button class="btn btn-ghost btn-sm" id="btn-inclusions">What's included</button>
+<button class="btn btn-gold btn-sm" id="btn-quote">Get Quote →</button>
+</div>
+</header>
+<!-- ══════════════════════════════════════════════════════════════════════════
+LEFT PANEL — OPTIONS
+══════════════════════════════════════════════════════════════════════════ -->
+<aside id="left-panel">
+<!-- Series -->
+<div class="panel-section">
+<div class="section-label">Home Series</div>
+<div class="series-grid" id="series-grid"></div>
+<div id="series-desc" style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.5;padding:8px 10px;background:var(--backdrop-soft);border-radius:var(--radius-sm);border-left:2px solid var(--dignity)"></div>
+</div>
+<!-- Size -->
+<div class="panel-section">
+<div class="section-label">Model Size</div>
+<div class="size-pills" id="size-pills"></div>
+</div>
+<!-- Pathway -->
+<div class="panel-section">
+<div class="section-label">Build Pathway</div>
+<div class="pathway-cards" id="pathway-cards"></div>
+</div>
+<!-- Exterior Colour -->
+<div class="panel-section">
+<div class="section-label">Exterior Colour</div>
+<div class="colour-grid" id="colour-grid"></div>
+<div class="colour-name" id="colour-name">Select a colour</div>
+</div>
+<!-- Cladding & Roof -->
+<div class="panel-section">
+<div class="section-label">Cladding & Roof</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">Cladding Style</div>
+<select class="styled-select" id="cladding-select"></select>
+</div>
+<div>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">Roof Style</div>
+<select class="styled-select" id="roof-select"></select>
+</div>
+</div>
+</div>
+<!-- Interior -->
+<div class="panel-section">
+<div class="section-label">Interior Finishes</div>
+<div style="display:flex;flex-direction:column;gap:6px">
+<div>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">Kitchen Layout</div>
+<select class="styled-select" id="kitchen-select"></select>
+</div>
+<div>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">Bathroom</div>
+<select class="styled-select" id="bathroom-select"></select>
+</div>
+<div>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">Flooring</div>
+<select class="styled-select" id="floor-select"></select>
+</div>
+</div>
+</div>
+<!-- Add-Ons -->
+<div class="panel-section" style="flex:1">
+<div class="section-label">Add-Ons & Upgrades</div>
+<div class="addon-grid" id="addon-grid"></div>
+</div>
+</aside>
+<!-- ══════════════════════════════════════════════════════════════════════════
+3D VIEWER
+══════════════════════════════════════════════════════════════════════════ -->
+<main id="viewer-panel">
+<!-- Google Model Viewer -->
+<model-viewer ar="" ar-modes="webxr scene-viewer quick-look" auto-rotate="false" camera-controls="" environment-image="neutral" exposure="1.15" id="model-viewer" interaction-prompt="none" poster="" shadow-intensity="0.9" shadow-softness="0.8" src="" style="width:100%;height:100%" touch-action="pan-y">
+<!-- Custom loading slot -->
+<div slot="progress-bar" style="display:none"></div>
+</model-viewer>
+<!-- Loading overlay -->
+<div id="loading-overlay">
+<div class="spinner"></div>
+<div class="loading-label" id="loading-label">Loading 3D model…</div>
+<div class="loading-bar-wrap">
+<div class="loading-bar" id="loading-bar"></div>
+</div>
+</div>
+<!-- Model badge -->
+<div id="model-badge">
+<div class="badge-dot"></div>
+<span id="badge-text">Select a series</span>
+</div>
+<!-- Viewer actions -->
+<div id="viewer-actions">
+<button class="btn btn-ghost btn-sm btn-icon" id="btn-autorotate" title="Toggle auto-rotate">⟳</button>
+<button class="btn btn-ghost btn-sm btn-icon" id="btn-reset-cam" title="Reset camera">⊙</button>
+</div>
+<!-- Colour preview -->
+<div id="colour-overlay">
+<div id="colour-dot" style="background:#F4F4F4"></div>
+<span id="colour-overlay-name">Crisp White</span>
+</div>
+<!-- Camera presets -->
+<div id="view-controls">
+<button class="view-btn active" data-orbit="0deg 75deg 105%">Isometric</button>
+<button class="view-btn" data-orbit="0deg 90deg 105%">Front</button>
+<button class="view-btn" data-orbit="180deg 90deg 105%">Rear</button>
+<button class="view-btn" data-orbit="-90deg 90deg 105%">Left</button>
+<button class="view-btn" data-orbit="0deg 0deg 105%">Top</button>
+</div>
+</main>
+<!-- ══════════════════════════════════════════════════════════════════════════
+RIGHT PANEL — PRICING
+══════════════════════════════════════════════════════════════════════════ -->
+<aside id="right-panel">
+<!-- Price Hero -->
+<div id="price-hero">
+<div class="price-label">Indicative Total (AUD)</div>
+<div class="price-total" id="price-total">—</div>
+<div class="price-pathway" id="price-pathway">Select a series and pathway</div>
+<div class="price-note">Indicative only. Excludes land, site works & council approvals.</div>
+</div>
+<!-- Breakdown -->
+<div class="panel-section">
+<div class="section-label">Price Breakdown</div>
+<div id="breakdown-rows">
+<div style="color:var(--text-muted);font-size:11px">Select a series to see breakdown.</div>
+</div>
+</div>
+<!-- Delivery & GST -->
+<div class="panel-section">
+<div class="section-label">Delivery & GST</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div>
+<div style="font-size:10px;color:var(--text-muted);margin-bottom:4px">Delivery Estimate (AUD)</div>
+<div class="delivery-row">
+<input class="delivery-input" id="delivery-input" min="0" step="500" type="number" value="8000"/>
+<span style="font-size:10px;color:var(--text-muted)">AUD</span>
+</div>
+</div>
+<label class="gst-toggle" id="gst-toggle">
+<div class="toggle-switch on" id="gst-switch">
+<div class="toggle-knob"></div>
+</div>
+<span>Include GST (10%)</span>
+</label>
+</div>
+</div>
+<!-- Payment Schedule -->
+<div class="panel-section" id="payment-section" style="display:none">
+<div class="section-label">Payment Schedule</div>
+<div id="payment-schedule"></div>
+</div>
+<!-- Impact -->
+<div class="panel-section">
+<div class="section-label">Community Impact</div>
+<div class="impact-block">
+<div class="impact-pct" id="impact-pct">20%</div>
+<div class="impact-label">of profits reinvested into WA community programs</div>
+<div class="impact-line" id="impact-line">
+20% of profits are permanently reinvested into WA community programs.
+</div>
+</div>
+</div>
+<!-- Inclusions -->
+<div class="panel-section" id="inclusions-section">
+<div class="section-label">What's Included</div>
+<ul class="inclusions-list" id="inclusions-list">
+<li>Select a pathway to see inclusions</li>
+</ul>
+</div>
+<!-- Actions -->
+<div class="panel-section">
+<div style="display:flex;flex-direction:column;gap:7px">
+<button class="btn btn-gold" id="btn-quote-2" style="width:100%;justify-content:center">
+Get My Quote →
+</button>
+<div style="display:flex;gap:6px">
+<button class="btn btn-navy btn-sm" id="btn-pdf" style="flex:1;justify-content:center">📄 PDF</button>
+<button class="btn btn-navy btn-sm" id="btn-copy" style="flex:1;justify-content:center">📋 Copy</button>
+<button class="btn btn-navy btn-sm" id="btn-reset" style="flex:1;justify-content:center">↺ Reset</button>
+</div>
+</div>
+</div>
+</aside>
+</div><!-- #app -->
+<!-- ══════════════════════════════════════════════════════════════════════════
+MOBILE NAV
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="mobile-nav">
+<div class="mobile-tab-bar">
+<button class="mobile-tab" data-panel="left">
+<span class="mobile-tab-icon">⚙️</span>
+<span>Options</span>
+</button>
+<button class="mobile-tab active" data-panel="viewer">
+<span class="mobile-tab-icon">◈</span>
+<span>3D View</span>
+</button>
+<button class="mobile-tab" data-panel="right">
+<span class="mobile-tab-icon">💰</span>
+<span>Pricing</span>
+</button>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════════════════
+MODAL
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="modal-overlay">
+<div id="modal">
+<div class="modal-header">
+<div class="modal-title" id="modal-title">Modal</div>
+<button class="modal-close" id="modal-close">✕</button>
+</div>
+<div id="modal-body"></div>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════════════════
+TOAST
+══════════════════════════════════════════════════════════════════════════ -->
+<div id="toast"></div>
+<!-- ══════════════════════════════════════════════════════════════════════════
+THWA CONFIGURATOR ENGINE v3.0
+Authority: Jason Thomas Cawley — Founder & Supreme Custodian
+Canon: THWA Rosetta Stone V3 — Zero Drift
+══════════════════════════════════════════════════════════════════════════ -->
+<script>
+"use strict";
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 1 — CANONICAL DATA (Engine 3: Product Truth)
+// GLB URLs: Studio-20 from GitHub Pages (canon GLBs). Studio-30/40 from Wix CDN (pending).
+// Authority: THWA Rosetta Stone V4.1 — Canon Locked.
+// ═══════════════════════════════════════════════════════════════════════════
+
+const DATA = {
+
+// ── Series (Home Lines) ──────────────────────────────────────────────────
+series: {
+reunite: {
+id: 'reunite', icon: '🏠', label: 'Reunite Series',
+desc: 'Designed for father–child reunification, transitional stability, and dignified living. Compact, efficient, and built for WA families rebuilding.',
+charityRate: 0.20,
+render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+sizes: [
+{ id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base-LOD0.glb' },
+{ id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base-LOD0.glb' },
+{ id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 118500, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-40/Studio-40-Base-LOD0.glb' },
+ ],
+},
+anchor: {
+id: 'anchor', icon: '⚓', label: 'Anchor Series',
+desc: 'Long-term, dignified living for individuals, couples, and families. Grounded, WA-ready, and built for the long haul.',
+charityRate: 0.20,
+render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+sizes: [
+{ id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base-LOD0.glb' },
+{ id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base-LOD0.glb' },
+{ id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 118500, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-40/Studio-40-Base-LOD0.glb' },
+ ],
+},
+bridge: {
+id: 'bridge', icon: '🌉', label: 'Bridge Series',
+desc: 'Professional practice rooms for counsellors, psychologists, youth workers, and NDIS providers. Flexible, modern, and purpose-built.',
+charityRate: 0.20,
+render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+sizes: [
+{ id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base-LOD0.glb' },
+{ id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base-LOD0.glb' },
+ ],
+},
+horizon: {
+id: 'horizon', icon: '🌅', label: 'Horizon Series',
+desc: 'Premium tourism cabins for parks, farms, and retreats. Revenue funds community impact. Spacious, future-focused, and built for growth.',
+charityRate: 0.20,
+render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
+sizes: [
+{ id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base-LOD0.glb' },
+{ id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500, glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base-LOD0.glb' },
+ ],
+},
+},
+
+// ── Pathways ─────────────────────────────────────────────────────────────
+pathways: {
+standard: {
+id: 'standard', label: 'Standard', sublabel: 'Direct Supply',
+multiplier: 1.00,
+desc: 'Direct retail supply. No partner registration required. Transparent pricing, ethical margins.',
+color: '#2F3A5F',
+},
+jtc: {
+id: 'jtc', label: 'JTC', sublabel: 'Journey to Custodianship',
+multiplier: 1.18,
+desc: 'The rent-to-own pathway. Requires a registered partner. Provides stability, ownership, dignity, and generational change.',
+color: '#5E8C2A',
+},
+},
+
+// ── Colours ───────────────────────────────────────────────────────────────
+colours: [
+// ── 19 Supplier-Verified Exterior Colours (THWA Rosetta Stone v4.1) ──
+// HOT colours (most popular) listed first
+{ id: 'angel_white',              label: 'Angel White',              hex: '#F5F5F3', hot: true  },
+{ id: 'ivory_white',              label: 'Ivory White',              hex: '#F0EBD8', hot: true  },
+{ id: 'mauve',                    label: 'Mauve',                    hex: '#D4B8A8', hot: true  },
+{ id: 'rice_yellow',              label: 'Rice Yellow',              hex: '#E8D5A0', hot: true  },
+{ id: 'desert_yellow',            label: 'Desert Yellow',            hex: '#C8A84B', hot: true  },
+{ id: 'antique_wall_grey',        label: 'Antique Wall Grey',        hex: '#4A4A4A', hot: false },
+{ id: 'light_grey',               label: 'Light Grey',               hex: '#9A9A9A', hot: false },
+{ id: 'ancient_wall_grey',        label: 'Ancient Wall Grey',        hex: '#5A5A62', hot: false },
+{ id: 'micro_grain_yellow_slate', label: 'Micro Grain Yellow Slate', hex: '#D4C090', hot: false },
+{ id: 'wenge_wood',               label: 'Wenge Wood',               hex: '#2C1A0E', hot: false },
+{ id: 'dark_brown',               label: 'Dark Brown',               hex: '#4A2E1A', hot: false },
+{ id: 'maroon_red',               label: 'Maroon Red',               hex: '#6B1E1E', hot: false },
+{ id: 'crimson_red',              label: 'Crimson Red',              hex: '#8B1A1A', hot: false },
+{ id: 'brick_red',                label: 'Brick Red',                hex: '#A0402A', hot: false },
+{ id: 'terracotta',               label: 'Terracotta',               hex: '#B85C38', hot: false },
+{ id: 'charcoal_silver',          label: 'Charcoal Silver',          hex: '#3A3A3C', hot: false },
+{ id: 'golden_tan',               label: 'Golden Tan',               hex: '#C8A050', hot: false },
+{ id: 'oxidised_red',             label: 'Oxidised Red',             hex: '#8B3A2A', hot: false },
+{ id: 'light_brown_sand',         label: 'Light Brown Sand',         hex: '#C8A878', hot: false },
+],
+
+// ── Cladding ──────────────────────────────────────────────────────────────
+cladding: [
+{ id: 'smooth', label: 'Smooth Cladding', price: 0 },
+{ id: 'timber', label: 'Timber Cladding', price: 0 },
+{ id: 'ribbed', label: 'Ribbed Metal', price: 0 },
+{ id: 'premium', label: 'Premium Panels', price: 8500 },
+ ],
+
+// ── Roof ──────────────────────────────────────────────────────────────────
+roof: [
+{ id: 'flat', label: 'Flat Roof (Standard)', price: 0 },
+{ id: 'sloping', label: 'Sloping Roof', price: 17000 },
+ ],
+
+// ── Kitchens ──────────────────────────────────────────────────────────────
+kitchens: [
+{ id: 'straight', label: 'Straight (Standard)', price: 0 },
+{ id: 'l', label: 'L-Shaped', price: 2500 },
+{ id: 'u', label: 'U-Shaped', price: 3500 },
+{ id: 'galley', label: 'Galley', price: 4000 },
+ ],
+
+// ── Bathrooms ─────────────────────────────────────────────────────────────
+bathrooms: [
+{ id: 'standard', label: 'Standard Shower', price: 0 },
+{ id: 'bathtub', label: 'Full Bathtub', price: 1800 },
+ ],
+
+// ── Flooring ──────────────────────────────────────────────────────────────
+flooring: [
+{ id: 'pvc1', label: 'PVC — Oak Light', price: 0 },
+{ id: 'pvc2', label: 'PVC — Grey Wash', price: 0 },
+{ id: 'spc1', label: 'SPC/LVT — Warm Oak', price: 450 },
+{ id: 'spc2', label: 'SPC/LVT — Charcoal', price: 450 },
+{ id: 'bam', label: 'Bamboo Fiberboard', price: 650 },
+ ],
+
+// ── Add-Ons ───────────────────────────────────────────────────────────────
+addOns: {
+porch: { label: 'Front Porch (2×6m)', price: 9000, icon: '🏠' },
+deck: { label: 'Deck Extension', price: 7500, icon: '🌿' },
+solarPrep: { label: 'Solar Prep', price: 2200, icon: '☀️' },
+fullSolar: { label: 'Full Solar System', price: 8500, icon: '⚡' },
+water: { label: 'Water-Saving Pack', price: 1250, icon: '💧' },
+offgrid: { label: 'Off-Grid Pack', price: 12000, icon: '🌿' },
+ramp: { label: 'Accessibility Ramp', price: 4000, icon: '♿' },
+secondFloor: { label: 'Second Floor Module', price: 25000, icon: '🏢' },
+metalPanels: { label: 'Decorative Metal Panels', price: 3800, icon: '🧱' },
+smartHome: { label: 'Smart Home Prep', price: 3500, icon: '📱' },
+},
+
+// ── Inclusions by pathway ─────────────────────────────────────────────────
+inclusions: {
+crv: [
+'Engineered chassis and structure',
+'Core insulation and weatherproofing',
+'Standard electrical and plumbing rough-in',
+'Base kitchen and bathroom fitout',
+'Charity-ready compliance focus',
+ ],
+standard: [
+'All CRV inclusions',
+'Upgraded interior finishes and flooring',
+'Standard appliance allowance',
+'Full bathroom fitout with vanity and shower',
+'Exterior cladding and Colorbond-style roofing',
+ ],
+jtc: [
+'All Standard inclusions',
+'Premium interior palette and fixtures',
+'Feature lighting and upgraded hardware',
+'Ceremonial detailing — Winifred Filamena Line',
+'Priority scheduling and legacy documentation',
+ ],
+},
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 2 — APPLICATION STATE
+// ═══════════════════════════════════════════════════════════════════════════
+
+const state = {
+series: 'reunite',
+sizeId: 'studio20',
+pathway: 'standard',
+colour: 'white',
+cladding: 'smooth',
+roof: 'flat',
+kitchen: 'straight',
+bathroom: 'standard',
+floor: 'pvc1',
+addOns: { porch:false, deck:false, solarPrep:false, fullSolar:false, water:false, offgrid:false, ramp:false, secondFloor:false, metalPanels:false, smartHome:false },
+delivery: 8000,
+gst: true,
+autoRotate: false,
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 3 — HELPERS
+// ═══════════════════════════════════════════════════════════════════════════
+
+const {Math.round(n).toLocaleString('en-AU')}; const fmtShort = n =&gt;${Math.round(n).toLocaleString('en-AU')};
+
+function currentSeries() { return DATA.series[state.series]; }
+function currentSize() { return currentSeries().sizes.find(s => s.id === state.sizeId) || currentSeries().sizes[0]; }
+function currentPathway(){ return DATA.pathways[state.pathway]; }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 4 — PRICING ENGINE (Engine 2: Logic Truth)
+// Deterministic. Same input → same output. No randomness.
+// ═══════════════════════════════════════════════════════════════════════════
+
+function calcPricing() {
+const size = currentSize();
+const pathway = currentPathway();
+const series = currentSeries();
+
+const baseRaw = size.base;
+const base = Math.round(baseRaw * pathway.multiplier);
+const pathwayDelta= base - baseRaw;
+
+const roofPrice = DATA.roof.find(r => r.id === state.roof)?.price || 0;
+const claddingPrice = DATA.cladding.find(c => c.id === state.cladding)?.price || 0;
+const kitchenPrice = DATA.kitchens.find(k => k.id === state.kitchen)?.price || 0;
+const bathroomPrice = DATA.bathrooms.find(b => b.id === state.bathroom)?.price || 0;
+const floorPrice = DATA.flooring.find(f => f.id === state.floor)?.price || 0;
+
+const addonsTotal = Object.entries(state.addOns)
+.reduce((sum, [k, v]) => sum + (v ? DATA.addOns[k].price : 0), 0);
+
+const delivery = state.delivery || 0;
+const subtotal = base + roofPrice + claddingPrice + kitchenPrice + bathroomPrice + floorPrice + addonsTotal + delivery;
+const gst = state.gst ? Math.round(subtotal * 0.10) : 0;
+const total = subtotal + gst;
+const charity = Math.round(total * (pathway.charityRate || series.charityRate));
+
+return {
+baseRaw, base, pathwayDelta,
+roofPrice, claddingPrice, kitchenPrice, bathroomPrice, floorPrice,
+addonsTotal, delivery, subtotal, gst, total, charity,
+charityRate: series.charityRate,
+};
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 5 — RENDER FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function renderSeriesGrid() {
+const el = $('series-grid'); el.innerHTML = Object.values(DATA.series).map(s =&gt;
+<div class="series-card {s.id}" role="button" tabindex="0"
+aria-pressed="{s.icon}</div>
+<div class="series-name">{s.sizes.map(sz => sz.sqm).join(' · ')}</div>
+</div>
+`).join('');
+
+el.querySelectorAll('.series-card').forEach(card => {
+const handler = () => selectSeries(card.dataset.series);
+card.addEventListener('click', handler);
+card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') handler(); });
+});
+
+$`('series-desc').textContent = currentSeries().desc;
+}
+
+function renderSizePills() {
+const el = $('size-pills'); el.innerHTML = currentSeries().sizes.map(s =&gt;
+<button class="size-pill {s.id}">
+{s.sqm}
+</button>
+`).join('');
+
+el.querySelectorAll('.size-pill').forEach(btn => {
+btn.addEventListener('click', () => selectSize(btn.dataset.size));
+});
+}
+
+function renderPathwayCards() {
+const el = {p.id} {p.id}" role="button" tabindex="0">
+<div class="pathway-header">
+<span class="pathway-name">{p.sublabel}</span>
+</div>
+<div class="pathway-sub">${p.desc}&lt;/div&gt; &lt;/div&gt;).join('');
+
+el.querySelectorAll('.pathway-card').forEach(card => {
+const handler = () => selectPathway(card.dataset.pathway);
+card.addEventListener('click', handler);
+card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') handler(); });
+});
+}
+
+function renderColourGrid() {
+const el = $('colour-grid'); el.innerHTML = DATA.colours.map(c =&gt;
+<div class="colour-swatch {c.id}"
+style="background:{c.label}"
+role="button" tabindex="0"
+aria-label="{c.id === state.colour ? ' (selected)' : ''}">
+</div>
+`).join('');
+
+el.querySelectorAll('.colour-swatch').forEach(sw => {
+const handler = () => selectColour(sw.dataset.colour);
+sw.addEventListener('click', handler);
+sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') handler(); });
+});
+
+const col = DATA.colours.find(c => c.id === state.colour);
+('colour-dot').style.background = col ? col.hex : '#fff';
+$`('colour-overlay-name').textContent = col ? col.label : '';
+}
+
+function renderSelect(elId, items, stateKey) {
+const el = $(elId); el.innerHTML = items.map(item =&gt;<option value="{item.label}latex
+{item.price &gt; 0 ? ` (+
+
+{fmtShort(item.price)}): ''}&lt;/option>
+).join('');
+el.value = state[stateKey];
+el.onchange = e => { state[stateKey] = e.target.value; updatePricing(); };
+}
+
+function renderAddonGrid() {
+const el = {state.addOns[key] ? 'checked' : ''}"
+data-key="{state.addOns[key]}" tabindex="0">
+<div class="addon-check">{addon.icon} {fmtShort(addon.price)}</div>
+</div>
+</div>
+`).join('');
+
+el.querySelectorAll('.addon-item').forEach(item => {
+const handler = () => toggleAddon(item.dataset.key);
+item.addEventListener('click', handler);
+item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') handler(); });
+});
+}
+
+function renderInclusions() {
+const ul = {i}</li>`).join('');
+}
+
+function updatePricing() {
+const p = calcPricing();
+const size = currentSize();
+const pathway = currentPathway();
+const series = currentSeries();
+
+// Price hero
+('price-pathway').textContent = ${series.label} · ${size.label} · ${pathway.label}`;
+
+// Topbar
+$('topbar-config-name').textContent ={size.label} · {fmt(p.total)}`;
+
+// Breakdown
+const rows = [
+{ label: 'Base Home', amount: p.baseRaw, always: true },
+{ label: Pathway (${pathway.label}), amount: p.pathwayDelta, cls: 'pathway-row' }, { label:Roof — ${DATA.roof.find(r=&gt;r.id===state.roof)?.label}, amount: p.roofPrice },
+{ label: Cladding — ${DATA.cladding.find(c=>c.id===state.cladding)?.label}, amount: p.claddingPrice }, { label:Kitchen — ${DATA.kitchens.find(k=&gt;k.id===state.kitchen)?.label}, amount: p.kitchenPrice },
+{ label: Bathroom — ${DATA.bathrooms.find(b=>b.id===state.bathroom)?.label}, amount: p.bathroomPrice }, { label:Flooring — ${DATA.flooring.find(f=&gt;f.id===state.floor)?.label}, amount: p.floorPrice },
+{ label: 'Add-Ons', amount: p.addonsTotal },
+{ label: 'Delivery', amount: p.delivery },
+{ label: 'GST (10%)', amount: p.gst, cls: 'gst-row' },
+{ label: 'TOTAL', amount: p.total, cls: 'total-row', always: true },
+ ];
+
+{row.cls || ''} {row.label}</span>
+<span class="breakdown-amount">${fmt(row.amount)}&lt;/span&gt; &lt;/div&gt;).join('');
+
+// Payment schedule
+const schedule = [
+{ pct: 10, label: 'Deposit', trigger: 'On contract signing' },
+{ pct: 40, label: 'Production', trigger: 'Build commencement' },
+{ pct: 40, label: 'Pre-Delivery', trigger: 'Pre-delivery inspection' },
+{ pct: 10, label: 'Handover', trigger: 'Delivery & installation' },
+ ];
+
+$('payment-section').style.display = 'block'; $('payment-schedule').innerHTML = schedule.map(s => {
+const amount = Math.round(p.total * s.pct / 100);
+return &lt;div class="payment-stage"&gt; &lt;div class="payment-pct"&gt;${s.pct}%</div>
+<div class="payment-info">
+<div class="payment-stage-label">{s.trigger}</div>
+</div>
+<div class="payment-amount">${fmt(amount)}&lt;/div&gt; &lt;/div&gt;;
+}).join('');
+
+// Impact
+const charityPct = Math.round((pathway.charityRate || series.charityRate) * 100);
+$('impact-pct').textContent =('impact-line').textContent =
+20% of profits from this configuration are reinvested into WA community programs.;
+
+// Badge
+{series.label} · {size.sqm}latex
+{size.beds &gt; 0 ? ` · 
+
+{size.beds} bed: ''};
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 6 — 3D VIEWER (Engine 1: 3D Truth)
+// Uses Google Model Viewer — handles GLB natively with AR support
+// ═══════════════════════════════════════════════════════════════════════════
+
+const viewer = $`('model-viewer');
+let modelLoaded = false;
+
+function loadModel(size, series) {
+const overlay = $('loading-overlay'); const bar = $('loading-bar');
+const label = `$('loading-label');
+
+overlay.classList.remove('hidden');
+bar.style.width = '0%';
+label.textContent = Loading ${size.label}…`;
+modelLoaded = false;
+
+// Animate loading bar
+let progress = 0;
+const barInterval = setInterval(() => {
+progress = Math.min(progress + Math.random() * 15, 85);
+bar.style.width = progress + '%';
+}, 200);
+
+viewer.src = resolveGLBUrl(size, state);
+viewer.poster = series.render || '';
+
+viewer.addEventListener('load', function onLoad() {
+clearInterval(barInterval);
+bar.style.width = '100%';
+setTimeout(() => {
+overlay.classList.add('hidden');
+modelLoaded = true;
+}, 300);
+viewer.removeEventListener('load', onLoad);
+}, { once: true });
+
+viewer.addEventListener('error', function onError() {
+clearInterval(barInterval);
+overlay.classList.add('hidden');
+showToast('3D model unavailable — showing preview', 'error');
+viewer.removeEventListener('error', onError);
+}, { once: true });
+}
+// ══════════════════════════════════════════════════════════════════════════════════
+// SECTION 6B — GLB VARIANT RESOLVER (Engine 1: 3D Truth — Studio-20 Canon Pack)
+// Maps upgrade slot combinations to pre-built GLB filenames.
+// Source: THWA_TinyHomes v2 — Studio-20-FullPack-Manifest.json
+// Authority: THWA Rosetta Stone V4.1 — Canon Locked
+// ══════════════════════════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SECTION 6B — GLB VARIANT RESOLVER v2.0 (Full Multi-Model Canon Pack)
+// Authority: THWA Rosetta Stone v4.1 — Canon Locked
+// All four models: Studio-20, Studio-30, Studio-40, Duplex-20
+// All 19 supplier colours, all upgrade combinations, LOD0 (full detail)
+// ══════════════════════════════════════════════════════════════════════════════
+
+// Base URL for GitHub Pages GLB hosting
+// Update this when GLBs are deployed to production CDN
+const GLB_BASE = {
+  'studio20': 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/',
+  'studio30': 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/',
+  'studio40': 'https://THWA-website.github.io/Wix-website-build/glb/Studio-40/',
+  'duplex20': 'https://THWA-website.github.io/Wix-website-build/glb/Duplex-20/',
+};
+
+// GLB variant maps — key: sorted upgrade slot IDs joined by '+'
+// Value: canonical GLB filename (LOD0 — full detail for configurator)
+// Generated by THWA Universal Engine — THWA Rosetta Stone v4.1
+const GLB_VARIANTS = {
+
+'studio20': {
+  // ── Base & Upgrade Variants ──
+  '': 'Studio-20-Base-LOD0.glb',
+  'UpgradeSlopingRoof': 'Studio-20-SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows': 'Studio-20-Premium-LOD0.glb',
+  'UpgradeTerraceDeck': 'Studio-20-TerraceDeck-LOD0.glb',
+  'UpgradeSolarPrep': 'Studio-20-SolarPrep-LOD0.glb',
+  'UpgradeFullSolar': 'Studio-20-FullSolar-LOD0.glb',
+  'UpgradeSmartHome': 'Studio-20-SmartHome-LOD0.glb',
+  'UpgradeFullSolar+UpgradeTerraceDeck': 'Studio-20-FullSolar+TerraceDeck-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeLargeWindows': 'Studio-20-Premium+FullSolar-LOD0.glb',
+  'UpgradeFullSolar+UpgradeSlopingRoof': 'Studio-20-SlopingRoof+FullSolar-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeSlopingRoof': 'Studio-20-Premium+SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeTerraceDeck': 'Studio-20-Premium+TerraceDeck-LOD0.glb',
+  // ── Variant Bundles ──
+  'bundle:Village': 'Studio-20-Village-LOD0.glb',
+  'bundle:Government': 'Studio-20-Government-LOD0.glb',
+  'bundle:Retirement': 'Studio-20-Retirement-LOD0.glb',
+  // ── 19 Supplier Colour Variants (Base model) ──
+  'colour:angel_white':              'Studio-20-Base-AngelWhite-LOD0.glb',
+  'colour:ivory_white':              'Studio-20-Base-IvoryWhite-LOD0.glb',
+  'colour:mauve':                    'Studio-20-Base-Mauve-LOD0.glb',
+  'colour:rice_yellow':              'Studio-20-Base-RiceYellow-LOD0.glb',
+  'colour:desert_yellow':            'Studio-20-Base-DesertYellow-LOD0.glb',
+  'colour:antique_wall_grey':        'Studio-20-Base-AntiqueWallGrey-LOD0.glb',
+  'colour:light_grey':               'Studio-20-Base-LightGrey-LOD0.glb',
+  'colour:ancient_wall_grey':        'Studio-20-Base-AncientWallGrey-LOD0.glb',
+  'colour:micro_grain_yellow_slate': 'Studio-20-Base-MicroGrainYellowSlate-LOD0.glb',
+  'colour:wenge_wood':               'Studio-20-Base-WengeWood-LOD0.glb',
+  'colour:dark_brown':               'Studio-20-Base-DarkBrown-LOD0.glb',
+  'colour:maroon_red':               'Studio-20-Base-MaroonRed-LOD0.glb',
+  'colour:crimson_red':              'Studio-20-Base-CrimsonRed-LOD0.glb',
+  'colour:brick_red':                'Studio-20-Base-BrickRed-LOD0.glb',
+  'colour:terracotta':               'Studio-20-Base-Terracotta-LOD0.glb',
+  'colour:charcoal_silver':          'Studio-20-Base-CharcoalSilver-LOD0.glb',
+  'colour:golden_tan':               'Studio-20-Base-GoldenTan-LOD0.glb',
+  'colour:oxidised_red':             'Studio-20-Base-OxidisedRed-LOD0.glb',
+  'colour:light_brown_sand':         'Studio-20-Base-LightBrownSand-LOD0.glb',
+},
+
+'studio30': {
+  // ── Base & Upgrade Variants ──
+  '': 'Studio-30-Base-LOD0.glb',
+  'UpgradeSlopingRoof': 'Studio-30-SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows': 'Studio-30-Premium-LOD0.glb',
+  'UpgradeTerraceDeck': 'Studio-30-TerraceDeck-LOD0.glb',
+  'UpgradeSolarPrep': 'Studio-30-SolarPrep-LOD0.glb',
+  'UpgradeFullSolar': 'Studio-30-FullSolar-LOD0.glb',
+  'UpgradeSmartHome': 'Studio-30-SmartHome-LOD0.glb',
+  'UpgradeFullSolar+UpgradeSlopingRoof': 'Studio-30-SlopingRoof+FullSolar-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeLargeWindows': 'Studio-30-Premium+FullSolar-LOD0.glb',
+  'UpgradeFullSolar+UpgradeTerraceDeck': 'Studio-30-TerraceDeck+FullSolar-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeSlopingRoof': 'Studio-30-Premium+SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeTerraceDeck': 'Studio-30-Premium+TerraceDeck-LOD0.glb',
+  'UpgradeSlopingRoof+UpgradeTerraceDeck': 'Studio-30-SlopingRoof+TerraceDeck-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeSlopingRoof': 'Studio-30-Premium+SlopingRoof+FullSolar-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeTerraceDeck': 'Studio-30-Premium+TerraceDeck+FullSolar-LOD0.glb',
+  'UpgradeFullSolar+UpgradeSlopingRoof+UpgradeTerraceDeck': 'Studio-30-SlopingRoof+TerraceDeck+FullSolar-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeSlopingRoof+UpgradeTerraceDeck': 'Studio-30-Premium+SlopingRoof+TerraceDeck-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeSmartHome': 'Studio-30-Premium+SmartHome+FullSolar-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeSlopingRoof+UpgradeTerraceDeck': 'Studio-30-Premium+SlopingRoof+TerraceDeck+FullSolar-LOD0.glb',
+  // ── Variant Bundles ──
+  'bundle:Village': 'Studio-30-Village-LOD0.glb',
+  'bundle:Government': 'Studio-30-Government-LOD0.glb',
+  'bundle:Retirement': 'Studio-30-Retirement-LOD0.glb',
+  // ── 19 Supplier Colour Variants ──
+  'colour:angel_white':              'Studio-30-Base-AngelWhite-LOD0.glb',
+  'colour:ivory_white':              'Studio-30-Base-IvoryWhite-LOD0.glb',
+  'colour:mauve':                    'Studio-30-Base-Mauve-LOD0.glb',
+  'colour:rice_yellow':              'Studio-30-Base-RiceYellow-LOD0.glb',
+  'colour:desert_yellow':            'Studio-30-Base-DesertYellow-LOD0.glb',
+  'colour:antique_wall_grey':        'Studio-30-Base-AntiqueWallGrey-LOD0.glb',
+  'colour:light_grey':               'Studio-30-Base-LightGrey-LOD0.glb',
+  'colour:ancient_wall_grey':        'Studio-30-Base-AncientWallGrey-LOD0.glb',
+  'colour:micro_grain_yellow_slate': 'Studio-30-Base-MicroGrainYellowSlate-LOD0.glb',
+  'colour:wenge_wood':               'Studio-30-Base-WengeWood-LOD0.glb',
+  'colour:dark_brown':               'Studio-30-Base-DarkBrown-LOD0.glb',
+  'colour:maroon_red':               'Studio-30-Base-MaroonRed-LOD0.glb',
+  'colour:crimson_red':              'Studio-30-Base-CrimsonRed-LOD0.glb',
+  'colour:brick_red':                'Studio-30-Base-BrickRed-LOD0.glb',
+  'colour:terracotta':               'Studio-30-Base-Terracotta-LOD0.glb',
+  'colour:charcoal_silver':          'Studio-30-Base-CharcoalSilver-LOD0.glb',
+  'colour:golden_tan':               'Studio-30-Base-GoldenTan-LOD0.glb',
+  'colour:oxidised_red':             'Studio-30-Base-OxidisedRed-LOD0.glb',
+  'colour:light_brown_sand':         'Studio-30-Base-LightBrownSand-LOD0.glb',
+},
+
+'studio40': {
+  // ── Base & Upgrade Variants ──
+  '': 'Studio-40-Base-LOD0.glb',
+  'UpgradeSlopingRoof': 'Studio-40-SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows': 'Studio-40-Premium-LOD0.glb',
+  'UpgradeTerraceDeck': 'Studio-40-TerraceDeck-LOD0.glb',
+  'UpgradeSolarPrep': 'Studio-40-SolarPrep-LOD0.glb',
+  'UpgradeFullSolar': 'Studio-40-FullSolar-LOD0.glb',
+  'UpgradeSmartHome': 'Studio-40-SmartHome-LOD0.glb',
+  'UpgradeFullSolar+UpgradeSlopingRoof': 'Studio-40-FullSolar+SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeLargeWindows': 'Studio-40-FullSolar+Premium-LOD0.glb',
+  'UpgradeFullSolar+UpgradeTerraceDeck': 'Studio-40-FullSolar+TerraceDeck-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeSlopingRoof': 'Studio-40-Premium+SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows+UpgradeTerraceDeck': 'Studio-40-Premium+TerraceDeck-LOD0.glb',
+  'UpgradeSlopingRoof+UpgradeTerraceDeck': 'Studio-40-SlopingRoof+TerraceDeck-LOD0.glb',
+  // ── Variant Bundles ──
+  'bundle:Village': 'Studio-40-Village-LOD0.glb',
+  'bundle:Government': 'Studio-40-Government-LOD0.glb',
+  'bundle:Retirement': 'Studio-40-Retirement-LOD0.glb',
+  // ── 19 Supplier Colour Variants ──
+  'colour:angel_white':              'Studio-40-Base-AngelWhite-LOD0.glb',
+  'colour:ivory_white':              'Studio-40-Base-IvoryWhite-LOD0.glb',
+  'colour:mauve':                    'Studio-40-Base-Mauve-LOD0.glb',
+  'colour:rice_yellow':              'Studio-40-Base-RiceYellow-LOD0.glb',
+  'colour:desert_yellow':            'Studio-40-Base-DesertYellow-LOD0.glb',
+  'colour:antique_wall_grey':        'Studio-40-Base-AntiqueWallGrey-LOD0.glb',
+  'colour:light_grey':               'Studio-40-Base-LightGrey-LOD0.glb',
+  'colour:ancient_wall_grey':        'Studio-40-Base-AncientWallGrey-LOD0.glb',
+  'colour:micro_grain_yellow_slate': 'Studio-40-Base-MicroGrainYellowSlate-LOD0.glb',
+  'colour:wenge_wood':               'Studio-40-Base-WengeWood-LOD0.glb',
+  'colour:dark_brown':               'Studio-40-Base-DarkBrown-LOD0.glb',
+  'colour:maroon_red':               'Studio-40-Base-MaroonRed-LOD0.glb',
+  'colour:crimson_red':              'Studio-40-Base-CrimsonRed-LOD0.glb',
+  'colour:brick_red':                'Studio-40-Base-BrickRed-LOD0.glb',
+  'colour:terracotta':               'Studio-40-Base-Terracotta-LOD0.glb',
+  'colour:charcoal_silver':          'Studio-40-Base-CharcoalSilver-LOD0.glb',
+  'colour:golden_tan':               'Studio-40-Base-GoldenTan-LOD0.glb',
+  'colour:oxidised_red':             'Studio-40-Base-OxidisedRed-LOD0.glb',
+  'colour:light_brown_sand':         'Studio-40-Base-LightBrownSand-LOD0.glb',
+},
+
+'duplex20': {
+  // ── Base & Upgrade Variants ──
+  '': 'Duplex-20-Base-LOD0.glb',
+  'UpgradeSlopingRoof': 'Duplex-20-SlopingRoof-LOD0.glb',
+  'UpgradeExteriorPremiumPanels+UpgradeBathroomPremium+UpgradeKitchenPremium+UpgradeLargeWindows': 'Duplex-20-Premium-LOD0.glb',
+  'UpgradeTerraceDeck': 'Duplex-20-TerraceDeck-LOD0.glb',
+  'UpgradeSolarPrep': 'Duplex-20-SolarPrep-LOD0.glb',
+  'UpgradeFullSolar': 'Duplex-20-FullSolar-LOD0.glb',
+  'UpgradeSmartHome': 'Duplex-20-SmartHome-LOD0.glb',
+  'UpgradeInternalStaircase': 'Duplex-20-InternalStaircase-LOD0.glb',
+  'UpgradeSpiralStaircase': 'Duplex-20-SpiralStaircase-LOD0.glb',
+  // ── Variant Bundles ──
+  'bundle:Village': 'Duplex-20-Village-LOD0.glb',
+  'bundle:Government': 'Duplex-20-Government-LOD0.glb',
+  'bundle:Retirement': 'Duplex-20-Retirement-LOD0.glb',
+  // ── 19 Supplier Colour Variants ──
+  'colour:angel_white':              'Duplex-20-Base-AngelWhite-LOD0.glb',
+  'colour:ivory_white':              'Duplex-20-Base-IvoryWhite-LOD0.glb',
+  'colour:mauve':                    'Duplex-20-Base-Mauve-LOD0.glb',
+  'colour:rice_yellow':              'Duplex-20-Base-RiceYellow-LOD0.glb',
+  'colour:desert_yellow':            'Duplex-20-Base-DesertYellow-LOD0.glb',
+  'colour:antique_wall_grey':        'Duplex-20-Base-AntiqueWallGrey-LOD0.glb',
+  'colour:light_grey':               'Duplex-20-Base-LightGrey-LOD0.glb',
+  'colour:ancient_wall_grey':        'Duplex-20-Base-AncientWallGrey-LOD0.glb',
+  'colour:micro_grain_yellow_slate': 'Duplex-20-Base-MicroGrainYellowSlate-LOD0.glb',
+  'colour:wenge_wood':               'Duplex-20-Base-WengeWood-LOD0.glb',
+  'colour:dark_brown':               'Duplex-20-Base-DarkBrown-LOD0.glb',
+  'colour:maroon_red':               'Duplex-20-Base-MaroonRed-LOD0.glb',
+  'colour:crimson_red':              'Duplex-20-Base-CrimsonRed-LOD0.glb',
+  'colour:brick_red':                'Duplex-20-Base-BrickRed-LOD0.glb',
+  'colour:terracotta':               'Duplex-20-Base-Terracotta-LOD0.glb',
+  'colour:charcoal_silver':          'Duplex-20-Base-CharcoalSilver-LOD0.glb',
+  'colour:golden_tan':               'Duplex-20-Base-GoldenTan-LOD0.glb',
+  'colour:oxidised_red':             'Duplex-20-Base-OxidisedRed-LOD0.glb',
+  'colour:light_brown_sand':         'Duplex-20-Base-LightBrownSand-LOD0.glb',
+},
+
+};
+
+function resolveGLBUrl(size, st) {
+  // ── Full multi-model GLB resolver (THWA Rosetta Stone v4.1) ──
+  // Supports Studio-20, Studio-30, Studio-40, Duplex-20
+  // All 19 supplier colours, all upgrade combinations
+
+  const sizeId = size.id; // e.g. 'studio20', 'studio30', 'studio40'
+  const variantMap = GLB_VARIANTS[sizeId];
+  const baseUrl = GLB_BASE[sizeId];
+
+  // If no variant map for this model, fall back to size.glb (Wix CDN)
+  if (!variantMap || !baseUrl) {
+    console.log('[THWA GLB] No variant map for:', sizeId, '— using size.glb fallback');
+    return size.glb;
+  }
+
+  const upgradeKey = buildUpgradeKey(st);
+
+  // Priority 1: Colour variant (when no upgrades active)
+  if (!upgradeKey && st.colour) {
+    const colourKey = 'colour:' + st.colour;
+    if (variantMap[colourKey]) {
+      console.log('[THWA GLB] Colour variant:', colourKey);
+      return baseUrl + variantMap[colourKey];
+    }
+  }
+
+  // Priority 2: Exact upgrade combination match
+  if (upgradeKey && variantMap[upgradeKey]) {
+    console.log('[THWA GLB] Upgrade variant:', upgradeKey);
+    return baseUrl + variantMap[upgradeKey];
+  }
+
+  // Priority 3: Base GLB
+  console.log('[THWA GLB] No exact variant for key:', upgradeKey || '(none)', '— using Base');
+  return baseUrl + (variantMap[''] || (sizeId.charAt(0).toUpperCase() + sizeId.slice(1).replace(/(\d+)/, '-$1') + '-Base-LOD0.glb'));
+}
+
+function setCameraOrbit(orbit) {
+viewer.cameraOrbit = orbit;
+document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+document.querySelector([data-orbit="${orbit}"]`)?.classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 7 — STATE MUTATIONS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function selectSeries(seriesId) {
+if (state.series === seriesId) return;
+state.series = seriesId;
+// Reset size to first available
+const series = DATA.series[seriesId];
+state.sizeId = series.sizes[0].id;
+renderSeriesGrid();
+renderSizePills();
+loadModel(currentSize(), series);
+updatePricing();
+renderInclusions();
+}
+
+function selectSize(sizeId) {
+if (state.sizeId === sizeId) return;
+state.sizeId = sizeId;
+renderSizePills();
+loadModel(currentSize(), currentSeries());
+updatePricing();
+}
+
+function selectPathway(pathwayId) {
+state.pathway = pathwayId;
+renderPathwayCards();
+renderInclusions();
+updatePricing();
+}
+
+function selectColour(colourId) {
+state.colour = colourId;
+renderColourGrid();
+// Note: colour is applied visually via the overlay indicator.
+// Full material swap requires GLB submesh access — shown as UI indicator.
+}
+
+function toggleAddon(key) {
+state.addOns[key] = !state.addOns[key];
+renderAddonGrid();
+updatePricing();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 8 — QUOTE ENGINE (Engine 6: Sales Truth)
+// ═══════════════════════════════════════════════════════════════════════════
+
+function generateQuoteId() {
+return 'THWA-' + Date.now().toString(36).toUpperCase() + '-' +
+Math.random().toString(36).substring(2,6).toUpperCase();
+}
+
+function getSummaryText() {
+const p = calcPricing();
+const size = currentSize();
+const series = currentSeries();
+const pathway = currentPathway();
+const addOnsList = Object.entries(state.addOns)
+.filter(([,v]) => v)
+.map(([k]) => DATA.addOns[k].label);
+
+return [
+TINY HOMES WA — Configuration Summary,
+, `Series: $`{series.label}`, `Model: `${size.label} ($`{size.sqm})`, `Pathway: `${pathway.label} — $`{pathway.sublabel}`, `Roof: `${DATA.roof.find(r=&gt;r.id===state.roof)?.label}`, `Cladding: $`{DATA.cladding.find(c=&gt;c.id===state.cladding)?.label}`, `Kitchen: `${DATA.kitchens.find(k=&gt;k.id===state.kitchen)?.label}`, `Bathroom: $`{DATA.bathrooms.find(b=&gt;b.id===state.bathroom)?.label}`, `Flooring: `${DATA.flooring.find(f=&gt;f.id===state.floor)?.label}`, `Add-Ons: $`{addOnsList.length ? addOnsList.join(', ') : 'None'}`, `Delivery: `${fmt(p.delivery)}`, `GST: $`{state.gst ? 'Included' : 'Excluded'}`,,
+Base Price:${fmt(p.baseRaw)},Pathway: +{fmt(p.addonsTotal)},Delivery: +{fmt(p.gst)}, ``,TOTAL: {fmt(Math.round(p.total * 0.10))} — On contract signing, Production (40%): {fmt(Math.round(p.total * 0.40))} — Pre-delivery inspection, Handover (10%): {Math.round((currentPathway().charityRate || series.charityRate)*100)}% of profits reinvested into WA community programs, ``,People Over Profits. Always.,hello@tinyhomeswa.com.au | tinyhomeswa.com.au`,
+ ].join('\n');
+}
+
+function buildQuoteHTML(customer) {
+const p = calcPricing();
+const size = currentSize();
+const series = currentSeries();
+const pathway = currentPathway();
+const quoteId = generateQuoteId();
+const now = new Date().toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+const expires = new Date(Date.now() + 302460601000).toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' });
+
+const addOnsList = Object.entries(state.addOns)
+.filter(([,v]) => v)
+.map(([k]) => <li&gt;✓ ${DATA.addOns[k].label} — ${fmt(DATA.addOns[k].price)}&lt;/li>)
+.join('');
+
+const inclusionsList = (DATA.inclusions[state.pathway] || [])
+.map(i => <li&gt;✓ ${i}</li>`).join('');
+
+const schedule = [
+{ pct:10, label:'Deposit', trigger:'On contract signing' },
+{ pct:40, label:'Production', trigger:'Build commencement' },
+{ pct:40, label:'Pre-Delivery', trigger:'Pre-delivery inspection' },
+{ pct:10, label:'Handover', trigger:'Delivery & installation' },
+ ];
+
+return <!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;&lt;meta charset="UTF-8"/&gt; &lt;title&gt;THWA Quote —${quoteId}</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#FAF8F2;color:#1e293b;font-size:13px;line-height:1.5}
+.wrap{max-width:800px;margin:0 auto;padding:32px 24px}
+.header{background:linear-gradient(135deg,#1E2746,#2F3A5F);border-radius:12px;padding:24px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-start}
+.logo-name{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900;color:#fff}
+.logo-tag{font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
+.meta{text-align:right;font-size:11px;color:rgba(255,255,255,0.6)}
+.quote-id{font-size:14px;font-weight:700;color:#F5DC75}
+.hero{background:linear-gradient(135deg,#2F3A5F,#1E2746);border-radius:10px;padding:20px 24px;margin-bottom:20px;color:#fff}
+.hero-series{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:4px}
+.hero-model{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800}
+.hero-pathway{font-size:12px;color:rgba(255,255,255,0.7);margin-top:2px}
+.hero-total{font-family:'Montserrat',sans-serif;font-size:32px;font-weight:900;color:#F5DC75;margin-top:12px}
+.hero-total-label{font-size:11px;color:rgba(255,255,255,0.6)}
+.section{margin-bottom:20px}
+.section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#2F3A5F;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #e2e8f0}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:#94a3b8;padding:5px 8px;border-bottom:1px solid #e2e8f0}
+td{padding:6px 8px;border-bottom:1px solid #F5DC75;vertical-align:top}
+.total-row td{font-weight:800;font-size:15px;color:#2F3A5F;border-top:2px solid #2F3A5F;padding-top:10px}
+.totals{background:#FAF8F2;border-radius:8px;padding:14px;margin-top:12px}
+.total-line{display:flex;justify-content:space-between;padding:4px 0;font-size:12px}
+.total-line.final{font-size:17px;font-weight:800;color:#2F3A5F;border-top:2px solid #2F3A5F;margin-top:8px;padding-top:10px}
+.inclusions ul,.addons ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
+.inclusions li,.addons li{font-size:11px;color:#64748b}
+.charity{background:#f0fdf4;border-left:4px solid #8BC34A;border-radius:8px;padding:12px 14px;font-size:12px;color:#64748b;line-height:1.6}
+.charity strong{color:#5E8C2A}
+.customer-block{background:#FAF8F2;border-radius:8px;padding:14px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cust-label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em}
+.cust-value{font-weight:600;font-size:12px}
+.footer{margin-top:24px;padding-top:14px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;display:flex;justify-content:space-between}
+.disclaimer{max-width:480px;line-height:1.5}
+@media print{body{font-size:12px}.wrap{padding:16px}}
+</style></head><body><div class="wrap">
+
+<div class="header">
+<div>
+<div class="logo-name">Tiny Homes WA</div>
+<div class="logo-tag">People Over Profits · The Cawley Code</div>
+</div>
+<div class="meta">
+<div class="quote-id">{now}</div>
+<div>Valid until: $`{expires}</div>
+</div>
+</div>
+
+${customer.name || customer.email ?
+<div class="customer-block">
+<div><div class="cust-label">Prepared for</div><div class="cust-value">{customer.email||'—'}</div></div>
+latex
+{customer.phone?`<div&gt;&lt;div class="cust-label"&gt;Phone&lt;/div&gt;&lt;div class="cust-value"&gt;
+
+{customer.phone}</div></div>:''} &lt;/div> : ''}
+
+<div class="hero">
+<div class="hero-series">{size.label} · {pathway.label} — {fmt(p.total)}</div>
+<div class="hero-total-label">Total (incl. all selections)</div>
+</div>
+
+<div class="section">
+<div class="section-title">Price Breakdown</div>
+<table>
+<thead><tr><th>Item</th><th style="text-align:right">Price</th></tr></thead>
+<tbody>
+<tr><td>{size.label} — Base</td><td style="text-align:right;font-weight:600">{p.pathwayDelta>0?<tr&gt;&lt;td&gt;Pathway Adjustment (${pathway.label})</td><td style="text-align:right">${fmt(p.pathwayDelta)}&lt;/td&gt;&lt;/tr>:''}
+latex
+{p.roofPrice&gt;0?`<tr&gt;&lt;td&gt;Roof — 
+
+{DATA.roof.find(r=>r.id===state.roof)?.label}</td><td style="text-align:right">latex
+{fmt(p.roofPrice)}&lt;/td&gt;&lt;/tr>`:''} 
+
+{p.claddingPrice>0?<tr&gt;&lt;td&gt;Cladding — ${DATA.cladding.find(c=>c.id===state.cladding)?.label}</td><td style="text-align:right">${fmt(p.claddingPrice)}&lt;/td&gt;&lt;/tr>:''}
+latex
+{p.kitchenPrice&gt;0?`<tr&gt;&lt;td&gt;Kitchen — 
+
+{DATA.kitchens.find(k=>k.id===state.kitchen)?.label}</td><td style="text-align:right">latex
+{fmt(p.kitchenPrice)}&lt;/td&gt;&lt;/tr>`:''} 
+
+{p.bathroomPrice>0?<tr&gt;&lt;td&gt;Bathroom — ${DATA.bathrooms.find(b=>b.id===state.bathroom)?.label}</td><td style="text-align:right">${fmt(p.bathroomPrice)}&lt;/td&gt;&lt;/tr>:''}
+latex
+{p.floorPrice&gt;0?`<tr&gt;&lt;td&gt;Flooring — 
+
+{DATA.flooring.find(f=>f.id===state.floor)?.label}</td><td style="text-align:right">latex
+{fmt(p.floorPrice)}&lt;/td&gt;&lt;/tr>`:''} 
+
+{p.addonsTotal>0?<tr&gt;&lt;td&gt;Add-Ons&lt;/td&gt;&lt;td style="text-align:right"&gt;${fmt(p.addonsTotal)}</td></tr>:''}${p.delivery>0?<tr&gt;&lt;td&gt;Delivery&lt;/td&gt;&lt;td style="text-align:right"&gt;${fmt(p.delivery)}</td></tr>:''}${p.gst>0?<tr&gt;&lt;td&gt;GST (10%)&lt;/td&gt;&lt;td style="text-align:right"&gt;${fmt(p.gst)}</td></tr>:''} &lt;/tbody&gt; &lt;/table&gt; &lt;div class="totals"&gt; &lt;div class="total-line final"&gt;&lt;span&gt;TOTAL&lt;/span&gt;&lt;span&gt;${fmt(p.total)}</span></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Payment Schedule</div>
+<table>
+<thead><tr><th>Stage</th><th>Milestone</th><th style="text-align:right">Amount</th></tr></thead>
+<tbody>
+latex
+{schedule.map(s=>`<tr&gt;&lt;td&gt;
+
+{s.label} ({s.trigger}</td><td style="text-align:right;font-weight:700">${fmt(Math.round(p.total*s.pct/100))}&lt;/td&gt;&lt;/tr>).join('')}
+</tbody>
+</table>
+</div>
+
+${addOnsList ?<div class="section addons"><div class="section-title">Selected Add-Ons</div><ul>${addOnsList}&lt;/ul&gt;&lt;/div> : ''}
+
+<div class="section inclusions">
+<div class="section-title">What's Included — ${pathway.label} Pathway&lt;/div&gt; &lt;ul&gt;${inclusionsList}</ul>
+</div>
+
+<div class="section">
+<div class="section-title">Community Impact</div>
+<div class="charity">
+<strong>${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of profits&lt;/strong&gt; from this home go directly to WA community and reunification programs through the ${series.label} charity pathway.
+People Over Profits. Always.
+</div>
+</div>
+
+<div class="footer">
+<div class="disclaimer">
+This quote is indicative only. Final pricing subject to site assessment, delivery conditions,
+and current material costs. Valid 30 days. Prices in AUD. Land, site works, and council
+approvals not included unless specified.
+</div>
+<div style="text-align:right">
+<div>Tiny Homes WA</div>
+<div>hello@tinyhomeswa.com.au</div>
+<div>tinyhomeswa.com.au</div>
+<div style="margin-top:4px;font-size:10px">Quote ID: `${quoteId}</div>
+</div>
+</div>
+
+</div></body></html>`;
+}
+
+function downloadPDF() {
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+const p = calcPricing();
+const size = currentSize();
+const series = currentSeries();
+const pathway = currentPathway();
+const quoteId = generateQuoteId();
+
+// Header
+doc.setFillColor(0, 31, 63);
+doc.rect(0, 0, 210, 42, 'F');
+doc.setTextColor(255, 199, 44);
+doc.setFontSize(20);
+doc.setFont('helvetica', 'bold');
+doc.text('Tiny Homes WA', 14, 18);
+doc.setTextColor(255, 255, 255);
+doc.setFontSize(10);
+doc.setFont('helvetica', 'normal');
+doc.text('Build & Price Summary — People Over Profits', 14, 27);
+doc.text(new Date().toLocaleDateString('en-AU'), 160, 27);
+doc.setTextColor(255, 199, 44);
+doc.setFontSize(9);
+doc.text(Quote ID: ${quoteId}`, 14, 35);
+
+// Model info
+doc.setTextColor(0, 60, 113);
+doc.setFontSize(14);
+doc.setFont('helvetica', 'bold');
+doc.text(``${series.label} — {size.sqm}), 14, 55); doc.setFontSize(10); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 116, 139); doc.text(Pathway: {pathway.sublabel}`, 14, 63);
+
+// Breakdown
+doc.setTextColor(0, 31, 63);
+doc.setFontSize(11);
+doc.setFont('helvetica', 'bold');
+doc.text('Pricing Breakdown:', 14, 76);
+doc.setFont('helvetica', 'normal');
+doc.setFontSize(10);
+
+const lines = [
+['Base Home', p.baseRaw],
+['Pathway Adjustment', p.pathwayDelta],
+['Roof', p.roofPrice],
+['Cladding', p.claddingPrice],
+['Kitchen', p.kitchenPrice],
+['Bathroom', p.bathroomPrice],
+['Flooring', p.floorPrice],
+['Add-Ons', p.addonsTotal],
+['Delivery', p.delivery],
+['GST (10%)', p.gst],
+];
+
+let y = 85;
+lines.forEach(([label, val]) => {
+if (val > 0) {
+doc.setTextColor(51, 65, 85);
+doc.text(label, 18, y);
+doc.text(fmt(val), 192, y, { align: 'right' });
+y += 7;
+}
+});
+
+// Total
+doc.setFillColor(0, 60, 113);
+doc.rect(14, y + 2, 182, 14, 'F');
+doc.setTextColor(255, 199, 44);
+doc.setFont('helvetica', 'bold');
+doc.setFontSize(12);
+doc.text('TOTAL (AUD)', 18, y + 12);
+doc.text(fmt(p.total), 192, y + 12, { align: 'right' });
+y += 24;
+
+// Payment schedule
+doc.setTextColor(0, 31, 63);
+doc.setFontSize(11);
+doc.text('Payment Schedule:', 14, y);
+y += 8;
+doc.setFont('helvetica', 'normal');
+doc.setFontSize(10);
+const schedule = [
+['Deposit (10%)', 0.10, 'On contract signing'],
+['Production (40%)', 0.40, 'Build commencement'],
+['Pre-Delivery (40%)', 0.40, 'Pre-delivery inspection'],
+['Handover (10%)', 0.10, 'Delivery & installation'],
+];
+schedule.forEach(([label, pct, trigger]) => {
+doc.setTextColor(51, 65, 85);
+doc.text(${label}: ${fmt(Math.round(p.total * pct))}, 18, y);
+doc.setTextColor(148, 163, 184);
+doc.text(trigger, 120, y);
+y += 7;
+});
+
+// Impact
+y += 4;
+doc.setTextColor(34, 197, 94);
+doc.setFont('helvetica', 'bold');
+doc.setFontSize(10);
+doc.text(Community Impact: ${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of profits reinvested into WA community programs`, 14, y);
+
+// Footer
+doc.setTextColor(148, 163, 184);
+doc.setFont('helvetica', 'italic');
+doc.setFontSize(9);
+doc.text('People Over Profits. Always. | tinyhomeswa.com.au | hello@tinyhomeswa.com.au', 14, 275);
+doc.text('Prices are estimates only. Subject to site assessment and council requirements.', 14, 281);
+
+doc.save(TinyHomesWA_${series.label.replace(/ /g,'')}_latex
+{size.label.replace(/ /g,'')}_
+
+{quoteId}.pdf`);
+showToast('PDF downloaded ✓', 'success');
+}
+
+function exportQuotePrint(customer) {
+const html = buildQuoteHTML(customer);
+const win = window.open('', '_blank', 'width=900,height=700');
+if (!win) { showToast('Allow pop-ups to export quote', 'error'); return; }
+win.document.write(html);
+win.document.close();
+win.focus();
+setTimeout(() => win.print(), 600);
+}
+
+async function copyQuote() {
+const text = getSummaryText();
+try {
+await navigator.clipboard.writeText(text);
+showToast('Quote copied to clipboard ✓', 'success');
+} catch(e) {
+const ta = document.createElement('textarea');
+ta.value = text;
+ta.style.cssText = 'position:fixed;opacity:0';
+document.body.appendChild(ta);
+ta.select();
+document.execCommand('copy');
+document.body.removeChild(ta);
+showToast('Quote copied ✓', 'success');
+}
+}
+
+function savePlan() {
+const plans = JSON.parse(localStorage.getItem('thwa_plans_v3') || '[]');
+const plan = {
+id: generateQuoteId(),
+saved: new Date().toISOString(),
+series: state.series,
+model: currentSize().label,
+total: calcPricing().total,
+state: JSON.parse(JSON.stringify(state)),
+};
+plans.unshift(plan);
+if (plans.length > 10) plans.splice(10);
+localStorage.setItem('thwa_plans_v3', JSON.stringify(plans));
+showToast(Plan saved: ${plan.id}`, 'success');
+}
+
+function buildShareUrl() {
+const cfg = {
+s: state.series,
+z: state.sizeId,
+p: state.pathway,
+c: state.colour,
+r: state.roof,
+cl: state.cladding,
+k: state.kitchen,
+b: state.bathroom,
+f: state.floor,
+a: Object.entries(state.addOns).filter(([,v])=>v).map(([k])=>k).join(','),
+d: state.delivery,
+g: state.gst ? 1 : 0,
+};
+return ``${window.location.href.split('?')[0]}?cfg=${btoa(JSON.stringify(cfg))};
+}
+
+function loadFromUrl() {
+try {
+const params = new URLSearchParams(window.location.search);
+const cfg = params.get('cfg');
+if (!cfg) return;
+const c = JSON.parse(atob(cfg));
+if (c.s && DATA.series[c.s]) state.series = c.s;
+if (c.z) state.sizeId = c.z;
+if (c.p && DATA.pathways[c.p]) state.pathway = c.p;
+if (c.c) state.colour = c.c;
+if (c.r) state.roof = c.r;
+if (c.cl) state.cladding = c.cl;
+if (c.k) state.kitchen = c.k;
+if (c.b) state.bathroom = c.b;
+if (c.f) state.floor = c.f;
+if (c.a) c.a.split(',').filter(Boolean).forEach(k => { if (state.addOns[k] !== undefined) state.addOns[k] = true; });
+if (c.d !== undefined) state.delivery = Number(c.d);
+if (c.g !== undefined) state.gst = c.g === 1;
+} catch(e) {}
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 9 — MODALS
+// ═══════════════════════════════════════════════════════════════════════════
+
+function openModal(title, bodyHTML) {
+$('modal-title').textContent = title; $('modal-body').innerHTML = bodyHTML;
+`$('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+$`('modal-overlay').classList.remove('open');
+}
+
+function showInclusionsModal() {
+const pathway = currentPathway();
+const items = DATA.inclusions[state.pathway] || [];
+openModal(What's Included —${pathway.label},
+<p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
+All items below are included in the base price. These are never charged as extras.
+</p>
+<ul class="inclusions-list" style="gap:8px">
+latex
+{items.map(i =&gt; `<li style="font-size:12px"&gt;
+
+{i}</li>).join('')} &lt;/ul&gt; &lt;div style="margin-top:16px;padding:12px;background:rgba(139,195,74,0.08);border-radius:8px;border:1px solid rgba(139,195,74,0.2)"&gt; &lt;div style="font-size:11px;color:var(--text-muted);line-height:1.5"&gt; Standard windows, doors, plumbing, electrical, kitchen, and bathroom are always included. Solar-ready wiring is standard. Full solar installation is available as an add-on. &lt;/div&gt; &lt;/div&gt;);
+}
+
+function showQuoteModal() {
+const p = calcPricing();
+const size = currentSize();
+const series = currentSeries();
+openModal('Get Your Quote', &lt;p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;line-height:1.6"&gt; Enter your details to receive a personalised quote for your &lt;strong style="color:var(--text)"&gt;${series.label} ${size.label}&lt;/strong&gt; — ${fmt(p.total)}.
+</p>
+<div class="quote-form" id="quote-form">
+<div class="form-field">
+<label class="form-label">Your Name</label>
+<input type="text" class="form-input" id="q-name" placeholder="Jane Smith"/>
+</div>
+<div class="form-field">
+<label class="form-label">Email Address *</label>
+<input type="email" class="form-input" id="q-email" placeholder="jane@example.com"/>
+</div>
+<div class="form-field">
+<label class="form-label">Phone (optional)</label>
+<input type="tel" class="form-input" id="q-phone" placeholder="04XX XXX XXX"/>
+</div>
+<div class="form-field">
+<label class="form-label">Message (optional)</label>
+<textarea class="form-input" id="q-message" placeholder="Any questions or site details…"></textarea>
+</div>
+<div style="display:flex;gap:8px;margin-top:4px">
+<button class="btn btn-gold" id="q-submit" style="flex:1;justify-content:center">Send Quote →</button>
+<button class="btn btn-navy" id="q-pdf-btn" style="justify-content:center">📄 PDF</button>
+</div>
+<div id="q-status" style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:4px"></div>
+</div>
+`);
+
+$('q-pdf-btn').addEventListener('click', () =&gt; { const customer = { name: $('q-name')?.value||'', email: $('q-email')?.value||'', phone: $('q-phone')?.value||'' };
+exportQuotePrint(customer);
+});
+
+$('q-submit').addEventListener('click', () =&gt; { const customer = { name: ($('q-name')?.value||'').trim(),
+email: ($('q-email')?.value||'').trim(), phone: ($('q-phone')?.value||'').trim(),
+message: ($('q-message')?.value||'').trim(), }; if (!customer.email) { $('q-status').textContent = 'Please enter your email address.';
+$('q-status').style.color = '#f87171'; return; } const btn = $('q-submit');
+btn.disabled = true;
+btn.textContent = 'Sending…';
+
+// Send to Wix parent
+const p2 = calcPricing();
+window.parent.postMessage({
+type: 'THWA_QUOTE_REQUEST',
+customer,
+quote: {
+series: currentSeries().label,
+model: currentSize().label,
+pathway: currentPathway().label,
+total: p2.total,
+summary: getSummaryText(),
+shareUrl: buildShareUrl(),
+},
+}, '*');
+
+// Export PDF
+exportQuotePrint(customer);
+
+btn.textContent = 'Quote Sent ✓';
+btn.style.background = 'var(--accordance)';
+btn.style.borderColor = 'var(--accordance)';
+btn.style.color = '#fff';
+$('q-status').textContent = 'Your quote has been prepared. Check the PDF window.'; $('q-status').style.color = 'var(--accordance)';
+});
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 10 — TOAST
+// ═══════════════════════════════════════════════════════════════════════════
+
+let toastTimer;
+function showToast(msg, type = '') {
+const el = $('toast'); el.textContent = msg; el.className =show ${type};
+clearTimeout(toastTimer);
+toastTimer = setTimeout(() => { el.className = ''; }, 3200);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 11 — EVENT WIRING
+// ═══════════════════════════════════════════════════════════════════════════
+
+function wireEvents() {
+// Camera presets
+document.querySelectorAll('.view-btn').forEach(btn => {
+btn.addEventListener('click', () => setCameraOrbit(btn.dataset.orbit));
+});
+
+// Auto-rotate
+$('btn-autorotate').addEventListener('click', () =&gt; { state.autoRotate = !state.autoRotate; viewer.autoRotate = state.autoRotate; $('btn-autorotate').style.color = state.autoRotate ? 'var(--dignity)' : '';
+`$('btn-autorotate').style.borderColor = state.autoRotate ? 'rgba(245,220,117,0.4)' : '';
+});
+
+// Reset camera
+$`('btn-reset-cam').addEventListener('click', () => {
+setCameraOrbit('0deg 75deg 105%');
+});
+
+// Delivery input
+`$('delivery-input').addEventListener('input', e => {
+state.delivery = Number(e.target.value) || 0;
+updatePricing();
+});
+
+// GST toggle
+let gstOn = true;
+latex
+('gst-toggle').addEventListener('click', () =&gt; { gstOn = !gstOn; state.gst = gstOn; 
+
+('gst-switch').classList.toggle('on', gstOn);
+updatePricing();
+});
+
+// Top bar buttons
+('btn-quote-2').addEventListener('click', showQuoteModal);
+$`('btn-inclusions').addEventListener('click', showInclusionsModal);
+
+`$('btn-pdf').addEventListener('click', downloadPDF);
+
+$`('btn-copy').addEventListener('click', copyQuote);
+
+`$('btn-save').addEventListener('click', savePlan);
+
+$`('btn-share').addEventListener('click', async () => {
+const url = buildShareUrl();
+try {
+await navigator.clipboard.writeText(url);
+showToast('Share link copied ✓', 'success');
+} catch(e) {
+showToast('Share: ' + url.substring(0, 50) + '…');
+}
+window.parent.postMessage({ type: 'THWA_SHARE_URL', url }, '*');
+});
+
+`$('btn-reset').addEventListener('click', () => {
+if (confirm('Reset all selections?')) boot();
+});
+
+// Modal
+('modal-overlay').addEventListener('click', e => {
+if (e.target === $`('modal-overlay')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Mobile tabs
+document.querySelectorAll('.mobile-tab').forEach(tab => {
+tab.addEventListener('click', () => {
+document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+tab.classList.add('active');
+const panel = tab.dataset.panel;
+$('left-panel').classList.remove('mobile-show'); $('right-panel').classList.remove('mobile-show');
+if (panel === 'left') `$('left-panel').classList.add('mobile-show');
+if (panel === 'right') $('right-panel').classList.add('mobile-show');
+});
+});
+
+// Listen for messages from Wix parent
+window.addEventListener('message', e => {
+if (!e.data || typeof e.data !== 'object') return;
+if (e.data.type === 'THWA_SET_SERIES' && e.data.seriesId) selectSeries(e.data.seriesId);
+if (e.data.type === 'THWA_SET_PATHWAY' && e.data.pathway) selectPathway(e.data.pathway);
+if (e.data.type === 'THWA_SET_SIZE' && e.data.sizeId) selectSize(e.data.sizeId);
+});
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION 12 — BOOT
+// ═══════════════════════════════════════════════════════════════════════════
+
+function boot() {
+// Reset state
+Object.assign(state, {
+series: 'reunite', sizeId: 'studio20', pathway: 'standard',
+colour: 'white', cladding: 'smooth', roof: 'flat',
+kitchen: 'straight', bathroom: 'standard', floor: 'pvc1',
+addOns: { porch:false, deck:false, solarPrep:false, fullSolar:false, water:false, offgrid:false, ramp:false, secondFloor:false, metalPanels:false, smartHome:false },
+delivery: 8000, gst: true, autoRotate: false,
+});
+
+// Load URL state if present
+loadFromUrl();
+
+// Render all panels
+renderSeriesGrid();
+renderSizePills();
+renderPathwayCards();
+renderColourGrid();
+renderSelect('cladding-select', DATA.cladding, 'cladding');
+renderSelect('roof-select', DATA.roof, 'roof');
+renderSelect('kitchen-select', DATA.kitchens, 'kitchen');
+renderSelect('bathroom-select', DATA.bathrooms, 'bathroom');
+renderSelect('floor-select', DATA.flooring, 'floor');
+renderAddonGrid();
+renderInclusions();
+updatePricing();
+wireEvents();
+
+// Load initial model
+loadModel(currentSize(), currentSeries());
+
+// Notify Wix parent
+window.parent.postMessage({ type: 'THWA_CONFIGURATOR_READY', version: '3.0' }, '*');
+}
+
+document.addEventListener('DOMContentLoaded', boot);
+</script>
+</body>
+</html>
