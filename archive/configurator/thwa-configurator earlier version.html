@@ -323,6 +323,14 @@ html, body {
   margin-bottom: 3px;
 }
 .pathway-name { font-size: 12px; font-weight: 700; }
+.pathway-mult {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--dignity);
+  background: rgba(245,220,117,0.12);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+}
 .pathway-sub { font-size: 10px; color: var(--text-muted); }
 
 /* ─── COLOUR SWATCHES ────────────────────────────────────────────────────── */
@@ -879,7 +887,7 @@ textarea.form-input { resize: vertical; min-height: 70px; }
      ══════════════════════════════════════════════════════════════════════════ -->
 <header id="topbar">
 <div class="topbar-brand">
-<img src="../assets/logos/thwa-logo-primary.png" alt="Tiny Homes WA" style="height:34px;width:34px;object-fit:cover;border-radius:10px;flex-shrink:0" onerror="this.style.display='none'"/>
+<div class="brand-mark">T</div>
 <div class="brand-text">
 <div class="brand-name">Tiny Homes WA</div>
 <div class="brand-sub">DESIGN STUDIO</div>
@@ -992,7 +1000,7 @@ textarea.form-input { resize: vertical; min-height: 70px; }
 <!-- Colour preview -->
 <div id="colour-overlay">
 <div id="colour-dot" style="background:#F4F4F4"></div>
-<span id="colour-overlay-name">White</span>
+<span id="colour-overlay-name">Crisp White</span>
 </div>
 <!-- Camera presets -->
 <div id="view-controls">
@@ -1052,7 +1060,7 @@ textarea.form-input { resize: vertical; min-height: 70px; }
 <div class="impact-pct" id="impact-pct">20%</div>
 <div class="impact-label">of profits reinvested into WA community programs</div>
 <div class="impact-line" id="impact-line">
-        20% of profits are permanently reinvested into WA community programs.
+        Select a configuration to see your estimated community contribution.
       </div>
 </div>
 </div>
@@ -1123,8 +1131,7 @@ textarea.form-input { resize: vertical; min-height: 70px; }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SECTION 1 — CANONICAL DATA (Engine 3: Product Truth)
-// GLB URLs: Studio-20 from GitHub Pages (canon GLBs). Studio-30/40 from Wix CDN (pending).
-// Authority: THWA Rosetta Stone V4.1 — Canon Locked.
+// Real GLB URLs from Wix CDN. Pricing from Rosetta Stone V3.
 // ═══════════════════════════════════════════════════════════════════════════
 
 const DATA = {
@@ -1137,15 +1144,10 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-  { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
-
-  { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base.glb' },
-
-  { id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 118500,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-40/Studio-40-Base.glb' },
-],
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
+        { id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 128150, glb: 'https://static.wixstatic.com/3d/9526fd_6190641f4d1b4475bc0c02770f6caa9d.glb' },
+      ],
     },
     anchor: {
       id: 'anchor', icon: '⚓', label: 'Anchor Series',
@@ -1153,15 +1155,10 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-  { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
-
-  { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base.glb' },
-
-  { id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 118500,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-40/Studio-40-Base.glb' },
-],
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
+        { id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 128150, glb: 'https://static.wixstatic.com/3d/9526fd_6190641f4d1b4475bc0c02770f6caa9d.glb' },
+      ],
     },
     bridge: {
       id: 'bridge', icon: '🌉', label: 'Bridge Series',
@@ -1169,11 +1166,8 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-  { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
-
-  { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base.glb' },
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
       ],
     },
     horizon: {
@@ -1182,79 +1176,44 @@ const DATA = {
       charityRate: 0.20,
       render: 'https://static.wixstatic.com/media/9526fd_5c24ea146ec04f1d8f0f5873ba9ed0f3~mv2.jpg',
       sizes: [
-  { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 67000,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/Studio-20-Base.glb' },
-
-  { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 98500,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-30/Studio-30-Base.glb' },
-
-  { id: 'studio40', label: 'Studio 40', sqm: '40m²', beds: 2, baths: 1, base: 118500,
-    glb: 'https://THWA-website.github.io/Wix-website-build/glb/Studio-40/Studio-40-Base.glb' },
-],
+        { id: 'studio20', label: 'Studio 20', sqm: '20m²', beds: 0, baths: 1, base: 108585, glb: 'https://static.wixstatic.com/3d/9526fd_61e0ee776a424cf3ba603d580790dc90.glb' },
+        { id: 'studio30', label: 'Studio 30', sqm: '30m²', beds: 1, baths: 1, base: 118000, glb: 'https://static.wixstatic.com/3d/9526fd_ae75e1743f1a47ad9acc174719f2f749.glb' },
+      ],
     },
   },
 
   // ── Pathways ─────────────────────────────────────────────────────────────
   pathways: {
-    standard: {
-      id: 'standard', label: 'Standard', sublabel: 'Direct Supply',
+    crv: {
+      id: 'crv', label: 'CRV', sublabel: 'Community Resilience Vehicle',
       multiplier: 1.00,
-      desc: 'Direct retail supply. No partner registration required. Transparent pricing, ethical margins.',
+      desc: 'Core, charity-ready specification with transparent pricing and WA project contribution.',
+      color: '#2F3A5F',
+    },
+    standard: {
+      id: 'standard', label: 'Standard', sublabel: 'Turnkey Home',
+      multiplier: 1.08,
+      desc: 'Turnkey residential specification with comfort upgrades and standard inclusions.',
       color: '#2F3A5F',
     },
     jtc: {
-      id: 'jtc', label: 'JTC', sublabel: 'Journey to Custodianship',
+      id: 'jtc', label: 'JTC', sublabel: 'Winifred Filamena',
       multiplier: 1.18,
-      desc: 'The rent-to-own pathway. Requires a registered partner. Provides stability, ownership, dignity, and generational change.',
-      color: '#5E8C2A',
+      desc: 'Premium ceremonial tier with elevated finishes and legacy-grade detailing.',
+      color: '#7c3aed',
     },
   },
 
   // ── Colours ───────────────────────────────────────────────────────────────
   colours: [
-  { id: 'AngelWhite',              label: 'Angel White',              hex: '#F5F5F3' },
-  { id: 'IvoryWhite',              label: 'Ivory White',              hex: '#F0EBD8' },
-  { id: 'Mauve',                   label: 'Mauve',                    hex: '#D4B8A8' },
-  { id: 'RiceYellow',              label: 'Rice Yellow',              hex: '#E8D5A0' },
-  { id: 'DesertYellow',            label: 'Desert Yellow',            hex: '#C8A84B' },
-  { id: 'AntiqueWallGrey',         label: 'Antique Wall Grey',        hex: '#4A4A4A' },
-  { id: 'LightGrey',               label: 'Light Grey',               hex: '#9A9A9A' },
-  { id: 'AncientWallGrey',         label: 'Ancient Wall Grey',        hex: '#5A5A62' },
-  { id: 'MicroGrainYellowSlate',   label: 'Micro Grain Yellow Slate', hex: '#D4C090' },
-  { id: 'WengeWood',               label: 'Wenge Wood',               hex: '#2C1A0E' },
-  { id: 'DarkBrown',               label: 'Dark Brown',               hex: '#4A2E1A' },
-  { id: 'MaroonRed',               label: 'Maroon Red',               hex: '#6B1E1E' },
-  { id: 'CrimsonRed',              label: 'Crimson Red',              hex: '#8B1A1A' },
-  { id: 'BrickRed',                label: 'Brick Red',                hex: '#A0402A' },
-  { id: 'Terracotta',              label: 'Terracotta',               hex: '#B85C38' },
-  { id: 'CharcoalSilver',          label: 'Charcoal Silver',          hex: '#3A3A3C' },
-  { id: 'GoldenTan',               label: 'Golden Tan',               hex: '#C8A050' },
-  { id: 'OxidisedRed',             label: 'Oxidised Red',             hex: '#8B3A2A' },
-  { id: 'LightBrownSand',          label: 'Light Brown Sand',         hex: '#C8A878' }
-],
-
-colourGlbMap: {
-  AngelWhite:            "AngelWhite",
-  IvoryWhite:            "IvoryWhite",
-  Mauve:                 "Mauve",
-  RiceYellow:            "RiceYellow",
-  DesertYellow:          "DesertYellow",
-  AntiqueWallGrey:       "AntiqueWallGrey",
-  LightGrey:             "LightGrey",
-  AncientWallGrey:       "AncientWallGrey",
-  MicroGrainYellowSlate: "MicroGrainYellowSlate",
-  WengeWood:             "WengeWood",
-  DarkBrown:             "DarkBrown",
-  MaroonRed:             "MaroonRed",
-  CrimsonRed:            "CrimsonRed",
-  BrickRed:              "BrickRed",
-  Terracotta:            "Terracotta",
-  CharcoalSilver:        "CharcoalSilver",
-  GoldenTan:             "GoldenTan",
-  OxidisedRed:           "OxidisedRed",
-  LightBrownSand:        "LightBrownSand"
-},
-
+    { id: 'white',    label: 'Crisp White',   hex: '#F4F4F4' },
+    { id: 'navy',     label: 'THWA Navy',     hex: '#2F3A5F' },
+    { id: 'gold',     label: 'Warm Gold',     hex: '#F5DC75' },
+    { id: 'forest',   label: 'Forest Green',  hex: '#2f4f4f' },
+    { id: 'charcoal', label: 'Charcoal',      hex: '#333333' },
+    { id: 'sand',     label: 'WA Sand',       hex: '#d8c7a3' },
+    { id: 'terra',    label: 'Terracotta',    hex: '#c05a37' },
+  ],
 
   // ── Cladding ──────────────────────────────────────────────────────────────
   cladding: [
@@ -1309,6 +1268,13 @@ colourGlbMap: {
 
   // ── Inclusions by pathway ─────────────────────────────────────────────────
   inclusions: {
+    crv: [
+      'Engineered chassis and structure',
+      'Core insulation and weatherproofing',
+      'Standard electrical and plumbing rough-in',
+      'Base kitchen and bathroom fitout',
+      'Charity-ready compliance focus',
+    ],
     standard: [
       'All CRV inclusions',
       'Upgraded interior finishes and flooring',
@@ -1333,7 +1299,7 @@ colourGlbMap: {
 const state = {
   series:   'reunite',
   sizeId:   'studio20',
-  pathway:  'standard',
+  pathway:  'crv',
   colour:   'white',
   cladding: 'smooth',
   roof:     'flat',
@@ -1441,6 +1407,7 @@ function renderPathwayCards() {
          data-pathway="${p.id}" role="button" tabindex="0">
       <div class="pathway-header">
         <span class="pathway-name">${p.label} — ${p.sublabel}</span>
+        <span class="pathway-mult">×${p.multiplier.toFixed(2)}</span>
       </div>
       <div class="pathway-sub">${p.desc}</div>
     </div>
@@ -1528,7 +1495,7 @@ function updatePricing() {
   // Breakdown
   const rows = [
     { label: 'Base Home', amount: p.baseRaw, always: true },
-    { label: `Pathway (${pathway.label})`, amount: p.pathwayDelta, cls: 'pathway-row' },
+    { label: `Pathway (${pathway.label} ×${pathway.multiplier.toFixed(2)})`, amount: p.pathwayDelta, cls: 'pathway-row' },
     { label: `Roof — ${DATA.roof.find(r=>r.id===state.roof)?.label}`, amount: p.roofPrice },
     { label: `Cladding — ${DATA.cladding.find(c=>c.id===state.cladding)?.label}`, amount: p.claddingPrice },
     { label: `Kitchen — ${DATA.kitchens.find(k=>k.id===state.kitchen)?.label}`, amount: p.kitchenPrice },
@@ -1574,7 +1541,7 @@ function updatePricing() {
   const charityPct = Math.round((pathway.charityRate || series.charityRate) * 100);
   $('impact-pct').textContent = `${charityPct}%`;
   $('impact-line').textContent =
-    `20% of profits from this configuration are reinvested into WA community programs.`;
+    `This configuration contributes an estimated ${fmt(p.charity)} to WA community and reunification programs.`;
 
   // Badge
   $('badge-text').textContent =
@@ -1588,22 +1555,6 @@ function updatePricing() {
 
 const viewer = $('model-viewer');
 let modelLoaded = false;
-
-function resolveColourGLBUrl(size, state) {
-  // If no colour selected, load base GLB
-  if (!state.colour) {
-    return size.glb;
-  }
-
-  // Map colour → supplier variant folder name
-  const variant = DATA.colourGlbMap[state.colour];
-
-  // Build correct GLB path based on your folder tree
-  const baseFolder = size.label.replace(' ', '-'); // Studio-20, Studio-30, Studio-40
-  const sqm = size.sqm.replace('m²', '');          // 20, 30, 40
-
-  return `https://THWA-website.github.io/Wix-website-build/glb/${baseFolder}/Studio-${sqm}-Base-${variant}-LOD0.glb`;
-}
 
 function loadModel(size, series) {
   const overlay = $('loading-overlay');
@@ -1622,7 +1573,7 @@ function loadModel(size, series) {
     bar.style.width = progress + '%';
   }, 200);
 
-  viewer.src = resolveColourGLBUrl(size, state);
+  viewer.src = size.glb;
   viewer.poster = series.render || '';
 
   viewer.addEventListener('load', function onLoad() {
@@ -1642,113 +1593,6 @@ function loadModel(size, series) {
     viewer.removeEventListener('error', onError);
   }, { once: true });
 }
-// ══════════════════════════════════════════════════════════════════════════════════
-// SECTION 6B — GLB VARIANT RESOLVER (Engine 1: 3D Truth — Studio-20 Canon Pack)
-// Maps upgrade slot combinations to pre-built GLB filenames.
-// Source: THWA_TinyHomes v2 — Studio-20-FullPack-Manifest.json
-// Authority: THWA Rosetta Stone V4.1 — Canon Locked
-// ══════════════════════════════════════════════════════════════════════════════════
-
-const GLB_BASE_URL = 'https://THWA-website.github.io/Wix-website-build/glb/Studio-20/';
-
-const GLB_VARIANTS = {
-  'studio20': {
-    // Key: sorted active upgrade slot IDs joined by '+'
-    // Value: canonical GLB filename from Studio-20-FullPack-Manifest.json
-    '':                                                          'Studio-20-Base.glb',
-    'UpgradeSlopingRoof':                                        'Studio-20-SlopingRoof.glb',
-    'UpgradeExteriorPremiumPanels+UpgradeKitchenPremium+UpgradeBathroomPremium+UpgradeLargeWindows': 'Studio-20-Premium.glb',
-    'UpgradeTerraceDeck':                                        'Studio-20-TerraceDeck.glb',
-    'UpgradeSolarPrep':                                          'Studio-20-SolarPrep.glb',
-    'UpgradeFullSolar':                                          'Studio-20-FullSolar.glb',
-    'UpgradeSmartHome':                                          'Studio-20-SmartHome.glb',
-    'UpgradeFullSolar+UpgradeTerraceDeck':                       'Studio-20-FullSolar+TerraceDeck.glb',
-    'UpgradeExteriorPremiumPanels+UpgradeFullSolar+UpgradeKitchenPremium+UpgradeBathroomPremium+UpgradeLargeWindows': 'Studio-20-Premium+FullSolar.glb',
-    'UpgradeFullSolar+UpgradeSlopingRoof':                       'Studio-20-SlopingRoof+FullSolar.glb',
-    // Colour variants — Base model with supplier-verified exterior colour
-    'colour:angel_white':           'Studio-20-Base-AngelWhite.glb',
-    'colour:ivory_white':           'Studio-20-Base-IvoryWhite.glb',
-    'colour:mauve':                 'Studio-20-Base-Mauve.glb',
-    'colour:rice_yellow':           'Studio-20-Base-RiceYellow.glb',
-    'colour:desert_yellow':         'Studio-20-Base-DesertYellow.glb',
-    'colour:antique_wall_grey':     'Studio-20-Base-AntiqueWallGrey.glb',
-    'colour:micro_grain_yellow_slate': 'Studio-20-Base-MicroGrainYellowSlate.glb',
-    'colour:wenge_wood':            'Studio-20-Base-WengeWood.glb',
-    'colour:dark_brown':            'Studio-20-Base-DarkBrown.glb',
-    'colour:maroon_red':            'Studio-20-Base-MaroonRed.glb',
-    'colour:crimson_red':           'Studio-20-Base-CrimsonRed.glb',
-    'colour:brick_red':             'Studio-20-Base-BrickRed.glb',
-    'colour:terracotta':            'Studio-20-Base-Terracotta.glb',
-    'colour:charcoal_silver':       'Studio-20-Base-CharcoalSilver.glb',
-     'colour:golden_tan':            'Studio-20-Base-GoldenTan.glb',
-  },
-
-  'studio30': {
-    '':                   'Studio-30-Base.glb',
-    'UpgradeSlopingRoof': 'Studio-30-SlopingRoof.glb',
-    'UpgradeExteriorPremiumPanels+UpgradeKitchenPremium+UpgradeBathroomPremium+UpgradeLargeWindows': 'Studio-30-Premium.glb',
-    'UpgradeTerraceDeck': 'Studio-30-TerraceDeck.glb',
-    'UpgradeSolarPrep':   'Studio-30-SolarPrep.glb',
-    'UpgradeFullSolar':   'Studio-30-FullSolar.glb',
-    'UpgradeSmartHome':   'Studio-30-SmartHome.glb',
-    'UpgradeFullSolar+UpgradeTerraceDeck': 'Studio-30-FullSolar+TerraceDeck.glb',
-    'UpgradeFullSolar+UpgradeSlopingRoof': 'Studio-30-SlopingRoof+FullSolar.glb',
-  },
-
-  'studio40': {
-    '':                   'Studio-40-Base.glb',
-    'UpgradeSlopingRoof': 'Studio-40-SlopingRoof.glb',
-    'UpgradeExteriorPremiumPanels+UpgradeKitchenPremium+UpgradeBathroomPremium+UpgradeLargeWindows': 'Studio-40-Premium.glb',
-    'UpgradeTerraceDeck': 'Studio-40-TerraceDeck.glb',
-    'UpgradeSolarPrep':   'Studio-40-SolarPrep.glb',
-    'UpgradeFullSolar':   'Studio-40-FullSolar.glb',
-    'UpgradeSmartHome':   'Studio-40-SmartHome.glb',
-    'UpgradeFullSolar+UpgradeTerraceDeck': 'Studio-40-FullSolar+TerraceDeck.glb',
-    'UpgradeFullSolar+UpgradeSlopingRoof': 'Studio-40-SlopingRoof+FullSolar.glb',
-  },
-};
-
-/**
- * Build the active upgrade slot key from current configurator state.
- * Translates v3 state keys to canonical upgrade slot IDs from the manifest.
- */
-function buildUpgradeKey(st) {
-  const slots = [];
-  if (st.roof === 'sloping')                          slots.push('UpgradeSlopingRoof');
-  if (st.cladding === 'premium')                      slots.push('UpgradeExteriorPremiumPanels');
-  if (st.windows === 'large')                         slots.push('UpgradeLargeWindows');
-  if (st.floor === 'spc1' || st.floor === 'spc2')    slots.push('UpgradeFloorSPC');
-  if (st.kitchen === 'l' || st.kitchen === 'u')      slots.push('UpgradeKitchenPremium');
-  if (st.bathroom === 'bathtub')                      slots.push('UpgradeBathroomPremium');
-  if (st.addOns && st.addOns.deck)                   slots.push('UpgradeTerraceDeck');
-  if (st.addOns && st.addOns.solarPrep && !st.addOns.fullSolar) slots.push('UpgradeSolarPrep');
-  if (st.addOns && st.addOns.fullSolar)              slots.push('UpgradeFullSolar');
-  if (st.addOns && st.addOns.smartHome)              slots.push('UpgradeSmartHome');
-  return slots.sort().join('+');
-}
-
-/**
- * Resolve the correct GLB URL for Studio-20 based on current state.
- * Falls back gracefully to Base GLB if no exact variant match.
- * For Studio-30/40: continues to use existing Wix CDN GLBs.
- */
-function resolveGLBUrl(size, st) {
-  const sizeId = size.id;
-  const baseUrl = GLB_BASE[sizeId];
-  if (!baseUrl) return size.glb;
-  const variantMap = GLB_VARIANTS[sizeId];
-  if (!variantMap) return size.glb;
-  const upgradeKey = buildUpgradeKey(st);
-  if (sizeId === 'studio20' && !upgradeKey && st.colour) {
-    const colourKey = 'colour:' + st.colour;
-    if (variantMap[colourKey]) return baseUrl + variantMap[colourKey];
-  }
-  if (variantMap[upgradeKey]) return baseUrl + variantMap[upgradeKey];
-  console.log('[THWA GLB] No exact variant for key:', upgradeKey, '— using Base for', sizeId);
-  return baseUrl + (variantMap[''] || size.glb);
-}
-
-
 
 function setCameraOrbit(orbit) {
   viewer.cameraOrbit = orbit;
@@ -1763,11 +1607,9 @@ function setCameraOrbit(orbit) {
 function selectSeries(seriesId) {
   if (state.series === seriesId) return;
   state.series = seriesId;
-
   // Reset size to first available
   const series = DATA.series[seriesId];
   state.sizeId = series.sizes[0].id;
-
   renderSeriesGrid();
   renderSizePills();
   loadModel(currentSize(), series);
@@ -1778,7 +1620,6 @@ function selectSeries(seriesId) {
 function selectSize(sizeId) {
   if (state.sizeId === sizeId) return;
   state.sizeId = sizeId;
-
   renderSizePills();
   loadModel(currentSize(), currentSeries());
   updatePricing();
@@ -1786,7 +1627,6 @@ function selectSize(sizeId) {
 
 function selectPathway(pathwayId) {
   state.pathway = pathwayId;
-
   renderPathwayCards();
   renderInclusions();
   updatePricing();
@@ -1795,18 +1635,12 @@ function selectPathway(pathwayId) {
 function selectColour(colourId) {
   state.colour = colourId;
   renderColourGrid();
-
-  // NEW: Reload model with selected supplier colour GLB
-  if (state.sizeId) {
-    const size = currentSize();
-    const series = currentSeries();
-    loadModel(size, series);
-  }
+  // Note: colour is applied visually via the overlay indicator.
+  // Full material swap requires GLB submesh access — shown as UI indicator.
 }
 
 function toggleAddon(key) {
   state.addOns[key] = !state.addOns[key];
-
   renderAddonGrid();
   updatePricing();
 }
@@ -1858,7 +1692,7 @@ function getSummaryText() {
     `  Pre-Delivery (40%): ${fmt(Math.round(p.total * 0.40))} — Pre-delivery inspection`,
     `  Handover (10%):     ${fmt(Math.round(p.total * 0.10))} — Delivery & installation`,
     ``,
-    `Community Impact: ${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of profits reinvested into WA community programs`,
+    `Community Impact: ${fmt(p.charity)} (${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of total)`,
     ``,
     `People Over Profits. Always.`,
     `hello@tinyhomeswa.com.au | tinyhomeswa.com.au`,
@@ -1961,7 +1795,7 @@ ${customer.name || customer.email ? `
     <thead><tr><th>Item</th><th style="text-align:right">Price</th></tr></thead>
     <tbody>
       <tr><td>${series.label} ${size.label} — Base</td><td style="text-align:right;font-weight:600">${fmt(p.baseRaw)}</td></tr>
-      ${p.pathwayDelta>0?`<tr><td>Pathway Adjustment (${pathway.label})</td><td style="text-align:right">${fmt(p.pathwayDelta)}</td></tr>`:''}
+      ${p.pathwayDelta>0?`<tr><td>Pathway Adjustment (${pathway.label} ×${pathway.multiplier.toFixed(2)})</td><td style="text-align:right">${fmt(p.pathwayDelta)}</td></tr>`:''}
       ${p.roofPrice>0?`<tr><td>Roof — ${DATA.roof.find(r=>r.id===state.roof)?.label}</td><td style="text-align:right">${fmt(p.roofPrice)}</td></tr>`:''}
       ${p.claddingPrice>0?`<tr><td>Cladding — ${DATA.cladding.find(c=>c.id===state.cladding)?.label}</td><td style="text-align:right">${fmt(p.claddingPrice)}</td></tr>`:''}
       ${p.kitchenPrice>0?`<tr><td>Kitchen — ${DATA.kitchens.find(k=>k.id===state.kitchen)?.label}</td><td style="text-align:right">${fmt(p.kitchenPrice)}</td></tr>`:''}
@@ -1997,7 +1831,7 @@ ${addOnsList ? `<div class="section addons"><div class="section-title">Selected 
 <div class="section">
   <div class="section-title">Community Impact</div>
   <div class="charity">
-    <strong>${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of profits</strong> from this home
+    <strong>${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of profits (est. ${fmt(p.charity)})</strong> from this home
     go directly to WA community and reunification programs through the ${series.label} charity pathway.
     People Over Profits. Always.
   </div>
@@ -2053,7 +1887,7 @@ function downloadPDF() {
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100, 116, 139);
-  doc.text(`Pathway: ${pathway.label} — ${pathway.sublabel}`, 14, 63);
+  doc.text(`Pathway: ${pathway.label} — ${pathway.sublabel} (×${pathway.multiplier.toFixed(2)})`, 14, 63);
 
   // Breakdown
   doc.setTextColor(0, 31, 63);
@@ -2122,7 +1956,7 @@ function downloadPDF() {
   doc.setTextColor(34, 197, 94);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.text(`Community Impact: ${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of profits reinvested into WA community programs`, 14, y);
+  doc.text(`Community Impact: ${fmt(p.charity)} (${Math.round((currentPathway().charityRate || series.charityRate)*100)}% of total)`, 14, y);
 
   // Footer
   doc.setTextColor(148, 163, 184);
@@ -2445,7 +2279,7 @@ function wireEvents() {
 function boot() {
   // Reset state
   Object.assign(state, {
-    series: 'reunite', sizeId: 'studio20', pathway: 'standard',
+    series: 'reunite', sizeId: 'studio20', pathway: 'crv',
     colour: 'white', cladding: 'smooth', roof: 'flat',
     kitchen: 'straight', bathroom: 'standard', floor: 'pvc1',
     addOns: { porch:false, deck:false, solarPrep:false, fullSolar:false, water:false, offgrid:false, ramp:false, secondFloor:false, metalPanels:false, smartHome:false },
