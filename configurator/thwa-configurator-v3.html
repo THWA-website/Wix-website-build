@@ -2588,13 +2588,32 @@ document.addEventListener('DOMContentLoaded', boot);
     updateDebug();
   }
 
+  let tintInfo = '';
   function tint() {
     const c = (DATA.colours || []).find(x => x.id === state.colour);
-    if (!c || !viewer.model) return;
-    ['MaterialExteriorStandard', 'MaterialExteriorPremium'].forEach(n => {
-      const m = viewer.model.materials.find(x => x.name === n);
-      if (m) m.pbrMetallicRoughness.setBaseColorFactor(c.hex);
-    });
+    if (!c) return;
+    const names = ['MaterialExteriorStandard', 'MaterialExteriorPremium'];
+    let hit = 0, via = '';
+    // 1) model-viewer material API
+    try {
+      names.forEach(n => {
+        const m = viewer.model && viewer.model.materials.find(x => x.name === n);
+        if (m) { m.pbrMetallicRoughness.setBaseColorFactor(c.hex); hit++; via = 'mv-api'; }
+      });
+    } catch (e) { console.warn('[THWA nodes] tint via model-viewer API failed', e); }
+    // 2) fallback: set the three.js material colour directly (multiplies the cladding texture)
+    if (!hit && sceneObj) {
+      const seen = new Set();
+      sceneObj.traverse(o => {
+        [].concat(o.material || []).forEach(m => {
+          if (m && names.includes(m.name) && !seen.has(m)) {
+            seen.add(m); if (m.color && m.color.set) { m.color.set(c.hex); m.needsUpdate = true; hit++; via = 'three'; }
+          }
+        });
+      });
+    }
+    tintInfo = 'tint ' + c.id + ' ' + c.hex + ' → ' + hit + ' material(s) via ' + (via || 'NONE');
+    if (!hit) console.warn('[THWA nodes] ' + tintInfo);
   }
 
   // ── loading: replace loadModel for node-toggle sizes only ──
@@ -2643,7 +2662,7 @@ document.addEventListener('DOMContentLoaded', boot);
   function updateDebug() {
     panel.querySelectorAll('button').forEach(b => b.style.outline = (b.dataset.layout === (state.layout[state.sizeId] || LAYOUTS[state.sizeId][0][0])) ? '1px solid #9fe' : 'none');
     if (dbg.style.display === 'none') return;
-    dbg.textContent = Object.entries(nodeMap).filter(([, o]) => o.userData && o.userData.thwa_node).map(([n, o]) => (o.visible ? '● ' : '○ ') + n).join('\n');
+    dbg.textContent = tintInfo + '\n' + Object.entries(nodeMap).filter(([, o]) => o.userData && o.userData.thwa_node).map(([n, o]) => (o.visible ? '● ' : '○ ') + n).join('\n');
   }
   window.THWA_NODES = { applyNodes, nodeMap: () => nodeMap, desired };
 })();
