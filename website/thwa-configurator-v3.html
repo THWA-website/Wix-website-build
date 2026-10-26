@@ -2530,9 +2530,19 @@ document.addEventListener('DOMContentLoaded', boot);
 <script>
 (function () {
   const Q = new URLSearchParams(location.search);
-  const NODE_GLB = { studio20: Q.get('glb_studio20') || 'https://THWA-website.github.io/Wix-website-build/glb/Studio20_Production.glb' };
-  const LAYOUTS = { studio20: [
-    ['LayoutS20TwoBed', '2 bed'], ['LayoutS20OneBed', '1 bed'], ['LayoutS20ThreeBed', '3 bed'], ['LayoutS20OpenPlan', 'Open plan'] ] };
+  const G = 'https://THWA-website.github.io/Wix-website-build/glb/';
+  const NODE_GLB = {
+    studio20: Q.get('glb_studio20') || G + 'Studio20_Production.glb',
+    studio30: Q.get('glb_studio30') || G + 'Studio30_Production.glb',
+    studio40: Q.get('glb_studio40') || G + 'Studio40_Production.glb',
+    duplex20: Q.get('glb_duplex20') || G + 'Duplex20_Production.glb' };
+  const LAYOUTS = {
+    studio20: [['LayoutS20TwoBed', '2 bed'], ['LayoutS20OneBed', '1 bed'], ['LayoutS20ThreeBed', '3 bed'], ['LayoutS20OpenPlan', 'Open plan']],
+    studio30: [['LayoutS30ThreeBed', '3 bed'], ['LayoutS30TwoBed', '2 bed']],
+    studio40: [['LayoutS40ThreeBed', '3 bed']],
+    duplex20: [] };
+  // nodes that only show while their (empty placeholder) layout is the chosen one
+  const LAYOUT_MEMBERS = { LayoutS30ThreeBed: ['BedroomWalls', 'BedroomWardrobes'] };
   const ROOF_NODES = ['RoofMain', 'RoofSlopingUpgrade', 'TopFrame', 'InteriorCeiling', 'SolarPrep'];
   state.layout = state.layout || {};
   state.roofOff = false;
@@ -2559,8 +2569,8 @@ document.addEventListener('DOMContentLoaded', boot);
     if (st.roof === 'sloping')                   swap('RoofSlopingUpgrade', 'RoofMain');
     if (st.windows === 'large')                  swap('WindowsLargeUpgrade', 'WindowsStandard');
     if (st.floor === 'spc1' || st.floor === 'spc2') swap('FloorSPCUpgrade', 'FloorBase');
-    if (st.kitchen === 'l' || st.kitchen === 'u') swap(['KitchenCabinetryPremium', 'KitchenBenchtopPremium'], ['KitchenCabinetryBase', 'KitchenBenchtopBase']);
-    if (st.bathroom === 'bathtub')               swap('BathroomFixturesPremium', 'BathroomFixturesBase');
+    if (st.kitchen === 'l' || st.kitchen === 'u') swap(['KitchenCabinetryPremium', 'KitchenBenchtopPremium', 'KitchenIslandPremium'], ['KitchenCabinetryBase', 'KitchenBenchtopBase', 'KitchenIslandBase']);
+    if (st.bathroom === 'bathtub')               swap(['BathroomFixturesPremium', 'MasterBathroomPremium', 'SecondaryBathroomPremium'], ['BathroomFixturesBase', 'MasterBathroomBase', 'SecondaryBathroomBase']);
     const a = st.addOns || {};
     if (a.deck)       on.add('TerraceDeck');
     if (a.solarPrep || a.fullSolar) on.add('SolarPrep');
@@ -2574,7 +2584,8 @@ document.addEventListener('DOMContentLoaded', boot);
     if (!ready && !grabScene()) return;
     const { on, off } = desired(state);
     const lay = LAYOUTS[state.sizeId] || [];
-    const chosen = state.layout[state.sizeId] || lay[0][0];
+    const chosen = state.layout[state.sizeId] || (lay[0] && lay[0][0]) || '';
+    const memberOf = {}; Object.entries(LAYOUT_MEMBERS).forEach(([l, ms]) => ms.forEach(m => memberOf[m] = l));
     Object.entries(nodeMap).forEach(([name, o]) => {
       const ud = o.userData || {};
       if (!ud.thwa_node) return;                       // only canonical nodes carry thwa_node
@@ -2582,6 +2593,7 @@ document.addEventListener('DOMContentLoaded', boot);
       if (on.has(name)) v = true;
       if (off.has(name)) v = false;
       if (ud.thwa_node_class === 'layout') v = (name === chosen);
+      if (memberOf[name] && lay.length) v = (memberOf[name] === chosen);
       if (state.roofOff && ROOF_NODES.includes(name)) v = false;   // "Roof off" view
       o.visible = v;
     });
@@ -2650,15 +2662,22 @@ document.addEventListener('DOMContentLoaded', boot);
   const panel = document.createElement('div');
   panel.id = 'layout-picker';
   panel.style.cssText = 'position:absolute;left:16px;top:16px;z-index:5;display:none;gap:6px;flex-wrap:wrap;max-width:60%;background:rgba(10,12,20,.72);padding:8px 10px;border-radius:10px;font:600 11px system-ui;color:#cfd3e0;align-items:center';
-  panel.innerHTML = '<span style="opacity:.7;margin-right:4px">Floor plan</span>';
-  (LAYOUTS.studio20).forEach(([id, label]) => {
-    const b = document.createElement('button');
-    b.className = 'btn btn-ghost btn-sm'; b.textContent = label; b.dataset.layout = id;
-    b.onclick = () => { state.layout.studio20 = id; applyNodes(); };
-    panel.appendChild(b);
-  });
+  const layoutBox = document.createElement('span'); layoutBox.style.cssText = 'display:contents';
+  panel.appendChild(layoutBox);
+  function buildLayoutButtons() {
+    layoutBox.innerHTML = '';
+    const lay = LAYOUTS[state.sizeId] || [];
+    if (lay.length < 2) return;
+    const t = document.createElement('span'); t.style.cssText = 'opacity:.7;margin-right:4px'; t.textContent = 'Floor plan'; layoutBox.appendChild(t);
+    lay.forEach(([id, label]) => {
+      const b = document.createElement('button');
+      b.className = 'btn btn-ghost btn-sm'; b.textContent = label; b.dataset.layout = id;
+      b.onclick = () => { state.layout[state.sizeId] = id; applyNodes(); };
+      layoutBox.appendChild(b);
+    });
+  }
   const roofBtn = document.createElement('button');
-  roofBtn.className = 'btn btn-ghost btn-sm'; roofBtn.textContent = 'Roof off'; roofBtn.style.marginLeft = '8px';
+  roofBtn.className = 'btn btn-ghost btn-sm'; roofBtn.textContent = 'Roof off'; roofBtn.style.marginLeft = '0';
   roofBtn.title = 'Hide the roof to look into the home from above';
   roofBtn.onclick = () => {
     state.roofOff = !state.roofOff;
@@ -2668,12 +2687,12 @@ document.addEventListener('DOMContentLoaded', boot);
   };
   panel.appendChild(roofBtn);
   $('viewer-panel').appendChild(panel);
-  function showPicker(v) { panel.style.display = v ? 'flex' : 'none'; }
+  function showPicker(v) { if (v) buildLayoutButtons(); panel.style.display = v ? 'flex' : 'none'; }
   const dbg = document.createElement('pre');
   dbg.style.cssText = 'position:absolute;right:12px;top:12px;z-index:5;max-height:70%;overflow:auto;margin:0;padding:8px;background:rgba(0,0,0,.75);color:#9fe;font:10px/1.3 monospace;display:none';
   if (Q.get('nodedebug')) { dbg.style.display = 'block'; $('viewer-panel').appendChild(dbg); }
   function updateDebug() {
-    panel.querySelectorAll('button').forEach(b => b.style.outline = (b.dataset.layout === (state.layout[state.sizeId] || LAYOUTS[state.sizeId][0][0])) ? '1px solid #9fe' : 'none');
+    panel.querySelectorAll('button[data-layout]').forEach(b => b.style.outline = (b.dataset.layout === (state.layout[state.sizeId] || (LAYOUTS[state.sizeId][0] || [''])[0])) ? '1px solid #9fe' : 'none');
     if (dbg.style.display === 'none') return;
     dbg.textContent = tintInfo + '\n' + Object.entries(nodeMap).filter(([, o]) => o.userData && o.userData.thwa_node).map(([n, o]) => (o.visible ? '● ' : '○ ') + n).join('\n');
   }
