@@ -2533,7 +2533,9 @@ document.addEventListener('DOMContentLoaded', boot);
   const NODE_GLB = { studio20: Q.get('glb_studio20') || 'https://THWA-website.github.io/Wix-website-build/glb/Studio20_Production.glb' };
   const LAYOUTS = { studio20: [
     ['LayoutS20TwoBed', '2 bed'], ['LayoutS20OneBed', '1 bed'], ['LayoutS20ThreeBed', '3 bed'], ['LayoutS20OpenPlan', 'Open plan'] ] };
+  const ROOF_NODES = ['RoofMain', 'RoofSlopingUpgrade', 'TopFrame', 'InteriorCeiling', 'SolarPrep'];
   state.layout = state.layout || {};
+  state.roofOff = false;
   let sceneObj = null, nodeMap = {}, ready = false, currentUrl = '';
 
   const symOf = d => Object.getOwnPropertySymbols(viewer).find(s => s.description === d);
@@ -2580,6 +2582,7 @@ document.addEventListener('DOMContentLoaded', boot);
       if (on.has(name)) v = true;
       if (off.has(name)) v = false;
       if (ud.thwa_node_class === 'layout') v = (name === chosen);
+      if (state.roofOff && ROOF_NODES.includes(name)) v = false;   // "Roof off" view
       o.visible = v;
     });
     // default layout members (S30/S40 style) are handled by the mapping json when those models are wired
@@ -2619,7 +2622,7 @@ document.addEventListener('DOMContentLoaded', boot);
   // ── loading: replace loadModel for node-toggle sizes only ──
   const origLoad = loadModel;
   loadModel = function (size, series) {
-    if (!NODE_GLB[size.id]) { ready = false; currentUrl = ''; showPicker(false); return origLoad(size, series); }
+    if (!NODE_GLB[size.id]) { ready = false; currentUrl = ''; state.roofOff = false; roofBtn.textContent = 'Roof off'; showPicker(false); return origLoad(size, series); }
     showPicker(true);
     const url = NODE_GLB[size.id];
     if (ready && currentUrl === url) { applyNodes(); return; }
@@ -2654,6 +2657,16 @@ document.addEventListener('DOMContentLoaded', boot);
     b.onclick = () => { state.layout.studio20 = id; applyNodes(); };
     panel.appendChild(b);
   });
+  const roofBtn = document.createElement('button');
+  roofBtn.className = 'btn btn-ghost btn-sm'; roofBtn.textContent = 'Roof off'; roofBtn.style.marginLeft = '8px';
+  roofBtn.title = 'Hide the roof to look into the home from above';
+  roofBtn.onclick = () => {
+    state.roofOff = !state.roofOff;
+    roofBtn.textContent = state.roofOff ? 'Roof on' : 'Roof off';
+    if (state.roofOff) { try { viewer.cameraOrbit = '20deg 25deg auto'; } catch (e) {} }
+    applyNodes();
+  };
+  panel.appendChild(roofBtn);
   $('viewer-panel').appendChild(panel);
   function showPicker(v) { panel.style.display = v ? 'flex' : 'none'; }
   const dbg = document.createElement('pre');
