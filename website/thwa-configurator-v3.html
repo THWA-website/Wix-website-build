@@ -2597,12 +2597,27 @@ document.addEventListener('DOMContentLoaded', boot);
       if (state.roofOff && ROOF_NODES.includes(name)) v = false;   // "Roof off" view
       o.visible = v;
     });
+    solarOnSlope(!!(nodeMap.RoofSlopingUpgrade && nodeMap.RoofSlopingUpgrade.visible) && !state.roofOff);
     // default layout members (S30/S40 style) are handled by the mapping json when those models are wired
     tint();
     render();
     updateDebug();
   }
 
+  // Solar panels follow the gable roof plane when the sloping-roof upgrade is on (inverter/battery stay on the wall)
+  const SLOPE_SOLAR = { studio20: [25, 0.886, 0.721], studio30: [25, 0.933, 0.865], studio40: [25, 0.933, 0.865], duplex20: [25, 1.142, -0.29] };
+  function solarOnSlope(on) {
+    const n = nodeMap.SolarPrep, p = SLOPE_SOLAR[state.sizeId];
+    if (!n || !p) return;
+    n.traverse(o => {
+      if (!o.isMesh) return;
+      const nm = ([].concat(o.material || [])[0] || {}).name || '';
+      if (!/SolarPanel|SolarHardware/.test(nm)) return;
+      if (on) { o.rotation.x = p[0] * Math.PI / 180; o.position.set(0, p[1], p[2]); }
+      else { o.rotation.x = 0; o.position.set(0, 0, 0); }
+      o.updateMatrix();
+    });
+  }
   let tintInfo = '';
   function tint() {
     const c = (DATA.colours || []).find(x => x.id === state.colour);
@@ -2661,7 +2676,7 @@ document.addEventListener('DOMContentLoaded', boot);
   // ── floor plan picker + optional debug list ──
   const panel = document.createElement('div');
   panel.id = 'layout-picker';
-  panel.style.cssText = 'position:absolute;left:16px;top:16px;z-index:5;display:none;gap:6px;flex-wrap:wrap;max-width:60%;background:rgba(10,12,20,.72);padding:8px 10px;border-radius:10px;font:600 11px system-ui;color:#cfd3e0;align-items:center';
+  panel.style.cssText = 'position:absolute;left:16px;top:72px;z-index:5;display:none;gap:6px;flex-wrap:wrap;max-width:60%;background:rgba(10,12,20,.72);padding:8px 10px;border-radius:10px;font:600 11px system-ui;color:#cfd3e0;align-items:center';
   const layoutBox = document.createElement('span'); layoutBox.style.cssText = 'display:contents';
   panel.appendChild(layoutBox);
   function buildLayoutButtons() {
