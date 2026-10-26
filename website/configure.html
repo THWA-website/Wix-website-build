@@ -409,6 +409,7 @@ body {
       ✦ Our Story &amp; Mission
     </a>
 </div>
+<a class="mobile-cta-btn mobile-cta-ghost" href="configure.html?studio=1">▶ Try the 3D Studio on this phone (best in landscape)</a>
 <div class="mobile-fallback-note">
     For the full 3D experience, open this page on a desktop or laptop.<br/>
 <a href="contact.html">Contact us</a> and we'll send you a desktop link.
@@ -426,7 +427,7 @@ const mobileFallback = document.getElementById('mobile-fallback');
 // ── MOBILE DETECTION ──
 // Threshold: 768px covers all phones and most tablets.
 // The 3D WebGL configurator requires desktop-grade rendering.
-const isMobile = window.innerWidth < 768;
+const isMobile = window.innerWidth < 768 && !/[?&]studio=1/.test(location.search);
 
 if (isMobile) {
   // Show mobile fallback, hide desktop frame
