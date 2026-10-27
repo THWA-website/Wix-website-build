@@ -2597,6 +2597,7 @@ document.addEventListener('DOMContentLoaded', boot);
       if (state.roofOff && ROOF_NODES.includes(name)) v = false;   // "Roof off" view
       o.visible = v;
     });
+    try { viewer.exposure = state.roofOff ? 1.7 : 1.15; viewer.setAttribute('shadow-intensity', state.roofOff ? '0.35' : '0.9'); } catch (e) {}
     solarOnSlope(!!(nodeMap.RoofSlopingUpgrade && nodeMap.RoofSlopingUpgrade.visible) && !state.roofOff);
     // default layout members (S30/S40 style) are handled by the mapping json when those models are wired
     tint();
@@ -2711,6 +2712,40 @@ document.addEventListener('DOMContentLoaded', boot);
     if (dbg.style.display === 'none') return;
     dbg.textContent = tintInfo + '\n' + Object.entries(nodeMap).filter(([, o]) => o.userData && o.userData.thwa_node).map(([n, o]) => (o.visible ? '● ' : '○ ') + n).join('\n');
   }
+
+  // ── AR guide: shown before AR starts ──
+  (function () {
+    const css = document.createElement('style');
+    css.textContent = `
+#ar-guide{position:absolute;inset:0;z-index:30;display:none;align-items:center;justify-content:center;background:rgba(6,8,16,.82);padding:16px}
+#ar-guide .card{max-width:440px;max-height:92%;overflow:auto;background:#12182b;border:1px solid rgba(245,220,117,.35);border-radius:14px;padding:18px 18px 14px;color:#dfe3f0;font:14px/1.45 system-ui}
+#ar-guide h3{margin:0 0 4px;font-size:17px;color:#f5dc75}
+#ar-guide ol{margin:10px 0 8px;padding-left:20px}#ar-guide li{margin:7px 0}
+#ar-guide .tip{background:rgba(255,255,255,.06);border-radius:8px;padding:8px 10px;margin:8px 0;font-size:13px}
+#ar-guide .row{display:flex;gap:8px;margin-top:12px}#ar-guide .row button{flex:1;padding:12px;font-size:15px}
+#thwa-ar-btn{background:#f5dc75;color:#12182b;border:0;border-radius:24px;padding:10px 14px;font:700 13px system-ui;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+@media (max-width:960px){.view-btn{padding:10px 14px;font-size:13px}#layout-picker button{padding:9px 12px;font-size:13px}}`;
+    document.head.appendChild(css);
+    const g = document.createElement('div'); g.id = 'ar-guide';
+    g.innerHTML = `<div class="card"><h3>See it on your block</h3>
+<div>The home appears at real size. Takes about a minute to get right.</div>
+<ol>
+<li><b>Pick a clear flat spot</b> and stand about <b>4 m back</b> from where the front door should be. Open ground works best.</li>
+<li><b>Point the phone at the ground</b> and sweep it slowly side to side until the placement ring shows.</li>
+<li><b>Tap to place.</b> If it sits crooked, drag it with one finger and twist with two fingers to turn it.</li>
+<li><b>Walk to the front deck</b> (the glass doors on the long side) and carry on through the doorway.</li>
+<li><b>Hold the phone upright at chest height</b>, not tilted at the floor. Look straight ahead as you walk in.</li>
+</ol>
+<div class="tip"><b>Only seeing the floor?</b> You're standing outside the walls looking down. Step back, re-place the home, and walk in through the front doors.</div>
+<div class="tip"><b>Tip:</b> choose your colour, floor plan and options first. They carry over into AR.</div>
+<div class="row"><button class="btn btn-ghost" id="ar-guide-x">Not now</button><button class="btn btn-primary" id="ar-guide-go">Start AR</button></div></div>`;
+    $('viewer-panel').appendChild(g);
+    const b = document.createElement('button'); b.id = 'thwa-ar-btn'; b.slot = 'ar-button'; b.textContent = '📍 See it on your block';
+    b.addEventListener('click', e => { e.stopPropagation(); g.style.display = 'flex'; });
+    viewer.appendChild(b);
+    $('ar-guide-x').onclick = () => { g.style.display = 'none'; };
+    $('ar-guide-go').onclick = () => { g.style.display = 'none'; try { viewer.activateAR(); } catch (e) { showToast('AR is not available on this device', 'error'); } };
+  })();
   window.THWA_NODES = { applyNodes, nodeMap: () => nodeMap, desired };
 })();
 </script>
