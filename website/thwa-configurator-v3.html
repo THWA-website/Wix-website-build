@@ -2684,7 +2684,7 @@ document.addEventListener('DOMContentLoaded', boot);
     layoutBox.innerHTML = '';
     const lay = LAYOUTS[state.sizeId] || [];
     if (lay.length < 2) return;
-    const t = document.createElement('span'); t.style.cssText = 'opacity:.7;margin-right:4px'; t.textContent = 'Floor plan'; layoutBox.appendChild(t);
+    const t = document.createElement('span'); t.className = 'fp-label'; t.style.cssText = 'opacity:.7;margin-right:4px'; t.textContent = 'Floor plan'; layoutBox.appendChild(t);
     lay.forEach(([id, label]) => {
       const b = document.createElement('button');
       b.className = 'btn btn-ghost btn-sm'; b.textContent = label; b.dataset.layout = id;
@@ -2724,7 +2724,15 @@ document.addEventListener('DOMContentLoaded', boot);
 #ar-guide .tip{background:rgba(255,255,255,.06);border-radius:8px;padding:8px 10px;margin:8px 0;font-size:13px}
 #ar-guide .row{display:flex;gap:8px;margin-top:12px}#ar-guide .row button{flex:1;padding:12px;font-size:15px}
 #thwa-ar-btn{background:#f5dc75;color:#12182b;border:0;border-radius:24px;padding:10px 14px;font:700 13px system-ui;box-shadow:0 2px 10px rgba(0,0,0,.4)}
-@media (max-width:960px){.view-btn{padding:10px 14px;font-size:13px}#layout-picker button{padding:9px 12px;font-size:13px}}`;
+#thwa-ar-btn{position:absolute;left:14px;bottom:14px;z-index:6}
+@media (max-width:960px){
+.view-btn{padding:10px 14px;font-size:13px}
+#thwa-ar-btn{bottom:72px}
+#layout-picker{top:64px!important;left:8px!important;right:8px;max-width:none!important;flex-wrap:nowrap!important;overflow-x:auto;padding:6px 8px!important;background:rgba(10,12,20,.55)!important;-webkit-overflow-scrolling:touch}
+#layout-picker button{flex:0 0 auto;padding:7px 11px;font-size:12.5px;white-space:nowrap}
+#layout-picker .fp-label{display:none}
+#ar-guide .card{max-height:86%}}
+@media (max-height:520px){#thwa-ar-btn{bottom:60px;padding:7px 11px}#model-badge{display:none}}`;
     document.head.appendChild(css);
     const g = document.createElement('div'); g.id = 'ar-guide';
     g.innerHTML = `<div class="card"><h3>See it on your block</h3>
