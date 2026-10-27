@@ -126,6 +126,9 @@
   .form-row { grid-template-columns: 1fr; }
 }
 </style>
+<link rel="icon" type="image/png" href="../assets/logos/thwa-icon.png"/>
+<meta property="og:image" content="https://www.tinyhomeswa.com.au/assets/images/homes/studio20-exterior.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
 </head>
 <body>
 <div id="preview-bar" role="note" style="position:relative;z-index:200;background:#F5DC75;color:#1E2746;font:600 13px/1.4 system-ui,sans-serif;padding:8px 40px 8px 16px;text-align:center">Preview release — the site and 3D Design Studio are almost finished. We are completing product details with our supplier before the full launch.<button aria-label="Dismiss" onclick="this.parentNode.remove()" style="position:absolute;right:10px;top:4px;background:none;border:0;font-size:20px;cursor:pointer;color:#1E2746">×</button></div>
@@ -215,7 +218,7 @@
 <div class="wa-statement">
 <div class="wa-statement-title">🌏 Proudly Built for Western Australia</div>
 <div class="wa-statement-body">
-            Our homes, our partners, our impact, and our identity are all rooted in Western Australia. We build here because WA deserves solutions built for its people.
+            Our homes, our partners, our impact, and our identity are all rooted in Western Australia. We build for WA because WA deserves solutions built for its people.
           </div>
 </div>
 </div>
@@ -304,7 +307,7 @@
 </div>
 <div class="faq-item">
 <div class="faq-q">How do I become a registered partner?</div>
-<div class="faq-a">Complete the partner enquiry form on our Partner page. We'll have a conversation to understand your organisation and whether our model is the right fit. If aligned, we'll register you and issue a partner_id.</div>
+<div class="faq-a">Complete the partner enquiry form on our Partner page. We'll have a conversation to understand your organisation and whether our model is the right fit. If aligned, we'll register you as a THWA partner.</div>
 </div>
 <div class="faq-item">
 <div class="faq-q">Are the prices on the website final?</div>
@@ -429,16 +432,15 @@ document.getElementById('contact-form').addEventListener('submit', async (e) => 
     return;
   }
 
-  // Send to Wix parent
-  window.parent.postMessage({ type: 'THWA_CONTACT_FORM', data }, '*');
-
+  // No form backend yet: open the visitor's email app with the enquiry pre-filled (honest, nothing is lost)
+  const body = Object.entries(data).filter(([k,v]) => v && k !== 'timestamp').map(([k,v]) => k.replace(/_/g,' ') + ': ' + v).join('\n');
+  window.location.href = 'mailto:hello@tinyhomeswa.com.au?subject=' + encodeURIComponent('Website enquiry') + '&body=' + encodeURIComponent(body);
   setTimeout(() => {
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = 'var(--accordance)';
-    btn.style.borderColor = 'var(--accordance)';
-    status.textContent = 'Thank you. We\'ll be in touch within 2 business days.';
+    btn.disabled = false;
+    btn.textContent = 'Send Message →';
+    status.textContent = 'Your email app should open with your message ready to send. If it does not, email us directly at hello@tinyhomeswa.com.au.';
     status.style.color = 'var(--accordance-deep)';
-  }, 800);
+  }, 600);
 });
 </script>
 </body>

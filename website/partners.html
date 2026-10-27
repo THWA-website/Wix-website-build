@@ -188,6 +188,9 @@
   .form-row { grid-template-columns: 1fr; }
 }
 </style>
+<link rel="icon" type="image/png" href="../assets/logos/thwa-icon.png"/>
+<meta property="og:image" content="https://www.tinyhomeswa.com.au/assets/images/homes/studio20-exterior.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
 </head>
 <body>
 <div id="preview-bar" role="note" style="position:relative;z-index:200;background:#F5DC75;color:#1E2746;font:600 13px/1.4 system-ui,sans-serif;padding:8px 40px 8px 16px;text-align:center">Preview release — the site and 3D Design Studio are almost finished. We are completing product details with our supplier before the full launch.<button aria-label="Dismiss" onclick="this.parentNode.remove()" style="position:absolute;right:10px;top:4px;background:none;border:0;font-size:20px;cursor:pointer;color:#1E2746">×</button></div>
@@ -412,7 +415,7 @@
 <div class="req-item">Dignity-first approach to all residents</div>
 <div class="req-item">Compliance with all applicable regulations</div>
 <div class="req-item">Proper use of the Standard/JTC pathway model</div>
-<div class="req-item">Registration as a THWA partner (partner_id required for CRF/JTC)</div>
+<div class="req-item">Registration as a THWA partner (required for CRF/JTC)</div>
 <div class="req-item">Ongoing communication and collaboration</div>
 </div>
 </div>
@@ -443,12 +446,12 @@
 <div class="step-card">
 <div class="step-card-num">3</div>
 <div class="step-card-title">Partner Registration</div>
-<div class="step-card-body">If we're aligned, we'll register you as a THWA partner. You'll receive your partner_id, which activates Standard and JTC pathway access.</div>
+<div class="step-card-body">If we're aligned, we'll register you as a THWA partner. You'll receive your partner registration, which activates Standard and JTC pathway access.</div>
 </div>
 <div class="step-card">
 <div class="step-card-num">4</div>
 <div class="step-card-title">Start Delivering</div>
-<div class="step-card-body">With your partner_id active, you can begin configuring homes, accessing the JTC model, and delivering pathways to your community.</div>
+<div class="step-card-body">With your registration active, you can begin configuring homes, accessing the JTC model, and delivering pathways to your community.</div>
 </div>
 </div>
 </div>
@@ -634,17 +637,15 @@ document.getElementById('partner-enquiry-form').addEventListener('submit', async
     return;
   }
 
-  // Send to Wix parent
-  window.parent.postMessage({ type: 'THWA_PARTNER_ENQUIRY', data }, '*');
-
-  // Simulate success (Wix backend handles actual email)
+  // No form backend yet: open the visitor's email app with the enquiry pre-filled (honest, nothing is lost)
+  const body = Object.entries(data).filter(([k,v]) => v && k !== 'timestamp').map(([k,v]) => k.replace(/_/g,' ') + ': ' + v).join('\n');
+  window.location.href = 'mailto:hello@tinyhomeswa.com.au?subject=' + encodeURIComponent('Partner enquiry') + '&body=' + encodeURIComponent(body);
   setTimeout(() => {
-    btn.textContent = 'Enquiry Sent ✓';
-    btn.style.background = 'var(--accordance)';
-    btn.style.borderColor = 'var(--accordance)';
-    status.textContent = 'Thank you. We\'ll be in touch within 2 business days.';
+    btn.disabled = false;
+    btn.textContent = 'Submit Partner Enquiry →';
+    status.textContent = 'Your email app should open with your message ready to send. If it does not, email us directly at hello@tinyhomeswa.com.au.';
     status.style.color = 'var(--accordance-deep)';
-  }, 800);
+  }, 600);
 });
 
 // Pre-fill from URL params
