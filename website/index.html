@@ -127,7 +127,7 @@
   border-radius: 16px;
   overflow: hidden;
   background: radial-gradient(ellipse at top, #1a2744 0%, #101828 70%);
-  height: 280px;
+  height: 340px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -501,6 +501,8 @@
 </style>
 </head>
 <body>
+<div id="preview-bar" role="note" style="position:relative;z-index:200;background:#F5DC75;color:#1E2746;font:600 13px/1.4 system-ui,sans-serif;padding:8px 40px 8px 16px;text-align:center">Preview release — the site and 3D Design Studio are almost finished. We are completing product details with our supplier before the full launch.<button aria-label="Dismiss" onclick="this.parentNode.remove()" style="position:absolute;right:10px;top:4px;background:none;border:0;font-size:20px;cursor:pointer;color:#1E2746">×</button></div>
+
 <!-- ══════════════════════════════════════════════════════════════════════════
      NAVIGATION
      ══════════════════════════════════════════════════════════════════════════ -->
@@ -566,42 +568,20 @@
 <a class="btn btn-outline-white btn-lg" href="homes.html">Explore Our Homes</a>
 </div>
 <div class="hero-trust">
-<div class="hero-trust-item">WA-built modular homes</div>
+<div class="hero-trust-item">Modular homes built for WA</div>
 <div class="hero-trust-item">Transparent pricing</div>
 <div class="hero-trust-item">20% profits to community</div>
 <div class="hero-trust-item">Standard/JTC pathway</div>
 </div>
 </div>
 <!-- Right — home preview card -->
-<div aria-hidden="true" class="hero-card animate-fade-up delay-200">
+<div class="hero-card animate-fade-up delay-200">
 <div class="hero-card-viewer">
 <div class="hero-card-model-label">
 <div class="live-dot"></div>
 <span>3D Design Studio</span>
 </div>
-<!-- SVG home illustration -->
-<svg aria-hidden="true" fill="none" height="130" viewbox="0 0 200 130" width="200" xmlns="http://www.w3.org/2000/svg">
-<!-- Body -->
-<rect fill="#0d1a2e" height="75" rx="4" stroke="rgba(245,220,117,0.2)" stroke-width="1" width="160" x="20" y="45"></rect>
-<!-- Roof -->
-<rect fill="#1a2744" height="8" rx="2" width="168" x="16" y="40"></rect>
-<!-- Window 1 -->
-<rect fill="#F5DC75" height="28" opacity="0.7" rx="3" width="40" x="35" y="60"></rect>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1" x1="55" x2="55" y1="60" y2="88"></line>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1" x1="35" x2="75" y1="74" y2="74"></line>
-<!-- Window 2 -->
-<rect fill="#F5DC75" height="28" opacity="0.5" rx="3" width="40" x="90" y="60"></rect>
-<!-- Door -->
-<rect fill="#0a1520" height="48" rx="3" stroke="rgba(245,220,117,0.3)" stroke-width="1" width="24" x="145" y="72"></rect>
-<circle cx="163" cy="96" fill="rgba(245,220,117,0.6)" r="2"></circle>
-<!-- Deck -->
-<rect fill="#1a2744" height="6" rx="2" width="168" x="16" y="118"></rect>
-<!-- Solar panels -->
-<rect fill="rgba(245,220,117,0.15)" height="10" rx="1" stroke="rgba(245,220,117,0.3)" stroke-width="0.5" width="30" x="60" y="32"></rect>
-<rect fill="rgba(245,220,117,0.15)" height="10" rx="1" stroke="rgba(245,220,117,0.3)" stroke-width="0.5" width="30" x="95" y="32"></rect>
-<!-- Ground -->
-<rect fill="#0a1520" height="6" opacity="0.5" rx="2" width="200" x="0" y="124"></rect>
-</svg>
+<model-viewer id="hero-mv" src="../glb/Studio20_Production.glb" poster="../assets/images/homes/studio20-exterior.jpg" alt="Interactive 3D model of the Reunite Studio 20 home" camera-controls auto-rotate auto-rotate-delay="1500" rotation-per-second="14deg" interaction-prompt="none" shadow-intensity="0.8" exposure="1.1" environment-image="neutral" camera-orbit="35deg 72deg auto" loading="lazy" reveal="auto" style="width:100%;height:100%;background:transparent;--poster-color:transparent"></model-viewer>
 </div>
 <div class="hero-card-stats">
 <div class="hero-stat">
@@ -614,13 +594,25 @@
 </div>
 <div class="hero-stat">
 <div class="hero-stat-num">WA</div>
-<div class="hero-stat-label">Built Here</div>
+<div class="hero-stat-label">Built For</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </section>
+<!-- SEE IT ON YOUR BLOCK (shows only once assets/video/ar-demo.mp4 is added) -->
+<section id="ar-demo" style="display:none;padding:72px 0;background:#101828">
+<div class="container" style="max-width:980px;margin:0 auto;padding:0 20px;text-align:center">
+<div class="section-eyebrow">See it on your block</div>
+<h2 style="font-size:clamp(26px,4vw,38px);margin:10px 0 8px;color:#fff">Put your home on your land. Walk inside.</h2>
+<p style="color:rgba(255,255,255,.7);max-width:620px;margin:0 auto 26px">Choose your home in the Design Studio, open it on your phone, and place it on your real block with the camera. Then walk through it at full size.</p>
+<video id="ar-demo-video" controls muted playsinline preload="metadata" style="width:100%;max-width:880px;border-radius:18px;border:1px solid rgba(245,220,117,.25);box-shadow:0 24px 60px rgba(0,0,0,.4)"></video>
+<div style="margin-top:22px"><a class="btn btn-gold btn-lg" href="configure.html">Start Your Build</a></div>
+</div></section>
+<script>
+fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){var v=document.getElementById('ar-demo-video');v.src='../assets/video/ar-demo.mp4';document.getElementById('ar-demo').style.display='block';}}).catch(function(){});
+</script>
 <!-- ══════════════════════════════════════════════════════════════════════════
      STATS STRIP
      ══════════════════════════════════════════════════════════════════════════ -->
@@ -710,7 +702,7 @@
 <div class="section-eyebrow">Our Home Series</div>
 <h2 class="text-h2" id="homes-headline" style="color:var(--cathedral-deep)">Homes Built for WA Families</h2>
 <p class="text-lead text-soft" style="max-width:560px;margin:12px auto 0">
-        Modular homes designed for stability, dignity, and long-term living — built right here in Western Australia.
+        Modular homes designed for stability, dignity, and long-term living — built for Western Australia.
       </p>
 </div>
 <div class="homes-grid">
@@ -837,7 +829,7 @@
 <div class="model-step-num">1</div>
 <div class="model-step-content">
 <h4>We Supply</h4>
-<p>WA-built modular homes, transparent pricing, deployment-ready documentation, and the JTC ownership pathway model.</p>
+<p>Modular homes built for WA, transparent pricing, deployment-ready documentation, and the JTC ownership pathway model.</p>
 </div>
 </div>
 <div class="model-step">
@@ -1043,11 +1035,11 @@
 <div class="footer-tagline">
           People Over Profits. Homes Over Greed. Hope Over Hardship.<br/>
           Built from lived experience. Designed for lasting change.<br/>
-          Built in Western Australia. Built for people. Built for good.
+          Built for Western Australia. Built for people. Built for good.
         </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap">
 <span class="badge badge-gold">20% to Community</span>
-<span class="badge badge-white">WA Built</span>
+<span class="badge badge-white">Built for WA</span>
 </div>
 </div>
 <div>
@@ -1081,7 +1073,7 @@
 </div>
 </div>
 <div class="footer-bottom">
-<div class="footer-copy">© 2026 Tiny Homes WA. All rights reserved. Proudly built in Western Australia.</div>
+<div class="footer-copy">© 2026 Tiny Homes WA. All rights reserved. Proudly built for Western Australia.</div>
 <div class="footer-code">People Over Profits. Always.</div>
 </div>
 </div>
@@ -1119,6 +1111,11 @@ document.querySelectorAll('.animate-fade-up, .animate-fade-in').forEach(el => {
 
 // ── postMessage for Wix parent ───────────────────────────────────────────
 window.parent.postMessage({ type: 'THWA_PAGE_LOADED', page: 'home' }, '*');
+</script>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<script>
+(function(){var v=document.getElementById('hero-mv');if(!v)return;
+v.addEventListener('load',function(){try{var sym=Object.getOwnPropertySymbols(v).find(function(s){return s.description==='scene'});var sc=v[sym];sc.traverse(function(o){if(o.userData&&o.userData.thwa_node){var d=o.userData.thwa_default_visible!==false;var l=o.userData.thwa_node_class==='layout';o.visible=l?(o.name==='LayoutS20TwoBed'):d;}});}catch(e){}});})();
 </script>
 </body>
 </html>

@@ -81,6 +81,7 @@
 .series-header.reverse { direction: rtl; }
 .series-header.reverse > * { direction: ltr; }
 
+.series-badge,.series-charity-badge{z-index:3}
 .series-visual {
   border-radius: 24px;
   overflow: hidden;
@@ -283,6 +284,8 @@
 </style>
 </head>
 <body>
+<div id="preview-bar" role="note" style="position:relative;z-index:200;background:#F5DC75;color:#1E2746;font:600 13px/1.4 system-ui,sans-serif;padding:8px 40px 8px 16px;text-align:center">Preview release — the site and 3D Design Studio are almost finished. We are completing product details with our supplier before the full launch.<button aria-label="Dismiss" onclick="this.parentNode.remove()" style="position:absolute;right:10px;top:4px;background:none;border:0;font-size:20px;cursor:pointer;color:#1E2746">×</button></div>
+
 <!-- NAV -->
 <nav class="thwa-nav scrolled" id="nav">
 <div class="nav-inner">
@@ -325,7 +328,7 @@
 <div class="section-eyebrow" style="margin-bottom:20px">Our Home Series</div>
 <h1 class="text-hero" style="color:#fff;margin-bottom:16px">Homes Built for WA Families</h1>
 <p class="text-lead" style="color:rgba(255,255,255,0.65);max-width:600px;margin-bottom:32px">
-      Modular homes designed for stability, dignity, and long-term living — built right here in Western Australia. Four series. Three sizes. One mission.
+      Modular homes designed for stability, dignity, and long-term living — built for Western Australia. Four series. Three sizes. One mission.
     </p>
 <div style="display:flex;gap:12px;flex-wrap:wrap">
 <a class="btn btn-gold btn-lg" href="configure.html">Open Design Studio</a>
@@ -351,19 +354,7 @@
 <div class="series-visual">
 <div class="series-badge">Reunite Series</div>
 <div class="series-charity-badge">20% to Community</div>
-<svg aria-hidden="true" fill="none" height="180" viewbox="0 0 260 180" width="260">
-<rect fill="rgba(255,255,255,0.05)" height="110" rx="5" stroke="rgba(245,220,117,0.2)" stroke-width="1.5" width="220" x="20" y="60"></rect>
-<rect fill="rgba(245,220,117,0.15)" height="12" rx="3" width="228" x="16" y="52"></rect>
-<rect fill="rgba(245,220,117,0.55)" height="40" rx="3" width="60" x="35" y="80"></rect>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="65" x2="65" y1="80" y2="120"></line>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="35" x2="95" y1="100" y2="100"></line>
-<rect fill="rgba(245,220,117,0.35)" height="40" rx="3" width="60" x="115" y="80"></rect>
-<rect fill="rgba(255,255,255,0.04)" height="75" rx="3" stroke="rgba(245,220,117,0.2)" stroke-width="1" width="32" x="195" y="95"></rect>
-<circle cx="221" cy="132" fill="rgba(245,220,117,0.5)" r="3"></circle>
-<rect fill="rgba(245,220,117,0.08)" height="8" rx="2" width="228" x="16" y="168"></rect>
-<rect fill="rgba(245,220,117,0.1)" height="16" rx="2" stroke="rgba(245,220,117,0.2)" stroke-width="0.5" width="40" x="70" y="38"></rect>
-<rect fill="rgba(245,220,117,0.1)" height="16" rx="2" stroke="rgba(245,220,117,0.2)" stroke-width="0.5" width="40" x="118" y="38"></rect>
-</svg>
+<img src="../assets/images/homes/studio20-exterior.jpg" alt="Reunite Series Studio 20 — 3D render" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="series-content">
 <div class="series-eyebrow">🏠 Reunite Series</div>
@@ -436,18 +427,7 @@
 <div class="series-visual" style="background:linear-gradient(135deg,#002050,#2F3A5F)">
 <div class="series-badge">Anchor Series</div>
 <div class="series-charity-badge">20% to Community</div>
-<svg aria-hidden="true" fill="none" height="180" viewbox="0 0 260 180" width="260">
-<rect fill="rgba(255,255,255,0.05)" height="110" rx="5" stroke="rgba(245,220,117,0.15)" stroke-width="1.5" width="220" x="20" y="60"></rect>
-<rect fill="rgba(245,220,117,0.12)" height="12" rx="3" width="228" x="16" y="52"></rect>
-<rect fill="rgba(245,220,117,0.45)" height="45" rx="3" width="70" x="30" y="80"></rect>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="65" x2="65" y1="80" y2="125"></line>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="30" x2="100" y1="102" y2="102"></line>
-<rect fill="rgba(245,220,117,0.28)" height="45" rx="3" width="70" x="115" y="80"></rect>
-<rect fill="rgba(255,255,255,0.04)" height="75" rx="3" stroke="rgba(245,220,117,0.15)" stroke-width="1" width="30" x="200" y="95"></rect>
-<rect fill="rgba(245,220,117,0.06)" height="8" rx="2" width="228" x="16" y="168"></rect>
-<rect fill="rgba(245,220,117,0.1)" height="18" rx="2" stroke="rgba(245,220,117,0.2)" stroke-width="0.5" width="45" x="65" y="36"></rect>
-<rect fill="rgba(245,220,117,0.1)" height="18" rx="2" stroke="rgba(245,220,117,0.2)" stroke-width="0.5" width="45" x="118" y="36"></rect>
-</svg>
+<img src="../assets/images/homes/studio30-exterior.jpg" alt="Anchor Series Studio 30 — 3D render" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="series-content">
 <div class="series-eyebrow">⚓ Anchor Series</div>
@@ -519,16 +499,7 @@
 <div class="series-visual" style="background:linear-gradient(135deg,#001a3a,#4A5A8A)">
 <div class="series-badge">Bridge Series</div>
 <div class="series-charity-badge">20% to Community</div>
-<svg aria-hidden="true" fill="none" height="180" viewbox="0 0 260 180" width="260">
-<rect fill="rgba(255,255,255,0.05)" height="105" rx="5" stroke="rgba(245,220,117,0.15)" stroke-width="1.5" width="220" x="20" y="65"></rect>
-<path d="M16 65 L130 35 L244 65" fill="rgba(245,220,117,0.08)" stroke="rgba(245,220,117,0.2)" stroke-width="1.5"></path>
-<rect fill="rgba(245,220,117,0.45)" height="42" rx="3" width="65" x="35" y="82"></rect>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="67" x2="67" y1="82" y2="124"></line>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="35" x2="100" y1="103" y2="103"></line>
-<rect fill="rgba(245,220,117,0.28)" height="42" rx="3" width="65" x="118" y="82"></rect>
-<rect fill="rgba(255,255,255,0.04)" height="73" rx="3" stroke="rgba(245,220,117,0.15)" stroke-width="1" width="30" x="198" y="97"></rect>
-<rect fill="rgba(245,220,117,0.06)" height="8" rx="2" width="228" x="16" y="168"></rect>
-</svg>
+<img src="../assets/images/homes/studio20-inside.jpg" alt="Bridge Series — 3D cutaway of the Studio 20 floor plan" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="series-content">
 <div class="series-eyebrow">🌉 Bridge Series</div>
@@ -585,19 +556,7 @@
 <div class="series-visual" style="background:linear-gradient(135deg,#001530,#002a55)">
 <div class="series-badge">Horizon Series</div>
 <div class="series-charity-badge">20% to Community</div>
-<svg aria-hidden="true" fill="none" height="180" viewbox="0 0 260 180" width="260">
-<rect fill="rgba(255,255,255,0.05)" height="110" rx="5" stroke="rgba(245,220,117,0.15)" stroke-width="1.5" width="240" x="10" y="60"></rect>
-<rect fill="rgba(245,220,117,0.12)" height="12" rx="3" width="248" x="6" y="52"></rect>
-<rect fill="rgba(245,220,117,0.48)" height="48" rx="3" width="75" x="25" y="78"></rect>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="62" x2="62" y1="78" y2="126"></line>
-<line stroke="rgba(30,39,70,0.4)" stroke-width="1.5" x1="25" x2="100" y1="102" y2="102"></line>
-<rect fill="rgba(245,220,117,0.3)" height="48" rx="3" width="75" x="118" y="78"></rect>
-<rect fill="rgba(255,255,255,0.04)" height="77" rx="3" stroke="rgba(245,220,117,0.15)" stroke-width="1" width="32" x="208" y="93"></rect>
-<rect fill="rgba(245,220,117,0.06)" height="8" rx="2" width="248" x="6" y="168"></rect>
-<rect fill="rgba(245,220,117,0.12)" height="18" rx="2" stroke="rgba(245,220,117,0.25)" stroke-width="0.5" width="50" x="55" y="36"></rect>
-<rect fill="rgba(245,220,117,0.12)" height="18" rx="2" stroke="rgba(245,220,117,0.25)" stroke-width="0.5" width="50" x="115" y="36"></rect>
-<rect fill="rgba(245,220,117,0.12)" height="18" rx="2" stroke="rgba(245,220,117,0.25)" stroke-width="0.5" width="50" x="175" y="36"></rect>
-</svg>
+<img src="../assets/images/homes/studio40-exterior.jpg" alt="Horizon Series Studio 40 — 3D render" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="series-content">
 <div class="series-eyebrow">🌅 Horizon Series</div>
@@ -730,7 +689,7 @@
 <div class="footer-tagline">People Over Profits. Homes Over Greed. Hope Over Hardship.<br/>Built from lived experience. Designed for lasting change.</div>
 <div style="display:flex;gap:10px;flex-wrap:wrap">
 <span class="badge badge-gold">20% to Community</span>
-<span class="badge badge-white">WA Built</span>
+<span class="badge badge-white">Built for WA</span>
 </div>
 </div>
 <div>
