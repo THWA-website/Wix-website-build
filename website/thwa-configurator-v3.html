@@ -877,6 +877,7 @@ textarea.form-input { resize: vertical; min-height: 70px; }
 <!-- ══════════════════════════════════════════════════════════════════════════
      TOP BAR
      ══════════════════════════════════════════════════════════════════════════ -->
+<script>try{if(window.self!==window.top)document.documentElement.classList.add('embedded')}catch(e){document.documentElement.classList.add('embedded')}</script>
 <header id="topbar">
 <div class="topbar-brand">
 <img src="../assets/logos/thwa-logo-primary.png" alt="Tiny Homes WA" style="height:34px;width:34px;object-fit:cover;border-radius:10px;flex-shrink:0" onerror="this.style.display='none'"/>
@@ -2724,6 +2725,8 @@ document.addEventListener('DOMContentLoaded', boot);
 #ar-guide .tip{background:rgba(255,255,255,.06);border-radius:8px;padding:8px 10px;margin:8px 0;font-size:13px}
 #ar-guide .row{display:flex;gap:8px;margin-top:12px}#ar-guide .row button{flex:1;padding:12px;font-size:15px}
 #thwa-ar-btn{background:#f5dc75;color:#12182b;border:0;border-radius:24px;padding:10px 14px;font:700 13px system-ui;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+html.embedded .topbar-brand{display:none}
+html.embedded #topbar{justify-content:space-between}
 #thwa-ar-btn{position:absolute;left:14px;bottom:14px;z-index:6}
 @media (max-width:960px){
 .view-btn{padding:10px 14px;font-size:13px}
