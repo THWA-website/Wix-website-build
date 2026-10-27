@@ -604,17 +604,17 @@
 </div>
 </div>
 </section>
-<!-- SEE IT ON YOUR BLOCK (shows only once assets/video/ar-demo.mp4 is added) -->
-<section id="ar-demo" style="display:none;padding:72px 0;background:#101828">
+<!-- WALK THROUGH THE HOME (swaps to the AR demo clip automatically once assets/video/ar-demo.mp4 exists) -->
+<section id="ar-demo" style="padding:72px 0;background:#101828">
 <div class="container" style="max-width:980px;margin:0 auto;padding:0 20px;text-align:center">
-<div class="section-eyebrow">See it on your block</div>
-<h2 style="font-size:clamp(26px,4vw,38px);margin:10px 0 8px;color:#fff">Put your home on your land. Walk inside.</h2>
-<p style="color:rgba(255,255,255,.7);max-width:620px;margin:0 auto 26px">Choose your home in the Design Studio, open it on your phone, and place it on your real block with the camera. Then walk through it at full size.</p>
-<video id="ar-demo-video" controls muted playsinline preload="metadata" style="width:100%;max-width:880px;border-radius:18px;border:1px solid rgba(245,220,117,.25);box-shadow:0 24px 60px rgba(0,0,0,.4)"></video>
+<div class="section-eyebrow" id="ar-eyebrow">Walk Through</div>
+<h2 id="ar-title" style="font-size:clamp(26px,4vw,38px);margin:10px 0 8px;color:#fff">Step inside a Tiny Homes WA home.</h2>
+<p id="ar-sub" style="color:rgba(255,255,255,.7);max-width:620px;margin:0 auto 26px">A 3D walkthrough of the 20ft home, inside and out. Design yours in the 3D Design Studio, and on your phone place it on your own block with the camera.</p>
+<video id="ar-demo-video" controls muted playsinline preload="metadata" src="../assets/video/walkthrough-studio20.mp4" style="width:100%;max-width:880px;border-radius:18px;border:1px solid rgba(245,220,117,.25);box-shadow:0 24px 60px rgba(0,0,0,.4)"></video>
 <div style="margin-top:22px"><a class="btn btn-gold btn-lg" href="configure.html">Start Your Build</a></div>
 </div></section>
 <script>
-fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){var v=document.getElementById('ar-demo-video');v.src='../assets/video/ar-demo.mp4';document.getElementById('ar-demo').style.display='block';}}).catch(function(){});
+fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){document.getElementById('ar-demo-video').src='../assets/video/ar-demo.mp4';document.getElementById('ar-eyebrow').textContent='See it on your block';document.getElementById('ar-title').textContent='Put your home on your land. Walk inside.';document.getElementById('ar-sub').textContent='Choose your home in the Design Studio, open it on your phone, and place it on your real block with the camera. Then walk through it at full size.';}}).catch(function(){});
 </script>
 <!-- ══════════════════════════════════════════════════════════════════════════
      STATS STRIP
@@ -712,7 +712,7 @@ fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){v
 <!-- Reunite -->
 <div class="home-card">
 <div class="home-card-visual" style="background:linear-gradient(135deg,#1E2746,#2F3A5F)">
-<img src="../assets/images/homes/studio20-exterior.jpg" alt="Reunite Series 3D render" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+<img src="../assets/images/supplier/reunite.jpg" alt="Reunite Series" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="home-card-body">
 <div class="home-card-series">Reunite Series</div>
@@ -729,7 +729,7 @@ fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){v
 <!-- Anchor -->
 <div class="home-card">
 <div class="home-card-visual" style="background:linear-gradient(135deg,#002050,#2F3A5F)">
-<img src="../assets/images/homes/studio30-exterior.jpg" alt="Anchor Series 3D render" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+<img src="../assets/images/supplier/anchor.jpg" alt="Anchor Series" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="home-card-body">
 <div class="home-card-series">Anchor Series</div>
@@ -746,7 +746,7 @@ fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){v
 <!-- Bridge -->
 <div class="home-card">
 <div class="home-card-visual" style="background:linear-gradient(135deg,#001a3a,#4A5A8A)">
-<img src="../assets/images/homes/studio20-inside.jpg" alt="Bridge Series 3D cutaway" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+<img src="../assets/images/supplier/bridge.jpg" alt="Bridge Series" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="home-card-body">
 <div class="home-card-series">Bridge Series</div>
@@ -763,18 +763,18 @@ fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){v
 <!-- Horizon -->
 <div class="home-card">
 <div class="home-card-visual" style="background:linear-gradient(135deg,#001530,#002a55)">
-<img src="../assets/images/homes/studio40-exterior.jpg" alt="Horizon Series 3D render" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+<img src="../assets/images/supplier/winifred.jpg" alt="The Winifred Filamena" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
 </div>
 <div class="home-card-body">
-<div class="home-card-series">Horizon Series</div>
-<div class="home-card-name">Horizon</div>
-<div class="home-card-desc">A spacious, future-focused home built for growth. Premium tourism cabins for parks, farms, and retreats.</div>
+<div class="home-card-series">Flagship Premium</div>
+<div class="home-card-name">The Winifred Filamena</div>
+<div class="home-card-desc">Our flagship premium home, and a memorial to Winifred Filamena Burns.</div>
 <div class="home-card-specs">
 <span class="spec-pill">Studio 20–30</span>
 <span class="spec-pill">All Pathways</span>
 <span class="spec-pill">20% Impact</span>
 </div>
-<a class="btn btn-navy btn-sm" href="homes.html#horizon" style="width:100%;justify-content:center">View Series →</a>
+<a class="btn btn-navy btn-sm" href="homes.html#winifred" style="width:100%;justify-content:center">View Series →</a>
 </div>
 </div>
 </div>
@@ -1024,7 +1024,7 @@ fetch('../assets/video/ar-demo.mp4',{method:'HEAD'}).then(function(r){if(r.ok){v
 <a class="footer-link" href="homes.html#reunite">Reunite Series</a>
 <a class="footer-link" href="homes.html#anchor">Anchor Series</a>
 <a class="footer-link" href="homes.html#bridge">Bridge Series</a>
-<a class="footer-link" href="homes.html#horizon">Horizon Series</a>
+<a class="footer-link" href="homes.html#winifred">The Winifred Filamena</a>
 <a class="footer-link" href="configure.html">Design Studio</a>
 </div>
 </div>
