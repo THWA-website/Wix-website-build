@@ -2537,10 +2537,10 @@ document.addEventListener('DOMContentLoaded', boot);
   const Q = new URLSearchParams(location.search);
   const G = '../glb/';
   const NODE_GLB = {
-    studio20: Q.get('glb_studio20') || G + 'Studio20_Production.glb',
-    studio30: Q.get('glb_studio30') || G + 'Studio30_Production.glb',
-    studio40: Q.get('glb_studio40') || G + 'Studio40_Production.glb',
-    duplex20: Q.get('glb_duplex20') || G + 'Duplex20_Production.glb' };
+    studio20: Q.get('glb_studio20') || G + 'Studio20_Production.glb?v=7',
+    studio30: Q.get('glb_studio30') || G + 'Studio30_Production.glb?v=7',
+    studio40: Q.get('glb_studio40') || G + 'Studio40_Production.glb?v=7',
+    duplex20: Q.get('glb_duplex20') || G + 'Duplex20_Production.glb?v=7' };
   const LAYOUTS = {
     studio20: [['LayoutS20TwoBed', '2 bed'], ['LayoutS20OneBed', '1 bed'], ['LayoutS20ThreeBed', '3 bed'], ['LayoutS20OpenPlan', 'Open plan']],
     studio30: [['LayoutS30ThreeBed', '3 bed'], ['LayoutS30TwoBed', '2 bed']],
