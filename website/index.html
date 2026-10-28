@@ -1091,7 +1091,8 @@ window.parent.postMessage({ type: 'THWA_PAGE_LOADED', page: 'home' }, '*');
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <script>
 (function(){var v=document.getElementById('hero-mv');if(!v)return;
-v.addEventListener('load',function(){try{var sym=Object.getOwnPropertySymbols(v).find(function(s){return s.description==='scene'});var sc=v[sym];sc.traverse(function(o){if(o.userData&&o.userData.thwa_node){var d=o.userData.thwa_default_visible!==false;var l=o.userData.thwa_node_class==='layout';o.visible=l?(o.name==='LayoutS20TwoBed'):d;}});}catch(e){}});})();
+v.addEventListener('load',function(){try{var sym=Object.getOwnPropertySymbols(v).find(function(s){return s.description==='scene'});var sc=v[sym];sc.traverse(function(o){if(o.userData&&o.userData.thwa_node){var d=o.userData.thwa_default_visible!==false;var l=o.userData.thwa_node_class==='layout';o.visible=l?(o.name==='LayoutS20TwoBed'):d;}});}catch(e){}
+try{v.model.materials.filter(function(m){return m.name==='MaterialExteriorStandard'}).forEach(function(m){m.pbrMetallicRoughness.setBaseColorFactor('#B2B6BA')});}catch(e){}});})();
 </script>
 </body>
 </html>
