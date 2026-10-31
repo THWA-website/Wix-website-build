@@ -969,7 +969,7 @@ textarea.form-input { resize: vertical; min-height: 70px; }
      ══════════════════════════════════════════════════════════════════════════ -->
 <main id="viewer-panel">
 <!-- Google Model Viewer -->
-<model-viewer ar="" ar-modes="webxr scene-viewer quick-look" auto-rotate="false" camera-controls="" environment-image="neutral" exposure="1.15" id="model-viewer" interaction-prompt="none" poster="" shadow-intensity="0.9" shadow-softness="0.8" src="" style="width:100%;height:100%" touch-action="pan-y">
+<model-viewer ar="" ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" ar-placement="floor" xr-environment="" auto-rotate="false" camera-controls="" environment-image="neutral" exposure="1.15" id="model-viewer" interaction-prompt="none" poster="" shadow-intensity="0.9" shadow-softness="0.8" src="" style="width:100%;height:100%" touch-action="pan-y">
 <!-- Custom loading slot -->
 <div slot="progress-bar" style="display:none"></div>
 </model-viewer>
@@ -2537,10 +2537,10 @@ document.addEventListener('DOMContentLoaded', boot);
   const Q = new URLSearchParams(location.search);
   const G = '../glb/';
   const NODE_GLB = {
-    studio20: Q.get('glb_studio20') || G + 'Studio20_Production.glb?v=7',
-    studio30: Q.get('glb_studio30') || G + 'Studio30_Production.glb?v=7',
-    studio40: Q.get('glb_studio40') || G + 'Studio40_Production.glb?v=7',
-    duplex20: Q.get('glb_duplex20') || G + 'Duplex20_Production.glb?v=7' };
+    studio20: Q.get('glb_studio20') || G + 'Studio20_Production.glb?v=8',
+    studio30: Q.get('glb_studio30') || G + 'Studio30_Production.glb?v=8',
+    studio40: Q.get('glb_studio40') || G + 'Studio40_Production.glb?v=8',
+    duplex20: Q.get('glb_duplex20') || G + 'Duplex20_Production.glb?v=8' };
   const LAYOUTS = {
     studio20: [['LayoutS20TwoBed', '2 bed'], ['LayoutS20OneBed', '1 bed'], ['LayoutS20ThreeBed', '3 bed'], ['LayoutS20OpenPlan', 'Open plan']],
     studio30: [['LayoutS30ThreeBed', '3 bed'], ['LayoutS30TwoBed', '2 bed']],
@@ -2747,10 +2747,12 @@ html.embedded #topbar{justify-content:space-between}
 <ol>
 <li><b>Pick a clear flat spot</b> and stand about <b>4 m back</b> from where the front door should be. Open ground works best.</li>
 <li><b>Point the phone at the ground</b> and sweep it slowly side to side until the placement ring shows.</li>
-<li><b>Tap to place.</b> If it sits crooked, drag it with one finger and twist with two fingers to turn it.</li>
-<li><b>Walk to the front deck</b> (the glass doors on the long side) and carry on through the doorway.</li>
+<li><b>Tap to place.</b> If it sits crooked, drag it with one finger and twist with two fingers to turn it. <b>Do this before you walk in.</b></li>
+<li><b>Once it looks right, stop touching the screen.</b> A touch or drag while you walk can slide the home away from you.</li>
+<li><b>Walk to the front deck</b> (the glass doors on the long side) and carry on through the doorway, slowly.</li>
 <li><b>Hold the phone upright at chest height</b>, not tilted at the floor. Look straight ahead as you walk in.</li>
 </ol>
+<div class="tip"><b>Home drifted or jumped?</b> Phones can lose track of the ground indoors, especially on plain floors or in dim light. Step back outside, point at the ground for a few seconds and place it again. Good light helps a lot.</div>
 <div class="tip"><b>Only seeing the floor?</b> You're standing outside the walls looking down. Step back, re-place the home, and walk in through the front doors.</div>
 <div class="tip"><b>Tip:</b> choose your colour, floor plan and options first. They carry over into AR.</div>
 <div class="row"><button class="btn btn-ghost" id="ar-guide-x">Not now</button><button class="btn btn-primary" id="ar-guide-go">Start AR</button></div></div>`;
